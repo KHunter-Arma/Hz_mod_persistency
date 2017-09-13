@@ -29,16 +29,16 @@ class cfgPatches {
 class cfgFunctions
 {
   class Hz {
-    
-    class Hz_editorModules {
       
-      class Hz_mod_persistency_init {
-        
-        file = "\x\Hz\Hz_mod_persistency\Hz_pers_init.sqf";
+      class Hz_moduleFunctions {
+				
+				class pers_init {
+					
+					file = "\x\Hz\Hz_mod_persistency\Hz_pers_init.sqf";					
+					
+				};           
         
       };
-      
-    };
     
   };
   
@@ -82,7 +82,7 @@ class CfgVehicles
     category = "Hz_editorModules";
 
     // Name of function triggered once conditions are met
-    function = "Hz_pers_init";
+    function = "Hz_fnc_pers_init";
     // Execution priority, modules with lower number are executed first. 0 is used when the attribute is undefined
     functionPriority = 0;
     // 0 for server only execution, 1 for global execution, 2 for persistent global execution
@@ -99,8 +99,7 @@ class CfgVehicles
 
     // Module attributes, uses https://community.bistudio.com/wiki/Eden_Editor:_Configuring_Attributes#Entity_Specific
     class Attributes: AttributesBase
-    {
-      
+    {      
       // Module specific arguments
       class AceMedical: Combo
       {
@@ -112,12 +111,13 @@ class CfgVehicles
         defaultValue = "false"; // Default attribute value. WARNING: This is an expression, and its returned value will be used (50 in this case)
         class Values
         {
+					class disabled	{name = "Disable"; value = false;};
           class enabled	{name = "Enable";	value = true;}; // Listbox item
-          class disabled	{name = "Disable"; value = false;};
         };
       };
       class PathToSaveFile: Edit
       {
+				property = "Hz_mod_persistency_module_pPathToSaveFile";
         displayName = "Path to Save File";
         tooltip = "Path describing the location and name of save file that will be used for loading the game at server restart.";
         // Default text filled in the input box
@@ -126,18 +126,21 @@ class CfgVehicles
       };
       class CustomLoadFunctionName: Edit
       {
+				property = "Hz_mod_persistency_module_pCustomLoadFunctionName";
         displayName = "Custom Load Function Name";
         tooltip = "This setting is optional. Name of your function where you have your custom code that you want to run just before game loading from file is finished and load variables are deallocated.";
         defaultValue = """""";
       };
       class AutoLoadDelay: Edit
       {
+				property = "Hz_mod_persistency_module_pAutoLoadDelay";
         displayName = "Auto-load Delay";
         tooltip = "Delay in seconds after mission start before the game is loaded from file.";
         defaultValue = "60";
       };
       class MaxArraySize: Edit
       {
+				property = "Hz_mod_persistency_module_pMaxArraySize";
         displayName = "Max Array Size for Write";
         tooltip = "Maximum size (in number of elements) an array that is written to file can have. If you have elements in your arrays characterised as long arrays or strings, you should keep this low for safety.";
         defaultValue = "10";
