@@ -13,7 +13,7 @@ Hz_pers_path = "\";
 
 Hz_pers_initDone = false;
 
-if (isServer) then {call compile preprocessFileLineNumbers (Hz_pers_path + "Hz_pers_init_server.sqf");};
+if (isServer) then {_this call compile preprocessFileLineNumbers (Hz_pers_path + "Hz_pers_init_server.sqf");};
 if (!isDedicated) then {call compile preprocessFileLineNumbers (Hz_pers_path + "Hz_pers_init_client.sqf");};
 
 call compile preprocessFileLineNumbers (Hz_pers_path + "Hz_pers_init_API.sqf");};

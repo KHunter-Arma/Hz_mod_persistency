@@ -98,10 +98,7 @@ Hz_pers_fnc_convert1DArrayTo2D = compile preprocessFileLineNumbers (Hz_pers_func
 Hz_pers_fnc_receiveLocalVars = compile preprocessFileLineNumbers (Hz_pers_funcs_path + "Hz_pers_fnc_receiveLocalVars.sqf");
 Hz_pers_fnc_loadGame = compile preprocessFileLineNumbers (Hz_pers_funcs_path + "Hz_pers_fnc_loadGame.sqf");
 
-
-//init default values
-Hz_pers_enableACEmedical = false;
-Hz_pers_maxWriteArraySize = 10;
+//init parsing info
 Hz_pers_parsingInfo = [
   ["Hz_pers_saveVar_vehicles_type",ONE_D_ARRAY],
   ["Hz_pers_saveVar_vehicles_customs",ARRAY_OF_STRUCTS],
@@ -153,50 +150,66 @@ Hz_pers_parsingInfo = [
   ["Hz_pers_saveVar_markers_colour", ONE_D_ARRAY],
   ["Hz_pers_saveVar_markers_text",ONE_D_ARRAY]
 ];
-Hz_pers_customLoadCode = {};
 
-// TODO: load custom parameters
+
+//load custom parameters from module framework
+_logic = _this select 0;
+Hz_pers_enableACEmedical = _logic getVariable ["AceMedical",false];
+Hz_pers_maxWriteArraySize = _logic getVariable ["MaxArraySize",10];
+Hz_pers_customLoadFunctionName = _logic getVariable ["CustomLoadFunctionName",""];
+Hz_pers_autoLoadDelay = _logic getVariable ["AutoLoadDelay",60];
+Hz_pers_pathToSaveFile = _logic getVariable ["PathToSaveFile","\Hz_config\Hz_mod_persistency\Hz_pers_saveFile.sqf"];
 
 
 if (Hz_pers_enableACEmedical) then {
 
-{
+  {
 
-Hz_pers_saveVar_players_variableNames pushBackUnique _x;
+    Hz_pers_saveVar_players_variableNames pushBackUnique _x;
 
-} foreach ["ace_medical_pain",
-          "ace_medical_morphine",
-          "ace_medical_bloodVolume",
-          "ACE_isUnconscious",
-          "ace_medical_tourniquets",
-          "ace_medical_occludedMedications",
-          "ace_medical_openWounds",
-          "ace_medical_bandagedWounds",
-          "ace_medical_internalWounds",
-          "ace_medical_lastUniqueWoundID",
-          "ace_medical_heartRate",
-          "ace_medical_heartRateAdjustments",
-          "ace_medical_bloodPressure",
-          "ace_medical_peripheralResistance",
-          "ace_medical_fractures",
-          "ace_medical_triageLevel",
-          "ace_medical_triageCard",
-          "ace_medical_ivBags",
-          "ace_medical_bodyPartStatus",
-          "ace_medical_airwayStatus",
-          "ace_medical_airwayOccluded",
-          "ace_medical_airwayCollapsed",
-          "ace_medical_addedToUnitLoop",
-          "ace_medical_inCardiacArrest",
-          "ace_medical_hasLostBlood",
-          "ace_medical_isBleeding",
-          "ace_medical_hasPain",
-          "ace_medical_amountOfReviveLives",
-          "ace_medical_painSuppress",
-          "ace_medical_allUsedMedication",
-          "ace_medical_allLogs"
-          ];
+  } foreach ["ace_medical_pain",
+            "ace_medical_morphine",
+            "ace_medical_bloodVolume",
+            "ACE_isUnconscious",
+            "ace_medical_tourniquets",
+            "ace_medical_occludedMedications",
+            "ace_medical_openWounds",
+            "ace_medical_bandagedWounds",
+            "ace_medical_internalWounds",
+            "ace_medical_lastUniqueWoundID",
+            "ace_medical_heartRate",
+            "ace_medical_heartRateAdjustments",
+            "ace_medical_bloodPressure",
+            "ace_medical_peripheralResistance",
+            "ace_medical_fractures",
+            "ace_medical_triageLevel",
+            "ace_medical_triageCard",
+            "ace_medical_ivBags",
+            "ace_medical_bodyPartStatus",
+            "ace_medical_airwayStatus",
+            "ace_medical_airwayOccluded",
+            "ace_medical_airwayCollapsed",
+            "ace_medical_addedToUnitLoop",
+            "ace_medical_inCardiacArrest",
+            "ace_medical_hasLostBlood",
+            "ace_medical_isBleeding",
+            "ace_medical_hasPain",
+            "ace_medical_amountOfReviveLives",
+            "ace_medical_painSuppress",
+            "ace_medical_allUsedMedication",
+            "ace_medical_allLogs"
+            ];
           
-publicVariable "Hz_pers_saveVar_players_variableNames";
+  publicVariable "Hz_pers_saveVar_players_variableNames";
+
+};
+
+//auto-load
+
+[] spawn {
+
+  sleep Hz_pers_autoLoadDelay;
+
+  call Hz_pers_fnc_loadGame;
 
 };

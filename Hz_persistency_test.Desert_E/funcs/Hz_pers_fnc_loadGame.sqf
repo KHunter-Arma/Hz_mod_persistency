@@ -11,7 +11,7 @@
 
 #include "parsing_descriptors.txt"
 
-call compile preprocessfilelinenumbers "\Hz\Hz_pers\Hz_gameSave.txt";
+call compile preprocessfilelinenumbers Hz_pers_pathToSaveFile;
 
 {
   _objectName = _x select 0;
@@ -236,7 +236,9 @@ publicVariable "Hz_pers_network_crates";
 
 //Run custom code
 
-call Hz_pers_customLoadCode;
+_func = missionnamespace getvariable [Hz_pers_customLoadFunctionName,{}];
+call _func;
+
 
 // deallocate
 
@@ -269,5 +271,3 @@ Hz_pers_saveVar_crates_positionATL = [];
 Hz_pers_saveVar_crates_magazinesAmmoCargo = [];
 Hz_pers_saveVar_crates_itemsCargo = [];
 Hz_pers_saveVar_crates_variableValues = [];
-
-
