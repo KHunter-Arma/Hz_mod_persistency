@@ -1,1 +1,0 @@
-#include "Hz_pers_init.sqf"

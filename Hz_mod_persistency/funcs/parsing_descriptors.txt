@@ -1,0 +1,4 @@
+#define SINGLE_VARIABLE 0
+#define ONE_D_ARRAY  1
+#define NESTED_ARRAY_STRUCT 2
+#define ARRAY_OF_STRUCTS 3
