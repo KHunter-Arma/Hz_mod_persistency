@@ -9,7 +9,7 @@
 * https://creativecommons.org/licenses/by-nc-sa/4.0/
 *******************************************************************************/
 
-#include "../parsing_descriptors.txt"
+#include "..\parsing_descriptors.txt"
 
 call compile preprocessfilelinenumbers Hz_pers_pathToSaveFile;
 

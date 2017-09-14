@@ -104,7 +104,7 @@ class CfgVehicles
       class AceMedical: Combo
       {
         // Unique property, use "<moduleClass>_<attributeClass>" format to make sure the name is unique in the world
-        property = "Hz_mod_persistency_module_pAceMedical";
+        property = "Hz_pers_module_pAceMedical";
         displayName = "Enable ACE Medical"; // Argument label
         tooltip = "Enable/disable persistency of full medical status when using ACE medical system."; // Tooltip description
         typeName = "BOOL"; // Value type, can be "NUMBER", "STRING" or "BOOL"
@@ -117,7 +117,7 @@ class CfgVehicles
       };
       class PathToSaveFile: Edit
       {
-				property = "Hz_mod_persistency_module_pPathToSaveFile";
+				property = "Hz_pers_module_pPathToSaveFile";
         displayName = "Path to Save File";
         tooltip = "Path describing the location and name of save file that will be used for loading the game at server restart.";
         // Default text filled in the input box
@@ -126,21 +126,21 @@ class CfgVehicles
       };
       class CustomLoadFunctionName: Edit
       {
-				property = "Hz_mod_persistency_module_pCustomLoadFunctionName";
+				property = "Hz_pers_module_pCustomLoadFunctionName";
         displayName = "Custom Load Function Name";
         tooltip = "This setting is optional. Name of your function where you have your custom code that you want to run just before game loading from file is finished and load variables are deallocated.";
         defaultValue = """""";
       };
       class AutoLoadDelay: Edit
       {
-				property = "Hz_mod_persistency_module_pAutoLoadDelay";
+				property = "Hz_pers_module_pAutoLoadDelay";
         displayName = "Auto-load Delay";
         tooltip = "Delay in seconds after mission start before the game is loaded from file.";
         defaultValue = "60";
       };
       class MaxArraySize: Edit
       {
-				property = "Hz_mod_persistency_module_pMaxArraySize";
+				property = "Hz_pers_module_pMaxArraySize";
         displayName = "Max Array Size for Write";
         tooltip = "Maximum size (in number of elements) an array that is written to file can have. If you have elements in your arrays characterised as long arrays or strings, you should keep this low for safety.";
         defaultValue = "10";
