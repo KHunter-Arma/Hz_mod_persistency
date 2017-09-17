@@ -154,11 +154,11 @@ Hz_pers_parsingInfo = [
 
 //load custom parameters from module framework
 _logic = _this select 0;
-Hz_pers_enableACEmedical = _logic getVariable ["AceMedical",false];
-Hz_pers_maxWriteArraySize = _logic getVariable ["MaxArraySize",10];
-Hz_pers_customLoadFunctionName = _logic getVariable ["CustomLoadFunctionName",""];
-Hz_pers_autoLoadDelay = _logic getVariable ["AutoLoadDelay",60];
-Hz_pers_pathToSaveFile = _logic getVariable ["PathToSaveFile","\Hz_config\Hz_mod_persistency\Hz_pers_saveFile.sqf"];
+Hz_pers_enableACEmedical = _logic getVariable "AceMedical";
+Hz_pers_maxWriteArraySize = call compile (_logic getVariable "MaxArraySize",10);
+Hz_pers_customLoadFunctionName = _logic getVariable "CustomLoadFunctionName";
+Hz_pers_autoLoadDelay = call compile (_logic getVariable "AutoLoadDelay",60);
+Hz_pers_pathToSaveFile = _logic getVariable "PathToSaveFile";
 
 if (Hz_pers_enableACEmedical) then {
 
