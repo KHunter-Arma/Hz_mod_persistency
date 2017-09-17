@@ -138,6 +138,13 @@ class CfgVehicles
         tooltip = "Delay in seconds after mission start before the game is loaded from file.";
         defaultValue = "60";
       };
+      class ClientLoadDelay: Edit
+      {
+				property = "Hz_pers_module_pClientLoadDelay";
+        displayName = "Client Load Delay";
+        tooltip = "Seconds to wait after a player joins the mission before loading their persistent state.";
+        defaultValue = "10";
+      };
       class MaxArraySize: Edit
       {
 				property = "Hz_pers_module_pMaxArraySize";

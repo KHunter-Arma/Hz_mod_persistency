@@ -160,7 +160,6 @@ Hz_pers_customLoadFunctionName = _logic getVariable ["CustomLoadFunctionName",""
 Hz_pers_autoLoadDelay = _logic getVariable ["AutoLoadDelay",60];
 Hz_pers_pathToSaveFile = _logic getVariable ["PathToSaveFile","\Hz_config\Hz_mod_persistency\Hz_pers_saveFile.sqf"];
 
-
 if (Hz_pers_enableACEmedical) then {
 
   {
