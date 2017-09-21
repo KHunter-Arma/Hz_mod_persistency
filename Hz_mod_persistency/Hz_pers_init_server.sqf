@@ -97,6 +97,7 @@ Hz_pers_fnc_saveGame = compile preprocessFileLineNumbers (Hz_pers_funcs_path + "
 Hz_pers_fnc_convert1DArrayTo2D = compile preprocessFileLineNumbers (Hz_pers_funcs_path + "Hz_pers_fnc_convert1DArrayTo2D.sqf");
 Hz_pers_fnc_receiveLocalVars = compile preprocessFileLineNumbers (Hz_pers_funcs_path + "Hz_pers_fnc_receiveLocalVars.sqf");
 Hz_pers_fnc_loadGame = compile preprocessFileLineNumbers (Hz_pers_funcs_path + "Hz_pers_fnc_loadGame.sqf");
+Hz_pers_fnc_handleFirstTimeLaunch = compile preprocessFileLineNumbers (Hz_pers_funcs_path + "Hz_pers_fnc_handleFirstTimeLaunch.sqf");
 
 //init parsing info
 Hz_pers_parsingInfo = [
@@ -155,6 +156,7 @@ Hz_pers_parsingInfo = [
 //load custom parameters from module framework
 _logic = _this select 0;
 Hz_pers_enableACEmedical = _logic getVariable "AceMedical";
+Hz_pers_firstTimeLaunchHandlerFunctionName = _logic getVariable "FirstTimeLaunchHandlerFunctionName";
 Hz_pers_maxWriteArraySize = call compile (_logic getVariable "MaxArraySize");
 Hz_pers_customLoadFunctionName = _logic getVariable "CustomLoadFunctionName";
 Hz_pers_autoLoadDelay = call compile (_logic getVariable "AutoLoadDelay");
@@ -204,12 +206,21 @@ if (Hz_pers_enableACEmedical) then {
 };
 
 //auto-load
-
 [] spawn {
 
-  sleep Hz_pers_autoLoadDelay;
+	_loadCodeString = preprocessfilelinenumbers Hz_pers_pathToSaveFile;
+	
+	if (_loadCodeString == "") then {
+	
+		call Hz_pers_fnc_handleFirstTimeLaunch;
+	
+	} else {
 
-  call Hz_pers_fnc_loadGame;
+		sleep Hz_pers_autoLoadDelay;
+
+		_loadCodeString call Hz_pers_fnc_loadGame;
+	
+	};
 
 };
 

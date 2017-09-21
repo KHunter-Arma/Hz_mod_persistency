@@ -120,20 +120,22 @@ class CfgVehicles
     // Module attributes, uses https://community.bistudio.com/wiki/Eden_Editor:_Configuring_Attributes#Entity_Specific
     class Attributes: AttributesBase
     {      
+			class FirstTimeLaunchHandlerFunctionName: Edit
+      {
+				property = "Hz_pers_module_pFirstTimeLaunchHandlerFunctionName";
+        displayName = "First Time Launch Handler Function Name";
+        tooltip = "Name of your function that will be called when the mission is ran for the first time, or when no save file is found at the specified location. Use this function to initialise and set up your custom persistent variables using the API. This function must exist if no save file is found, or the module will be stuck waiting for this function to be defined before proceeding.";
+        // Default text filled in the input box
+        // Because it's an expression, to return a String one must have a string within a string
+        defaultValue = """awesomeScripter_fnc_handleFirstTimeLaunch""";
+      };
       // Module specific arguments
-      class AceMedical: Combo
+      class AceMedical: Checkbox
       {
         // Unique property, use "<moduleClass>_<attributeClass>" format to make sure the name is unique in the world
         property = "Hz_pers_module_pAceMedical";
         displayName = "Enable ACE Medical"; // Argument label
-        tooltip = "Enable/disable persistency of full medical status when using ACE medical system."; // Tooltip description
-        typeName = "BOOL"; // Value type, can be "NUMBER", "STRING" or "BOOL"
-        defaultValue = "false"; // Default attribute value. WARNING: This is an expression, and its returned value will be used (50 in this case)
-        class Values
-        {
-					class disabled	{name = "Disable"; value = false;};
-          class enabled	{name = "Enable";	value = true;}; // Listbox item
-        };
+        tooltip = "Enable persistency of full medical status when using ACE medical system."; // Tooltip description
       };
       class PathToSaveFile: Edit
       {

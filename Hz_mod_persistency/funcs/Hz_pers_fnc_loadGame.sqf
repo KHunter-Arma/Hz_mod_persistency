@@ -11,7 +11,7 @@
 
 #include "..\parsing_descriptors.txt"
 
-call compile preprocessfilelinenumbers Hz_pers_pathToSaveFile;
+call compile _this;
 
 {
   _objectName = _x select 0;
