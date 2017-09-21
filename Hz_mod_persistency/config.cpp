@@ -78,7 +78,7 @@ class CfgVehicles
     // Standard object definitions
     scope = 2; // Editor visibility; 2 will show it in the menu, 1 will hide it.
     displayName = "Hunter'z Persistency"; // Name displayed in the menu
-    icon = "\x\Hz\Hz_mod_persistency\media\Hunterz_logo.paa"; // Map icon. Delete this entry to use the default icon
+    icon = "\x\Hz\Hz_mod_persistency\media\Hunterz_icon.paa"; // Map icon. Delete this entry to use the default icon
     category = "Hz_editorModules";
 
     // Name of function triggered once conditions are met
