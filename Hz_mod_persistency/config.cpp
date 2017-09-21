@@ -26,6 +26,26 @@ class cfgPatches {
 
 };
 
+class CfgMods
+{
+	class Mod_Base;
+	class Hz_mod_persistency: Mod_Base
+	{
+		name = "Hunter'z Persistency Module";
+		picture = "\x\Hz\Hz_mod_persistency\media\Hunterz_logo.paa";
+		logo = "\x\Hz\Hz_mod_persistency\media\Hunterz_icon.paa";
+		logoSmall = "\x\Hz\Hz_mod_persistency\media\Hunterz_iconSmall.paa";
+		logoOver = "\x\Hz\Hz_mod_persistency\media\Hunterz_icon.paa";
+		tooltipOwned = "";
+		action = "https://github.com/KHunter-Arma";
+		dlcColor[] = {1,00,00,0.8};
+		overview = "";
+		hideName = 0;
+		hidePicture = 0;
+		dir = "@Hz_mod_persistency";
+	};
+};
+
 class cfgFunctions
 {
   class Hz {
