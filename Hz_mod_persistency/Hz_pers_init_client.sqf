@@ -9,6 +9,9 @@
 * https://creativecommons.org/licenses/by-nc-sa/4.0/
 *******************************************************************************/
 
+_logic = _this select 0;
+Hz_pers_clientLoadDelay = call compile (_logic getVariable "ClientLoadDelay");
+
 Hz_pers_clientFuncs_path = Hz_pers_path + "client_funcs\";
 
 //compile funcs
@@ -18,6 +21,12 @@ Hz_pers_fnc_clientDeletePersistentMarker = compile preprocessFileLineNumbers (Hz
 
 waituntil {sleep 0.1; !isnull (finddisplay 46)};
 waitUntil {sleep 0.1; !isnull player};
+
+//init delay
+sleep Hz_pers_clientLoadDelay;
+
+//load state
+player setVariable ["Hz_pers_clientReadyForLoad",true,true];
 
 //add EHs
 (findDisplay 46) displayAddEventHandler ["KeyDown", Hz_pers_fnc_clientSendLocalVars];

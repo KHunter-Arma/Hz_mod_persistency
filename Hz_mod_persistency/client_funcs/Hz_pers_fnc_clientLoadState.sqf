@@ -141,7 +141,7 @@ _container = uniformContainer player;
 
 	_variable = _variableValues select _foreachIndex;
 	if (_variable != "nil") then {
-		//make all variables local for now since we haven't stored info about that... because I like gambling...
+		//make all variables local for now since we haven't stored info about that...
 		player setvariable [_x,_variable];
 	};
 

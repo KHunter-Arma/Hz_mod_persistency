@@ -16,32 +16,68 @@
 * https://creativecommons.org/licenses/by-nc-sa/4.0/
 *******************************************************************************/					
 
-_ownerID = _this select 0;
-_uid = _this select 1;
+_this spawn {
 
-_playerIndex = Hz_pers_saveVar_players_UID find _uid;
+  _ownerID = _this select 0;
+  _uid = _this select 1;
 
-//player not on record
-if (_playerIndex == -1) exitWith {};
+  _playerIndex = Hz_pers_saveVar_players_UID find _uid;
 
-[
-Hz_pers_saveVar_players_vestType select _playerIndex,
-Hz_pers_saveVar_players_uniformType select _playerIndex,
-Hz_pers_saveVar_players_backpackType select _playerIndex,
-Hz_pers_saveVar_players_headGear select _playerIndex,
-Hz_pers_saveVar_players_goggles select _playerIndex,
-Hz_pers_saveVar_players_backpackMagazines select _playerIndex,
-Hz_pers_saveVar_players_vestMagazines select _playerIndex,
-Hz_pers_saveVar_players_uniformMagazines select _playerIndex,
-Hz_pers_saveVar_players_uniformItems select _playerIndex,
-Hz_pers_saveVar_players_vestItems select _playerIndex,
-Hz_pers_saveVar_players_backpackItems select _playerIndex,
-Hz_pers_saveVar_players_weaponsItems select _playerIndex,
-Hz_pers_saveVar_players_assignedItems select _playerIndex,
-Hz_pers_saveVar_players_positionATL select _playerIndex,
-Hz_pers_saveVar_players_dir select _playerIndex,
-Hz_pers_saveVar_players_anim select _playerIndex,
-Hz_pers_saveVar_players_hitpointsdamage select _playerIndex,
-Hz_pers_saveVar_players_variableNames,
-Hz_pers_saveVar_players_variableValues select _playerIndex
-] remoteExec ["Hz_pers_fnc_clientLoadState",_ownerID,false];
+  //player not on record
+  if (_playerIndex == -1) exitWith {};
+
+  //find player object
+  _player = objNull;
+  _timeout = time + 60;
+  
+  while {(isnull _player) && (time < _timeout)} do {
+  
+    sleep 1;
+    
+    {
+      
+      if ((getplayeruid _x) == _uid) exitWith {_player = _x;};
+    
+    } foreach playableUnits;
+  
+  };
+  
+  if (isNull _player) exitWith {};
+  
+  _timeout = time + 60;
+  
+  waitUntil {
+  
+    sleep 1;
+    
+    (_player getVariable ["Hz_pers_clientReadyForLoad",false])
+    ||
+    (time > _timeout)
+    
+  };
+  
+  if (isNull _player) exitWith {};
+
+  [
+  Hz_pers_saveVar_players_vestType select _playerIndex,
+  Hz_pers_saveVar_players_uniformType select _playerIndex,
+  Hz_pers_saveVar_players_backpackType select _playerIndex,
+  Hz_pers_saveVar_players_headGear select _playerIndex,
+  Hz_pers_saveVar_players_goggles select _playerIndex,
+  Hz_pers_saveVar_players_backpackMagazines select _playerIndex,
+  Hz_pers_saveVar_players_vestMagazines select _playerIndex,
+  Hz_pers_saveVar_players_uniformMagazines select _playerIndex,
+  Hz_pers_saveVar_players_uniformItems select _playerIndex,
+  Hz_pers_saveVar_players_vestItems select _playerIndex,
+  Hz_pers_saveVar_players_backpackItems select _playerIndex,
+  Hz_pers_saveVar_players_weaponsItems select _playerIndex,
+  Hz_pers_saveVar_players_assignedItems select _playerIndex,
+  Hz_pers_saveVar_players_positionATL select _playerIndex,
+  Hz_pers_saveVar_players_dir select _playerIndex,
+  Hz_pers_saveVar_players_anim select _playerIndex,
+  Hz_pers_saveVar_players_hitpointsdamage select _playerIndex,
+  Hz_pers_saveVar_players_variableNames,
+  Hz_pers_saveVar_players_variableValues select _playerIndex
+  ] remoteExec ["Hz_pers_fnc_clientLoadState",_ownerID,false];
+
+};
