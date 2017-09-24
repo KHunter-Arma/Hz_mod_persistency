@@ -20,6 +20,8 @@ _unit = _this select 0;
 _uid = _this select 2;
 
 
+if (_unit getvariable ["Hz_pers_clientDisableSaveStateOnDisconnect",false]) exitWith {};
+
 _playerIndex = Hz_pers_saveVar_players_UID find _uid;
 
 if(_playerIndex == -1) then {

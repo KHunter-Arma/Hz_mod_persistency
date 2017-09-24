@@ -41,6 +41,9 @@ _variableValues = _this select 18;
 waitUntil {sleep 1; !isnull player};
 sleep 10;
 
+//exit if no data
+if ((count _positionATL) < 1) exitWith {Hz_pers_fnc_clientInitDone = true;};
+
 // remove all gear
 
 removeAllWeapons player;
@@ -150,3 +153,5 @@ _container = uniformContainer player;
 player setdir _dir;
 player switchMove _anim;
 player setposatl _positionATL;
+
+Hz_pers_fnc_clientInitDone = true;

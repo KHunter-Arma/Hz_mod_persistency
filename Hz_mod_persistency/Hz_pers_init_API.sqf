@@ -19,3 +19,5 @@ Hz_pers_API_addObjectVariable = compile preprocessFileLineNumbers (Hz_pers_API_p
 Hz_pers_API_addPlayerVariable = compile preprocessFileLineNumbers (Hz_pers_API_path + "Hz_pers_API_addPlayerVariable.sqf");
 Hz_pers_API_addVehicle = compile preprocessFileLineNumbers (Hz_pers_API_path + "Hz_pers_API_addVehicle.sqf");
 Hz_pers_API_addVehicleVariable = compile preprocessFileLineNumbers (Hz_pers_API_path + "Hz_pers_API_addVehicleVariable.sqf");
+Hz_pers_API_disablePlayerSaveStateOnDisconnect = compile preprocessFileLineNumbers (Hz_pers_API_path + "Hz_pers_API_disablePlayerSaveStateOnDisconnect.sqf");
+Hz_pers_API_enablePlayerSaveStateOnDisconnect = compile preprocessFileLineNumbers (Hz_pers_API_path + "Hz_pers_API_enablePlayerSaveStateOnDisconnect.sqf");

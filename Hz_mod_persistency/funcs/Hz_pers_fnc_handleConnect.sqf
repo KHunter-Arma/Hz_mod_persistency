@@ -79,5 +79,8 @@ _this spawn {
   Hz_pers_saveVar_players_variableNames,
   Hz_pers_saveVar_players_variableValues select _playerIndex
   ] remoteExec ["Hz_pers_fnc_clientLoadState",_ownerID,false];
+  
+  //reset player state -- allows the API function disable persistency to work
+  Hz_pers_saveVar_players_positionATL set [_playerIndex, []]; //exit from here
 
 };
