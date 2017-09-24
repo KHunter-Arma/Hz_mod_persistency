@@ -40,7 +40,16 @@ Hz_pers_saveVar_players_backpackType set [_playerIndex, backpack _unit];
 Hz_pers_saveVar_players_headGear set [_playerIndex, headgear _unit];
 Hz_pers_saveVar_players_goggles set [_playerIndex, goggles _unit];
 Hz_pers_saveVar_players_dir set [_playerIndex, getdir _unit];
-Hz_pers_saveVar_players_anim set [_playerIndex, animationState _unit];
+
+if ((vehicle _unit) == _unit) then {
+
+	Hz_pers_saveVar_players_anim set [_playerIndex, animationState _unit];
+
+} else {
+
+	Hz_pers_saveVar_players_anim set [_playerIndex, ""];
+
+};
 
 _pos = getposatl _unit;
 
