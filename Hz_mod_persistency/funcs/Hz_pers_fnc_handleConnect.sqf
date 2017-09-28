@@ -28,11 +28,14 @@ _this spawn {
 
   //find player object
   _player = objNull;
-  _timeout = time + 60;
+  _timeout = time + 120;
+  
+  // mutex sleep
+  sleep 3;
   
   while {(isnull _player) && (time < _timeout)} do {
   
-    sleep 1;
+    sleep 0.1;
     
     {
       
@@ -44,15 +47,23 @@ _this spawn {
   
   if (isNull _player) exitWith {};
   
-  _timeout = time + 60;
+  // mutex against repeated reconnects
+  if (_player getvariable ["Hz_pers_clientHandledConnect",false]) exitwith {};
+  _player setvariable ["Hz_pers_clientHandledConnect",true];
   
   waitUntil {
   
-    sleep 1;
+    sleep 0.1;
     
-    (_player getVariable ["Hz_pers_clientReadyForLoad",false])
-    ||
-    (time > _timeout)
+    if (!isnull _player) then {
+    
+    _player getVariable ["Hz_pers_clientReadyForLoad",false]
+    
+    } else {
+    
+    true
+    
+    }
     
   };
   
@@ -80,7 +91,7 @@ _this spawn {
   Hz_pers_saveVar_players_variableValues select _playerIndex
   ] remoteExec ["Hz_pers_fnc_clientLoadState",_ownerID,false];
   
-  //reset player state -- allows the API function disable persistency to work
-  Hz_pers_saveVar_players_positionATL set [_playerIndex, []]; //exit from here
+  //reset player state on the server -- allows the API function disable persistency to work such that an old state isn't loaded by mistake when client state saving is disabled at disconnection
+  Hz_pers_saveVar_players_positionATL set [_playerIndex, []]; // client load function will exit from here and ignore rest of data until all is overwritten
 
 };

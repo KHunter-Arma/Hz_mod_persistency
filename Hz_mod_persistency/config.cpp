@@ -160,11 +160,18 @@ class CfgVehicles
         tooltip = "Delay in seconds after mission start before the game is loaded from file.";
         defaultValue = "60";
       };
+      class ClientEnableManualLoadSwitch: Checkbox
+      {
+				// Unique property, use "<moduleClass>_<attributeClass>" format to make sure the name is unique in the world
+        property = "Hz_pers_module_pAceMedical";
+        displayName = "Enable ACE Medical"; // Argument label
+        tooltip = "If enabled, instead of waiting for the duration of the delay you specify below, you will have manual control over when the persistent state of a player is loaded. This allows you to complete all your initialisations and tell the module when the player is ready to load its state. You do this by setting 'Hz_pers_clientReadyForLoad = true;' at the end of your own initialisations.";
+      };
       class ClientLoadDelay: Edit
       {
 				property = "Hz_pers_module_pClientLoadDelay";
         displayName = "Client Load Delay";
-        tooltip = "Seconds to wait after a player joins the mission before loading their persistent state.";
+        tooltip = "Seconds to wait after a player joins the mission before loading their persistent state. This setting will be ignored if the manual switch setting above is enabled.";
         defaultValue = "10";
       };
       class MaxArraySize: Edit

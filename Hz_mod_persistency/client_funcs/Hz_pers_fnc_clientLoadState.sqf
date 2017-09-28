@@ -35,14 +35,12 @@ _hitPointsDamage = _this select 16;
 _variableNames = _this select 17;
 _variableValues = _this select 18;
 
-
-// give some time for everything to fully initialise
-
-waitUntil {sleep 1; !isnull player};
-sleep 10;
+waitUntil {sleep 0.1; !isnull player};
 
 //exit if no data
 if ((count _positionATL) < 1) exitWith {Hz_pers_fnc_clientInitDone = true;};
+
+startLoadingScreen ["Loading..."];
 
 // remove all gear
 
@@ -55,6 +53,8 @@ removeBackpack player;
 removeHeadgear player;
 removeGoggles player;
 
+progressLoadingScreen 0.1;
+
 //load gear
 
 player addvest _vestType;
@@ -62,6 +62,9 @@ player addUniform _uniformType;
 player addbackpack _backpackType;
 player addHeadgear _headGear;
 player addGoggles _goggles;
+
+progressLoadingScreen 0.25;
+
 
 {
 	_magArray = _x select 4;
@@ -102,6 +105,9 @@ player selectweapon _weapon;
 reload player;
 player setWeaponReloadingTime [player, currentMuzzle player, 0];
 
+progressLoadingScreen 0.5;
+
+
 // if any of these don't exist, array will be empty, so should be safe for foreach loop
 
 _container = vestContainer player;
@@ -132,6 +138,8 @@ _container = uniformContainer player;
 } foreach (_uniformItems select 0);
 
 
+progressLoadingScreen 0.75;
+
 {
 	player linkItem _x;
 }foreach _assignedItems;
@@ -150,8 +158,12 @@ _container = uniformContainer player;
 
 } foreach _variableNames;
 
+progressLoadingScreen 1;
+
 player setdir _dir;
 player switchMove _anim;
 player setposatl _positionATL;
 
 Hz_pers_fnc_clientInitDone = true;
+
+endLoadingScreen;
