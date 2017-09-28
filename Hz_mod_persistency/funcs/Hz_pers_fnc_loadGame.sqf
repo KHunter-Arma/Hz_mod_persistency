@@ -62,6 +62,11 @@ if (_indexVehicle >= 0) then {
     clearMagazineCargoGlobal _veh;
     clearWeaponCargoGlobal _veh;
     clearItemCargoGlobal _veh;
+		
+		_vehCustoms = Hz_pers_saveVar_vehicles_customs select _index;
+		_array = [_veh];		
+		{_array pushBack _x;} foreach _vehCustoms;		
+		_array call BIS_fnc_initVehicle;
 
     _itemIndex = (count ((Hz_pers_saveVar_vehicles_itemsCargo select _index) select 0)) - 1;
     if (_itemIndex >= 0) then {
