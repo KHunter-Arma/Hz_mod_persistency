@@ -15,6 +15,8 @@
 * https://creativecommons.org/licenses/by-nc-sa/4.0/
 *******************************************************************************/
 
+//#define DEBUG
+
 _vestType = _this select 0;
 _uniformType = _this select 1;
 _backpackType = _this select 2;
@@ -34,6 +36,16 @@ _anim = _this select 15;
 _hitPointsDamage = _this select 16;
 _variableNames = _this select 17;
 _variableValues = _this select 18;
+
+#ifdef DEBUG
+diag_log "################ HZ PERSISTENCY CLIENT LOAD STATE DEBUG #################";
+{
+
+	diag_log _x;
+
+} foreach _this;
+diag_log "###########################################################################";
+#endif
 
 waitUntil {sleep 0.1; !isnull player};
 
@@ -116,7 +128,7 @@ _container = vestContainer player;
 }foreach _vestMagazines;
 
 {
-	_container addItemCargoGlobal [_x,(_vestItems select 0) select _foreachIndex];
+	_container addItemCargoGlobal [_x,(_vestItems select 1) select _foreachIndex];
 } foreach (_vestItems select 0);
 
 _container = backpackContainer player;
@@ -134,7 +146,7 @@ _container = uniformContainer player;
 }foreach _uniformMagazines;
 
 {
-	_container addItemCargoGlobal [_x,(_uniformItems select 0) select _foreachIndex];
+	_container addItemCargoGlobal [_x,(_uniformItems select 1) select _foreachIndex];
 } foreach (_uniformItems select 0);
 
 
@@ -151,9 +163,18 @@ progressLoadingScreen 0.75;
 {
 
 	_variable = _variableValues select _foreachIndex;
-	if (_variable != "nil") then {
+	
+	if ((typeName _variable) == "STRING") then {
+	
+		if (_variable != "nil") then {
+			//make all variables local for now since we haven't stored info about that...
+			player setvariable [_x,_variable];
+		};
+	
+	} else {
 		//make all variables local for now since we haven't stored info about that...
 		player setvariable [_x,_variable];
+	
 	};
 
 } foreach _variableNames;

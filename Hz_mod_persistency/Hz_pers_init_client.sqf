@@ -15,12 +15,16 @@ Hz_pers_clientEnableManualLoadSwitch = _logic getVariable "ClientEnableManualLoa
 Hz_pers_clientFuncs_path = Hz_pers_path + "client_funcs\";
 
 //compile funcs
-Hz_pers_fnc_clientLoadState = compile preprocessFileLineNumbers (Hz_pers_clientFuncs_path + "Hz_pers_fnc_clientLoadState.sqf");
 Hz_pers_fnc_clientSendLocalVars = compile preprocessFileLineNumbers (Hz_pers_clientFuncs_path + "Hz_pers_fnc_clientSendLocalVars.sqf");
+Hz_pers_fnc_clientLoadState = compile preprocessFileLineNumbers (Hz_pers_clientFuncs_path + "Hz_pers_fnc_clientLoadState.sqf");
 Hz_pers_fnc_clientDeletePersistentMarker = compile preprocessFileLineNumbers (Hz_pers_clientFuncs_path + "Hz_pers_fnc_clientDeletePersistentMarker.sqf");
 
 waituntil {sleep 0.1; !isnull (finddisplay 46)};
 waitUntil {sleep 0.1; !isnull player};
+
+//add EHs
+(findDisplay 46) displayAddEventHandler ["KeyDown", Hz_pers_fnc_clientSendLocalVars];
+addMissionEventHandler ["MapSingleClick", Hz_pers_fnc_clientDeletePersistentMarker];
 
 //load state
 if (Hz_pers_clientEnableManualLoadSwitch) then {
@@ -39,6 +43,4 @@ if (Hz_pers_clientEnableManualLoadSwitch) then {
 
 };
 
-//add EHs
-(findDisplay 46) displayAddEventHandler ["KeyDown", Hz_pers_fnc_clientSendLocalVars];
-addMissionEventHandler ["MapSingleClick", Hz_pers_fnc_clientDeletePersistentMarker];
+

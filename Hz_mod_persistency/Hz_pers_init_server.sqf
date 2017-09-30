@@ -226,3 +226,4 @@ if (Hz_pers_enableACEmedical) then {
 
 //set EH
 addMissionEventHandler ["PlayerConnected",Hz_pers_fnc_handleConnect];
+addMissionEventHandler ["HandleDisconnect",Hz_pers_fnc_handleDisconnect];

@@ -11,10 +11,14 @@
 
 if ((_this select 1) == 1) then {
 
+	startLoadingScreen ["Loading..."];
+
 	{
 		
 		[player,_x, player getvariable _x] remoteExecCall ["Hz_pers_fnc_receiveLocalVars", 2, false];
 	
 	} foreach Hz_pers_saveVar_players_variableNames;
+	
+	endLoadingScreen;
 
 };

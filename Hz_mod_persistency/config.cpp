@@ -56,12 +56,31 @@ class cfgFunctions
 					
 					file = "\x\Hz\Hz_mod_persistency\Hz_pers_init.sqf";					
 					
-				};           
-        
+				};     
+
       };
     
   };
   
+};
+
+class CfgRemoteExec
+{        
+	// List of script functions allowed to be sent from client via remoteExec
+	class Functions
+	{
+		 // State of remoteExec: 0-turned off, 1-turned on, taking whitelist into account, 2-turned on, however, ignoring whitelists (default because of backward compatibility)
+		 mode = 2;
+		 // Ability to send jip messages: 0-disabled, 1-enabled (default)
+		 jip = 1;
+		 //your functions here
+		 class Hz_pers_fnc_clientLoadState
+		 {
+			allowedTargets=1; // can target only clients
+			jip = 0;
+		 };
+	};        
+	
 };
 
 class CfgFactionClasses
@@ -158,13 +177,13 @@ class CfgVehicles
 				property = "Hz_pers_module_pAutoLoadDelay";
         displayName = "Auto-load Delay";
         tooltip = "Delay in seconds after mission start before the game is loaded from file.";
-        defaultValue = "60";
+        defaultValue = """60""";
       };
       class ClientEnableManualLoadSwitch: Checkbox
       {
 				// Unique property, use "<moduleClass>_<attributeClass>" format to make sure the name is unique in the world
-        property = "Hz_pers_module_pAceMedical";
-        displayName = "Enable ACE Medical"; // Argument label
+        property = "Hz_pers_module_pClientEnableManualLoadSwitch";
+        displayName = "Enable Client Manual Load"; // Argument label
         tooltip = "If enabled, instead of waiting for the duration of the delay you specify below, you will have manual control over when the persistent state of a player is loaded. This allows you to complete all your initialisations and tell the module when the player is ready to load its state. You do this by setting 'Hz_pers_clientReadyForLoad = true;' at the end of your own initialisations.";
       };
       class ClientLoadDelay: Edit
@@ -172,14 +191,14 @@ class CfgVehicles
 				property = "Hz_pers_module_pClientLoadDelay";
         displayName = "Client Load Delay";
         tooltip = "Seconds to wait after a player joins the mission before loading their persistent state. This setting will be ignored if the manual switch setting above is enabled.";
-        defaultValue = "10";
+        defaultValue = """10""";
       };
       class MaxArraySize: Edit
       {
 				property = "Hz_pers_module_pMaxArraySize";
         displayName = "Max Array Size for Write";
         tooltip = "Maximum size (in number of elements) an array that is written to file can have. If you have elements in your arrays characterised as long arrays or strings, you should keep this low for safety.";
-        defaultValue = "10";
+        defaultValue = """10""";
       };
       class ModuleDescription: ModuleDescription{}; // Module description should be shown last
     };

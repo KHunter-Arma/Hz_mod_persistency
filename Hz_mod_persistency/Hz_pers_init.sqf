@@ -13,9 +13,9 @@ Hz_pers_path = "\x\Hz\Hz_mod_persistency\";
 
 Hz_pers_initDone = false;
 
+call compile preprocessFileLineNumbers (Hz_pers_path + "Hz_pers_init_API.sqf");
+
 if (isServer) then {_this call compile preprocessFileLineNumbers (Hz_pers_path + "Hz_pers_init_server.sqf");};
 if (!isDedicated) then {_this call compile preprocessFileLineNumbers (Hz_pers_path + "Hz_pers_init_client.sqf");};
-
-call compile preprocessFileLineNumbers (Hz_pers_path + "Hz_pers_init_API.sqf");
 
 Hz_pers_initDone = true;

@@ -16,6 +16,8 @@
 * https://creativecommons.org/licenses/by-nc-sa/4.0/
 *******************************************************************************/						
 
+//#define DEBUG
+
 _unit = _this select 0;
 _uid = _this select 2;
 
@@ -135,4 +137,26 @@ Hz_pers_saveVar_players_hitpointsdamage set [_playerIndex, getAllHitPointsDamage
 	
 Hz_pers_saveVar_players_variableValues set [_playerIndex, _variables];
 
-// TODO: ACE medical
+#ifdef DEBUG
+diag_log "################ HZ PERSISTENCY HANDLE DISCONNECT DEBUG #################";
+diag_log Hz_pers_saveVar_players_UID;
+diag_log Hz_pers_saveVar_players_vestType;
+diag_log Hz_pers_saveVar_players_uniformType;
+diag_log Hz_pers_saveVar_players_backpackType;
+diag_log Hz_pers_saveVar_players_headGear;
+diag_log Hz_pers_saveVar_players_goggles;
+diag_log Hz_pers_saveVar_players_positionATL;
+diag_log Hz_pers_saveVar_players_dir;
+diag_log Hz_pers_saveVar_players_anim;
+diag_log Hz_pers_saveVar_players_assignedItems;
+diag_log Hz_pers_saveVar_players_backpackMagazines;
+diag_log Hz_pers_saveVar_players_vestMagazines;
+diag_log Hz_pers_saveVar_players_uniformMagazines;
+diag_log Hz_pers_saveVar_players_uniformItems;
+diag_log Hz_pers_saveVar_players_vestItems;
+diag_log Hz_pers_saveVar_players_backpackItems;
+diag_log Hz_pers_saveVar_players_weaponsItems;
+diag_log Hz_pers_saveVar_players_hitpointsdamage;
+diag_log Hz_pers_saveVar_players_variableValues;
+diag_log "###########################################################################";
+#endif
