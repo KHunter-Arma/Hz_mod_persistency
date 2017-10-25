@@ -21,6 +21,7 @@
 _unit = _this select 0;
 _uid = _this select 2;
 
+if (!alive _unit) exitWith {};
 
 if (_unit getvariable ["Hz_pers_clientDisableSaveStateOnDisconnect",false]) exitWith {};
 
