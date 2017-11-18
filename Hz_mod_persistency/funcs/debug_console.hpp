@@ -1,10 +1,10 @@
 /*
-	KK's gamesavesystem v3.0 macros
+	KK's debug_console v3.0 macros
 	http://killzonekid.com
 	
 	USAGE:
 	
-	#include "gamesavesystem.hpp"
+	#include "debug_console.hpp"
 	conBeep(); //makes console beep
 	conClear(); //clears console screen
 	conClose(); //closes console, resets logfile filename
@@ -24,25 +24,25 @@
 	conCyanTime("This Cyan Line Has Timestamp");
 	conFile("This Line Is Written To Logfile");
 	conFileTime("This Written To Logfile Line Has Timestamp");
-	diag_log ("gamesavesystem" callExtension ("i")); //max_output_size
+	diag_log ("debug_console" callExtension ("i")); //max_output_size
 */
 
-#define conBeep() (Hz_pers_path + "debugconsole") callExtension ("A")
-#define conClear() (Hz_pers_path + "debugconsole") callExtension ("C")
-#define conClose() (Hz_pers_path + "debugconsole") callExtension ("X")
-#define conWhite(_msg) (Hz_pers_path + "debugconsole") callExtension (_msg + "#1110")
-#define conWhiteTime(_msg) (Hz_pers_path + "debugconsole") callExtension (_msg + "#1111")
-#define conRed(_msg) (Hz_pers_path + "debugconsole") callExtension (_msg + "#1000")
-#define conRedTime(_msg) (Hz_pers_path + "debugconsole") callExtension (_msg + "#1001")
-#define conGreen(_msg) (Hz_pers_path + "debugconsole") callExtension (_msg + "#0100")
-#define conGreenTime(_msg) (Hz_pers_path + "debugconsole") callExtension (_msg + "#0101")
-#define conBlue(_msg) (Hz_pers_path + "debugconsole") callExtension (_msg + "#0010")
-#define conBlueTime(_msg) (Hz_pers_path + "debugconsole") callExtension (_msg + "#0011")
-#define conYellow(_msg) (Hz_pers_path + "debugconsole") callExtension (_msg + "#1100")
-#define conYellowTime(_msg) (Hz_pers_path + "debugconsole") callExtension (_msg + "#1101")
-#define conPurple(_msg) (Hz_pers_path + "debugconsole") callExtension (_msg + "#1010")
-#define conPurpleTime(_msg) (Hz_pers_path + "debugconsole") callExtension (_msg + "#1011")
-#define conCyan(_msg) (Hz_pers_path + "debugconsole") callExtension (_msg + "#0110")
-#define conCyanTime(_msg) (Hz_pers_path + "debugconsole") callExtension (_msg + "#0111")
-#define conFile(_msg) (Hz_pers_path + "debugconsole") callExtension (_msg + "~0000")
-#define conFileTime(_msg) (Hz_pers_path + "debugconsole") callExtension (_msg + "~0001")
+#define conBeep() ("!Workshop\@Hz_mod_persistency\extensions\debug_console") callExtension ("A")
+#define conClear() ("!Workshop\@Hz_mod_persistency\extensions\debug_console") callExtension ("C")
+#define conClose() ("!Workshop\@Hz_mod_persistency\extensions\debug_console") callExtension ("X")
+#define conWhite(_msg) ("!Workshop\@Hz_mod_persistency\extensions\debug_console") callExtension (_msg + "#1110")
+#define conWhiteTime(_msg) ("!Workshop\@Hz_mod_persistency\extensions\debug_console") callExtension (_msg + "#1111")
+#define conRed(_msg) ("!Workshop\@Hz_mod_persistency\extensions\debug_console") callExtension (_msg + "#1000")
+#define conRedTime(_msg) ("!Workshop\@Hz_mod_persistency\extensions\debug_console") callExtension (_msg + "#1001")
+#define conGreen(_msg) ("!Workshop\@Hz_mod_persistency\extensions\debug_console") callExtension (_msg + "#0100")
+#define conGreenTime(_msg) ("!Workshop\@Hz_mod_persistency\extensions\debug_console") callExtension (_msg + "#0101")
+#define conBlue(_msg) ("!Workshop\@Hz_mod_persistency\extensions\debug_console") callExtension (_msg + "#0010")
+#define conBlueTime(_msg) ("!Workshop\@Hz_mod_persistency\extensions\debug_console") callExtension (_msg + "#0011")
+#define conYellow(_msg) ("!Workshop\@Hz_mod_persistency\extensions\debug_console") callExtension (_msg + "#1100")
+#define conYellowTime(_msg) ("!Workshop\@Hz_mod_persistency\extensions\debug_console") callExtension (_msg + "#1101")
+#define conPurple(_msg) ("!Workshop\@Hz_mod_persistency\extensions\debug_console") callExtension (_msg + "#1010")
+#define conPurpleTime(_msg) ("!Workshop\@Hz_mod_persistency\extensions\debug_console") callExtension (_msg + "#1011")
+#define conCyan(_msg) ("!Workshop\@Hz_mod_persistency\extensions\debug_console") callExtension (_msg + "#0110")
+#define conCyanTime(_msg) ("!Workshop\@Hz_mod_persistency\extensions\debug_console") callExtension (_msg + "#0111")
+#define conFile(_msg) ("!Workshop\@Hz_mod_persistency\extensions\debug_console") callExtension (_msg + "~0000")
+#define conFileTime(_msg) ("!Workshop\@Hz_mod_persistency\extensions\debug_console") callExtension (_msg + "~0001")

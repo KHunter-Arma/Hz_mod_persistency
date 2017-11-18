@@ -13,6 +13,8 @@
 
 call compile _this;
 
+"Hz_pers_parsingInfo" call Hz_pers_fnc_arrayParser; 
+
 {
   _objectName = _x select 0;
   

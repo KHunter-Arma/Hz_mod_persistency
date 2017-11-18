@@ -37,7 +37,7 @@ if (!isnil "_structArray") then {
         //does struct exist?
         if (!isnil "_structElement") then {            
 	
-            _parsedStruct = _structName call Hz_save_func_nestedArrayStructParser;   
+            _parsedStruct = _structName call Hz_pers_fnc_nestedArrayStructParser;   
             _parsedArray set [count _parsedArray,_parsedStruct];
 	
         } else {_exit = true;};       

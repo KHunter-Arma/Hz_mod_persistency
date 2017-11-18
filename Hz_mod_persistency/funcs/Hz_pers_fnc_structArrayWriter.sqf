@@ -32,7 +32,7 @@ if ((count _array) > 0) then {
         // this is to prevent the system from breaking down - otherwise this is an unexpected input
         if((typename _x) != "ARRAY") then {_element = [_x];};
     
-        [_element,format ["%1_%2",_arrayName,_foreachIndex],_maxSize] call Hz_save_func_nestedArrayStructWriter;
+        [_element,format ["%1_%2",_arrayName,_foreachIndex],_maxSize] call Hz_pers_fnc_nestedArrayStructWriter;
     
     } foreach _array;
 

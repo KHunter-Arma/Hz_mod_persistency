@@ -154,7 +154,7 @@ Hz_pers_parsingInfo = [
 
 
 //load custom parameters from module framework
-_logic = _this select 0;
+private _logic = _this select 0;
 Hz_pers_enableACEmedical = _logic getVariable "AceMedical";
 Hz_pers_firstTimeLaunchHandlerFunctionName = _logic getVariable "FirstTimeLaunchHandlerFunctionName";
 Hz_pers_maxWriteArraySize = call compile (_logic getVariable "MaxArraySize");
@@ -206,7 +206,7 @@ if (Hz_pers_enableACEmedical) then {
 };
 
 //auto-load
-[] spawn {
+_logic spawn {
 
 	_loadCodeString = preprocessfilelinenumbers Hz_pers_pathToSaveFile;
 	
@@ -219,6 +219,16 @@ if (Hz_pers_enableACEmedical) then {
 		sleep Hz_pers_autoLoadDelay;
 
 		_loadCodeString call Hz_pers_fnc_loadGame;
+	
+	};
+	
+	private _delay = call compile (_this getVariable "AutoSaveFreq");
+	
+	while {true} do {
+	
+		uisleep _delay;
+		
+		call Hz_pers_fnc_saveGame;
 	
 	};
 

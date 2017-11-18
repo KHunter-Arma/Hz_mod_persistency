@@ -179,6 +179,13 @@ class CfgVehicles
         tooltip = "Delay in seconds after mission start before the game is loaded from file.";
         defaultValue = """60""";
       };
+			 class AutoSaveFreq: Edit
+      {
+				property = "Hz_pers_module_pAutoSaveFreq";
+        displayName = "Auto-save Frequency";
+        tooltip = "Frequency in seconds for auto-save to file.";
+        defaultValue = """3600""";
+      };
       class ClientEnableManualLoadSwitch: Checkbox
       {
 				// Unique property, use "<moduleClass>_<attributeClass>" format to make sure the name is unique in the world

@@ -30,7 +30,7 @@ while {!_exit} do {
 
     _structElementName = format ["%1_%2",_structName,_structElementIndex];
     
-    _structElement = _structElementName call Hz_save_func_structArrayElementParser;    
+    _structElement = _structElementName call Hz_pers_fnc_structArrayElementParser;    
     
     //does struct element exist?
     if(!isnil "_structElement") then {

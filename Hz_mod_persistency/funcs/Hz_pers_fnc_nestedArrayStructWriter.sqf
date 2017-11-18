@@ -35,8 +35,8 @@ if ((count _struct) > 0) then {
         // this is to prevent the system from breaking down - otherwise this is an unexpected input
         if((typename _x) != "ARRAY") then {_element = [_x];};
         
-        _splitArrays = [_element, _maxSize] call Hz_save_func_arraySplitter;
-        [_splitArrays, format ["%1_%2",_structName,_foreachIndex]] call Hz_save_func_splitArrayWriter;
+        _splitArrays = [_element, _maxSize] call Hz_pers_fnc_arraySplitter;
+        [_splitArrays, format ["%1_%2",_structName,_foreachIndex]] call Hz_pers_fnc_splitArrayWriter;
     
     } foreach _struct;
 

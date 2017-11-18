@@ -67,6 +67,10 @@ removeGoggles player;
 
 progressLoadingScreen 0.1;
 
+sleep 0.1;
+
+progressLoadingScreen 0.2;
+
 //load gear
 
 player addvest _vestType;
@@ -75,8 +79,36 @@ player addbackpack _backpackType;
 player addHeadgear _headGear;
 player addGoggles _goggles;
 
-progressLoadingScreen 0.25;
+progressLoadingScreen 0.3;
 
+{
+
+	player addWeapon (_x select 0);
+	
+	//add magazine
+	_magArray = _x select 4;
+	if ((count _magArray) > 0) then {
+		player addWeaponItem [(_x select 0), [(_magArray select 0), (_magArray select 1)]];
+	};
+	
+	//Grenade launcher?
+	if ((typename (_x select 5)) == "ARRAY") then {
+		
+		_magArray = _x select 5;
+		if ((count _magArray) > 0) then {
+			player addWeaponItem [(_x select 0), [(_magArray select 0), (_magArray select 1)]];
+		};
+
+	};
+	
+	//attachments
+	player addWeaponItem [_x select 0, _x select 1];
+	player addWeaponItem [_x select 0, _x select 2];
+	player addWeaponItem [_x select 0, _x select 3];
+
+} foreach _weaponsItems;
+
+/*
 
 {
 	_magArray = _x select 4;
@@ -98,6 +130,7 @@ progressLoadingScreen 0.25;
 
 }foreach _weaponsItems;
 
+
 _weapon = primaryweapon player;
 player selectweapon _weapon;
 reload player;
@@ -117,8 +150,9 @@ player selectweapon _weapon;
 reload player;
 player setWeaponReloadingTime [player, currentMuzzle player, 0];
 
-progressLoadingScreen 0.5;
+*/
 
+progressLoadingScreen 0.5;
 
 // if any of these don't exist, array will be empty, so should be safe for foreach loop
 

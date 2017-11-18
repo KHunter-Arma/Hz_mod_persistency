@@ -145,7 +145,7 @@
 
 {
 
-  if (("_USER_DEFINED #" in _x) && ((markerShape _x) == "ICON")) then {
+  if (((_x find "_USER_DEFINED #") != -1) && ((markerShape _x) == "ICON")) then {
 
     Hz_pers_saveVar_markers_type pushBack (markerType _x);
     Hz_pers_saveVar_markers_pos pushBack (markerpos _x);
@@ -156,10 +156,9 @@
 
 } foreach allMapMarkers;
 
-//write to file
-
-_save = format ["Hz_pers_parsingInfo = %1;", Hz_pers_parsingInfo];
-conFile(_save); 
+//write parsing info to file as 1D array for safety
+_splitArrays = [(missionnamespace getvariable ["Hz_pers_parsingInfo",[]]), Hz_pers_maxWriteArraySize] call Hz_pers_fnc_arraySplitter;
+[_splitArrays, "Hz_pers_parsingInfo"] call Hz_pers_fnc_splitArrayWriter;    
 
 {
   _objectName = _x select 0;
@@ -206,8 +205,10 @@ conFile(_save);
     
   };
   
-}foreach Hz_pers_parsingInfo;   
+} foreach Hz_pers_parsingInfo; 
 
+//close console
+conClose();
 
 // deallocate
 

@@ -24,7 +24,10 @@ waitUntil {sleep 0.1; !isnull player};
 
 //add EHs
 (findDisplay 46) displayAddEventHandler ["KeyDown", Hz_pers_fnc_clientSendLocalVars];
+
+/* looks like not needed
 addMissionEventHandler ["MapSingleClick", Hz_pers_fnc_clientDeletePersistentMarker];
+*/
 
 //load state
 if (Hz_pers_clientEnableManualLoadSwitch) then {
