@@ -11,4 +11,4 @@
 
 if (!isServer) exitWith {hint "Only the server may add variables!"};
 
-Hz_pers_parsingInfo pushBackUnique [_this select 0, _this select 1];
+Hz_pers_parsingInfo pushBackUnique _this;

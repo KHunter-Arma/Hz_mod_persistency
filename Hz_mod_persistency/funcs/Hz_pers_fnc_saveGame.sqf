@@ -75,7 +75,7 @@
     
     _variables = [];
     {				
-      _variables pushback (_vehicle getVariable [_x,"nil"]);
+      _variables pushback (_vehicle getVariable [_x select 0,"nil"]);
       
     } foreach Hz_pers_saveVar_vehicles_variableNames;
     
@@ -97,7 +97,7 @@
     _variables = [];
     _object = _x;
     {				
-      _variables pushback (_object getVariable [_x,"nil"]);
+      _variables pushback (_object getVariable [_x select 0,"nil"]);
       
     } foreach Hz_pers_saveVar_objects_variableNames;
     
@@ -132,7 +132,7 @@
   
   _variables = [];
   {				
-    _variables pushback (_crate getVariable [_x,"nil"]);
+    _variables pushback (_crate getVariable [_x select 0,"nil"]);
     
   } foreach Hz_pers_saveVar_crates_variableNames;
   

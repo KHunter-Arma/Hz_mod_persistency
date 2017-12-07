@@ -15,10 +15,10 @@ if ((_this select 1) == 1) then {
 
 	{
 		
-		[player,_x, player getvariable _x] remoteExecCall ["Hz_pers_fnc_receiveLocalVars", 2, false];
+		[player,_x select 0, player getvariable (_x select 0)] remoteExecCall ["Hz_pers_fnc_receiveLocalVars", 2, false];
 	
 	} foreach Hz_pers_saveVar_players_variableNames;
-	
+		
 	endLoadingScreen;
 
 };

@@ -101,55 +101,55 @@ Hz_pers_fnc_handleFirstTimeLaunch = compile preprocessFileLineNumbers (Hz_pers_f
 
 //init parsing info
 Hz_pers_parsingInfo = [
-  ["Hz_pers_saveVar_vehicles_type",ONE_D_ARRAY],
-  ["Hz_pers_saveVar_vehicles_customs",ARRAY_OF_STRUCTS],
-  ["Hz_pers_saveVar_vehicles_positionATL",ONE_D_ARRAY],
-  ["Hz_pers_saveVar_vehicles_hitpointsdamage",ARRAY_OF_STRUCTS],
-  ["Hz_pers_saveVar_vehicles_dir",ONE_D_ARRAY],
-  ["Hz_pers_saveVar_vehicles_fuel",ONE_D_ARRAY],
-  ["Hz_pers_saveVar_vehicles_magazinesTurrets",ARRAY_OF_STRUCTS],
-  ["Hz_pers_saveVar_vehicles_magazinesAmmoCargo",NESTED_ARRAY_STRUCT],
-  ["Hz_pers_saveVar_vehicles_itemsCargo",ARRAY_OF_STRUCTS],
-  ["Hz_pers_saveVar_vehicles_variableValues",NESTED_ARRAY_STRUCT],
-  ["Hz_pers_saveVar_objects_type",ONE_D_ARRAY],
-  ["Hz_pers_saveVar_objects_damage",ONE_D_ARRAY],
-  ["Hz_pers_saveVar_objects_dir",ONE_D_ARRAY],
-  ["Hz_pers_saveVar_objects_positionATL",ONE_D_ARRAY],
-  ["Hz_pers_saveVar_objects_variableValues",NESTED_ARRAY_STRUCT],
-  ["Hz_pers_saveVar_crates_type",ONE_D_ARRAY],
-  ["Hz_pers_saveVar_crates_damage",ONE_D_ARRAY],
-  ["Hz_pers_saveVar_crates_dir",ONE_D_ARRAY],
-  ["Hz_pers_saveVar_crates_positionATL",ONE_D_ARRAY],
-  ["Hz_pers_saveVar_crates_magazinesAmmoCargo",NESTED_ARRAY_STRUCT],
-  ["Hz_pers_saveVar_crates_itemsCargo",ARRAY_OF_STRUCTS],
-  ["Hz_pers_saveVar_crates_variableValues",NESTED_ARRAY_STRUCT],
-  ["Hz_pers_saveVar_players_variableNames",ONE_D_ARRAY],
-  ["Hz_pers_saveVar_vehicles_variableNames",ONE_D_ARRAY],
-  ["Hz_pers_saveVar_crates_variableNames",ONE_D_ARRAY],
-  ["Hz_pers_saveVar_objects_variableNames",ONE_D_ARRAY],
-  ["Hz_pers_saveVar_players_UID",ONE_D_ARRAY],
-  ["Hz_pers_saveVar_players_vestType",ONE_D_ARRAY],
-  ["Hz_pers_saveVar_players_uniformType",ONE_D_ARRAY],
-  ["Hz_pers_saveVar_players_backpackType",ONE_D_ARRAY],
-  ["Hz_pers_saveVar_players_headGear",ONE_D_ARRAY],
-  ["Hz_pers_saveVar_players_goggles",ONE_D_ARRAY],
-  ["Hz_pers_saveVar_players_positionATL",ONE_D_ARRAY],
-  ["Hz_pers_saveVar_players_dir",ONE_D_ARRAY],
-  ["Hz_pers_saveVar_players_anim",ONE_D_ARRAY],
-  ["Hz_pers_saveVar_players_assignedItems",NESTED_ARRAY_STRUCT],
-  ["Hz_pers_saveVar_players_backpackMagazines",NESTED_ARRAY_STRUCT],
-  ["Hz_pers_saveVar_players_vestMagazines",NESTED_ARRAY_STRUCT],
-  ["Hz_pers_saveVar_players_uniformMagazines",NESTED_ARRAY_STRUCT],
-  ["Hz_pers_saveVar_players_uniformItems",ARRAY_OF_STRUCTS],
-  ["Hz_pers_saveVar_players_vestItems",ARRAY_OF_STRUCTS],
-  ["Hz_pers_saveVar_players_backpackItems",ARRAY_OF_STRUCTS],
-  ["Hz_pers_saveVar_players_weaponsItems",ARRAY_OF_STRUCTS],
-  ["Hz_pers_saveVar_players_hitpointsdamage",ARRAY_OF_STRUCTS],
-  ["Hz_pers_saveVar_players_variableValues",NESTED_ARRAY_STRUCT],
-  ["Hz_pers_saveVar_markers_type",ONE_D_ARRAY],
-  ["Hz_pers_saveVar_markers_pos", ONE_D_ARRAY],
-  ["Hz_pers_saveVar_markers_colour", ONE_D_ARRAY],
-  ["Hz_pers_saveVar_markers_text",ONE_D_ARRAY]
+  ["Hz_pers_saveVar_vehicles_type",ONE_D_ARRAY,false],
+  ["Hz_pers_saveVar_vehicles_customs",ARRAY_OF_STRUCTS,false],
+  ["Hz_pers_saveVar_vehicles_positionATL",ONE_D_ARRAY,false],
+  ["Hz_pers_saveVar_vehicles_hitpointsdamage",ARRAY_OF_STRUCTS,false],
+  ["Hz_pers_saveVar_vehicles_dir",ONE_D_ARRAY,false],
+  ["Hz_pers_saveVar_vehicles_fuel",ONE_D_ARRAY,false],
+  ["Hz_pers_saveVar_vehicles_magazinesTurrets",ARRAY_OF_STRUCTS,false],
+  ["Hz_pers_saveVar_vehicles_magazinesAmmoCargo",NESTED_ARRAY_STRUCT,false],
+  ["Hz_pers_saveVar_vehicles_itemsCargo",ARRAY_OF_STRUCTS,false],
+  ["Hz_pers_saveVar_vehicles_variableValues",NESTED_ARRAY_STRUCT,false],
+  ["Hz_pers_saveVar_objects_type",ONE_D_ARRAY,false],
+  ["Hz_pers_saveVar_objects_damage",ONE_D_ARRAY,false],
+  ["Hz_pers_saveVar_objects_dir",ONE_D_ARRAY,false],
+  ["Hz_pers_saveVar_objects_positionATL",ONE_D_ARRAY,false],
+  ["Hz_pers_saveVar_objects_variableValues",NESTED_ARRAY_STRUCT,false],
+  ["Hz_pers_saveVar_crates_type",ONE_D_ARRAY,false],
+  ["Hz_pers_saveVar_crates_damage",ONE_D_ARRAY,false],
+  ["Hz_pers_saveVar_crates_dir",ONE_D_ARRAY,false],
+  ["Hz_pers_saveVar_crates_positionATL",ONE_D_ARRAY,false],
+  ["Hz_pers_saveVar_crates_magazinesAmmoCargo",NESTED_ARRAY_STRUCT,false],
+  ["Hz_pers_saveVar_crates_itemsCargo",ARRAY_OF_STRUCTS,false],
+  ["Hz_pers_saveVar_crates_variableValues",NESTED_ARRAY_STRUCT,false],
+  ["Hz_pers_saveVar_players_variableNames",ONE_D_ARRAY,false],
+  ["Hz_pers_saveVar_vehicles_variableNames",ONE_D_ARRAY,false],
+  ["Hz_pers_saveVar_crates_variableNames",ONE_D_ARRAY,false],
+  ["Hz_pers_saveVar_objects_variableNames",ONE_D_ARRAY,false],
+  ["Hz_pers_saveVar_players_UID",ONE_D_ARRAY,false],
+  ["Hz_pers_saveVar_players_vestType",ONE_D_ARRAY,false],
+  ["Hz_pers_saveVar_players_uniformType",ONE_D_ARRAY,false],
+  ["Hz_pers_saveVar_players_backpackType",ONE_D_ARRAY,false],
+  ["Hz_pers_saveVar_players_headGear",ONE_D_ARRAY,false],
+  ["Hz_pers_saveVar_players_goggles",ONE_D_ARRAY,false],
+  ["Hz_pers_saveVar_players_positionATL",ONE_D_ARRAY,false],
+  ["Hz_pers_saveVar_players_dir",ONE_D_ARRAY,false],
+  ["Hz_pers_saveVar_players_anim",ONE_D_ARRAY,false],
+  ["Hz_pers_saveVar_players_assignedItems",NESTED_ARRAY_STRUCT,false],
+  ["Hz_pers_saveVar_players_backpackMagazines",NESTED_ARRAY_STRUCT,false],
+  ["Hz_pers_saveVar_players_vestMagazines",NESTED_ARRAY_STRUCT,false],
+  ["Hz_pers_saveVar_players_uniformMagazines",NESTED_ARRAY_STRUCT,false],
+  ["Hz_pers_saveVar_players_uniformItems",ARRAY_OF_STRUCTS,false],
+  ["Hz_pers_saveVar_players_vestItems",ARRAY_OF_STRUCTS,false],
+  ["Hz_pers_saveVar_players_backpackItems",ARRAY_OF_STRUCTS,false],
+  ["Hz_pers_saveVar_players_weaponsItems",ARRAY_OF_STRUCTS,false],
+  ["Hz_pers_saveVar_players_hitpointsdamage",ARRAY_OF_STRUCTS,false],
+  ["Hz_pers_saveVar_players_variableValues",NESTED_ARRAY_STRUCT,false],
+  ["Hz_pers_saveVar_markers_type",ONE_D_ARRAY,false],
+  ["Hz_pers_saveVar_markers_pos", ONE_D_ARRAY,false],
+  ["Hz_pers_saveVar_markers_colour", ONE_D_ARRAY,false],
+  ["Hz_pers_saveVar_markers_text",ONE_D_ARRAY,false]
 ];
 
 
@@ -162,11 +162,18 @@ Hz_pers_customLoadFunctionName = _logic getVariable "CustomLoadFunctionName";
 Hz_pers_autoLoadDelay = call compile (_logic getVariable "AutoLoadDelay");
 Hz_pers_pathToSaveFile = _logic getVariable "PathToSaveFile";
 
+
+if (isclass (configfile >> "cfgpatches" >> "ace_hearing")) then {
+
+	Hz_pers_saveVar_players_variableNames pushBackUnique ["ACE_hasEarPlugsin",false];
+
+};
+
 if (Hz_pers_enableACEmedical) then {
 
   {
 
-    Hz_pers_saveVar_players_variableNames pushBackUnique _x;
+    Hz_pers_saveVar_players_variableNames pushBackUnique [_x,false];
 
   } foreach ["ace_medical_pain",
             "ace_medical_morphine",
@@ -200,10 +207,10 @@ if (Hz_pers_enableACEmedical) then {
             "ace_medical_allUsedMedication",
             "ace_medical_allLogs"
             ];
-          
-  publicVariable "Hz_pers_saveVar_players_variableNames";
 
 };
+
+publicVariable "Hz_pers_saveVar_players_variableNames";
 
 //auto-load
 _logic spawn {

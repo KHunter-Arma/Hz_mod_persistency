@@ -42,6 +42,12 @@ call compile _this;
     default {};    
     
   };
+	
+	if (_x select 2) then {
+	
+		publicVariable _objectName;
+	
+	};
   
 } foreach Hz_pers_parsingInfo;   
 
@@ -124,7 +130,7 @@ if (_indexVehicle >= 0) then {
       
       if (_value != "nil") then {
         
-        _veh setvariable [_x,_value];
+        _veh setvariable [_x select 0,_value,_x select 1];
         
       };
       
@@ -159,7 +165,7 @@ if (_indexObject >= 0) then {
       
       if (_value != "nil") then {
         
-        _obj setvariable [_x,_value];
+        _obj setvariable [_x select 0,_value,_x select 1];
         
       };
       
@@ -213,7 +219,7 @@ if (_indexCrate >= 0) then {
       
       if (_value != "nil") then {
         
-        _crate setvariable [_x,_value];
+        _crate setvariable [_x select 0,_value,_x select 1];
         
       };
       

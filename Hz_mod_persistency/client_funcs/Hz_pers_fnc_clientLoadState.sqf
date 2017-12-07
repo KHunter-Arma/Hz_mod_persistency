@@ -79,7 +79,15 @@ player addbackpack _backpackType;
 player addHeadgear _headGear;
 player addGoggles _goggles;
 
+sleep 0.1;
+
 progressLoadingScreen 0.3;
+
+clearItemCargoGlobal (vestContainer player);
+clearItemCargoGlobal (uniformContainer player);
+clearItemCargoGlobal (backpackContainer player);
+
+progressLoadingScreen 0.4;
 
 {
 
@@ -201,13 +209,13 @@ progressLoadingScreen 0.75;
 	if ((typeName _variable) == "STRING") then {
 	
 		if (_variable != "nil") then {
-			//make all variables local for now since we haven't stored info about that...
-			player setvariable [_x,_variable];
+			
+			player setvariable [_x select 0,_variable,_x select 1];
 		};
 	
 	} else {
-		//make all variables local for now since we haven't stored info about that...
-		player setvariable [_x,_variable];
+		
+		player setvariable [_x select 0,_variable,_x select 1];
 	
 	};
 
