@@ -83,9 +83,17 @@ sleep 0.1;
 
 progressLoadingScreen 0.3;
 
+clearMagazineCargoGlobal (vestContainer player);
+clearWeaponCargoGlobal (vestContainer player);
 clearItemCargoGlobal (vestContainer player);
 clearItemCargoGlobal (uniformContainer player);
+clearMagazineCargoGlobal (uniformContainer player);
+clearWeaponCargoGlobal (uniformContainer player);
 clearItemCargoGlobal (backpackContainer player);
+clearMagazineCargoGlobal (backpackContainer player);
+clearWeaponCargoGlobal (backpackContainer player);
+
+sleep 0.1;
 
 progressLoadingScreen 0.4;
 

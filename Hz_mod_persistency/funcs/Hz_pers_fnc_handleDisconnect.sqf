@@ -130,11 +130,11 @@ Hz_pers_saveVar_players_weaponsItems set [_playerIndex, weaponsItems _unit];
 
 Hz_pers_saveVar_players_hitpointsdamage set [_playerIndex, getAllHitPointsDamage _unit];
 
-	_variables = [];
-	{				
-		_variables pushback (_unit getVariable [_x,"nil"]);
-		
-	} foreach Hz_pers_saveVar_players_variableNames;
+_variables = [];
+{				
+	_variables pushback (_unit getVariable [_x select 0,"nil"]);
+	
+} foreach Hz_pers_saveVar_players_variableNames;
 	
 Hz_pers_saveVar_players_variableValues set [_playerIndex, _variables];
 
