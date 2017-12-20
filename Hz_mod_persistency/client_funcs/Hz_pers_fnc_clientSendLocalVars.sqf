@@ -9,13 +9,18 @@
 * https://creativecommons.org/licenses/by-nc-sa/4.0/
 *******************************************************************************/
 
+// Pause menu (Esc button pushed in main display)?
 if ((_this select 1) == 1) then {
 
 	startLoadingScreen ["Loading..."];
 
 	{
 		
-		[player,_x select 0, player getvariable (_x select 0)] remoteExecCall ["Hz_pers_fnc_receiveLocalVars", 2, false];
+		if (!(_x select 1)) then {
+	
+			[player,_x select 0, player getvariable (_x select 0)] remoteExecCall ["Hz_pers_fnc_receiveLocalVars", 2, false];
+	
+		};
 	
 	} foreach Hz_pers_saveVar_players_variableNames;
 		
