@@ -74,9 +74,29 @@
     Hz_pers_saveVar_vehicles_itemsCargo pushBack (_itemsCargo call Hz_pers_fnc_convert1DArrayTo2D);
     
     _variables = [];
-    {				
-      _variables pushback (_vehicle getVariable [_x select 0,"nil"]);
-      
+    {
+			if ((_x select 0) == "ace_cargo_loaded") then {
+			
+				_correctedList = _vehicle getVariable ["ace_cargo_loaded",[]];
+				
+				{
+				
+					if ((typename _x) == "OBJECT") then {
+					
+						_correctedList set [_foreachIndex, typeof _x];
+					
+					};
+				
+				} foreach _correctedList;
+				
+				_variables pushback _correctedList;
+			
+			} else {
+			
+				_variables pushback (_vehicle getVariable [_x select 0,"nil"]);
+			
+			};
+		
     } foreach Hz_pers_saveVar_vehicles_variableNames;
     
     Hz_pers_saveVar_vehicles_variableValues pushback _variables;			

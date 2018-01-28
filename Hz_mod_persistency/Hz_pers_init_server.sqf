@@ -172,7 +172,44 @@ if (isclass (configfile >> "cfgpatches" >> "ace_hearing")) then {
 if (isclass (configfile >> "cfgpatches" >> "ace_cargo")) then {
 
 	Hz_pers_saveVar_vehicles_variableNames pushBackUnique ["ace_cargo_loaded",true];
-
+	
+	["ace_cargoUnloaded", {
+	
+		_item = _this select 0;
+	
+		if ((typeName _item) == "OBJECT") exitWith {
+		
+			_item call hz_pers_api_addobject;
+		
+		};
+				
+		_nearItems = nearestobjects [_this select 1, [_item], 20];
+		
+		{
+		
+			if (!(_x in Hz_pers_network_objects)) exitWith {
+			
+				_x call hz_pers_api_addobject;
+			
+			};
+		
+		} foreach _nearItems;
+			
+	}] call CBA_fnc_addEventHandler;
+	
+	["ace_cargoLoaded", {
+	
+		_item = _this select 0;
+	
+		if ((typeName _item) == "OBJECT") exitWith {
+		
+			Hz_pers_network_objects = Hz_pers_network_objects - [_item];
+			publicVariable "Hz_pers_network_objects";
+		
+		};
+			
+	}] call CBA_fnc_addEventHandler;
+	
 };
 
 if (Hz_pers_enableACEmedical) then {
