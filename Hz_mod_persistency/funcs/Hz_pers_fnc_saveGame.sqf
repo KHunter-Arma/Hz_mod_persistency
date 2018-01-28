@@ -50,7 +50,7 @@
         
       };                               
       
-      Hz_pers_saveVar_vehicles_magazinesTurrets pushback _arrayofMagArrays;
+      Hz_pers_saveVar_vehicles_magazinesTurrets pushback _magTurretArray;
       
     } else {
       

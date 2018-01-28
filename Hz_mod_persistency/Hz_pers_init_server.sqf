@@ -169,6 +169,12 @@ if (isclass (configfile >> "cfgpatches" >> "ace_hearing")) then {
 
 };
 
+if (isclass (configfile >> "cfgpatches" >> "ace_cargo")) then {
+
+	Hz_pers_saveVar_vehicles_variableNames pushBackUnique ["ace_cargo_loaded",true];
+
+};
+
 if (Hz_pers_enableACEmedical) then {
 
   {
