@@ -12,6 +12,23 @@
 #include "..\parsing_descriptors.txt"
 #include "debug_console.hpp"
 
+// force current connected clients to save (not saving dead guys for now... lots of problems to think about there)
+
+{
+
+	[] remoteExecCall [_x,"Hz_pers_fnc_clientSendLocalVars",false];
+
+} foreach playableunits;
+
+sleep (2*(count playableUnits)/4);
+
+{
+
+	[_x, nil, getplayeruid _x] call Hz_pers_fnc_handleDisconnect;
+
+} foreach playableunits;
+	
+	
 //get vehicle info
 
 {

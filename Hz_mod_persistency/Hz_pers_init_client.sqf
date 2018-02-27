@@ -18,12 +18,13 @@ Hz_pers_clientFuncs_path = Hz_pers_path + "client_funcs\";
 Hz_pers_fnc_clientSendLocalVars = compile preprocessFileLineNumbers (Hz_pers_clientFuncs_path + "Hz_pers_fnc_clientSendLocalVars.sqf");
 Hz_pers_fnc_clientLoadState = compile preprocessFileLineNumbers (Hz_pers_clientFuncs_path + "Hz_pers_fnc_clientLoadState.sqf");
 Hz_pers_fnc_clientDeletePersistentMarker = compile preprocessFileLineNumbers (Hz_pers_clientFuncs_path + "Hz_pers_fnc_clientDeletePersistentMarker.sqf");
+Hz_pers_fnc_clientHandleEscButtonPushed = compile preprocessFileLineNumbers (Hz_pers_clientFuncs_path + "Hz_pers_fnc_clientHandleEscButtonPushed.sqf"); 
 
 waituntil {sleep 0.1; !isnull (finddisplay 46)};
 waitUntil {sleep 0.1; !isnull player};
 
 //add EHs
-(findDisplay 46) displayAddEventHandler ["KeyDown", Hz_pers_fnc_clientSendLocalVars];
+(findDisplay 46) displayAddEventHandler ["KeyDown", Hz_pers_fnc_clientHandleEscButtonPushed];
 
 /* looks like not needed
 addMissionEventHandler ["MapSingleClick", Hz_pers_fnc_clientDeletePersistentMarker];

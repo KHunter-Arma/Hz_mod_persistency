@@ -44,16 +44,16 @@ while {!_exit} do {
                             
             //empty array
             //RULE: If first array of struct is empty, that signifies the struct itself is empty, so we replace nested array structure with an empty array and exit.
-            if(_structElementIndex == 0) then {
+      //      if(_structElementIndex == 0) then {
              
-                _exit = true;   
+       //         _exit = true;   
              
-            } else {
+      //      } else {
                 
                 //not first element -- so add it to the struct and continue
                 _parsedStruct set [count _parsedStruct, _structElement];                    
                         
-            };
+      //      };
         
         };  
     

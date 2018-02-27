@@ -128,7 +128,7 @@ if (_indexVehicle >= 0) then {
       
       _value = _variableValues select _foreachIndex;
       
-      if (_value != "nil") then {
+      if (!(_value isEqualTo "nil")) then {
         
         _veh setvariable [_x select 0,_value,_x select 1];
         
@@ -163,7 +163,7 @@ if (_indexObject >= 0) then {
       
       _value = _variableValues select _foreachIndex;
       
-      if (_value != "nil") then {
+      if (!(_value isEqualTo "nil")) then {
         
         _obj setvariable [_x select 0,_value,_x select 1];
         
@@ -217,7 +217,7 @@ if (_indexCrate >= 0) then {
       
       _value = _variableValues select _foreachIndex;
       
-      if (_value != "nil") then {
+      if (!(_value isEqualTo "nil")) then {
         
         _crate setvariable [_x select 0,_value,_x select 1];
         
