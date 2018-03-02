@@ -16,7 +16,7 @@
 
 {
 
-	[] remoteExecCall [_x,"Hz_pers_fnc_clientSendLocalVars",false];
+	[] remoteExecCall ["Hz_pers_fnc_clientSendLocalVars",_x,false];
 
 } foreach playableunits;
 
