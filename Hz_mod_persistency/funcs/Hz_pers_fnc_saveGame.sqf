@@ -74,10 +74,43 @@ sleep (2*(count playableUnits)/4);
       Hz_pers_saveVar_vehicles_magazinesTurrets pushBack [[],[],[]];
       
     };
-    
-    Hz_pers_saveVar_vehicles_magazinesAmmoCargo pushBack (magazinesAmmoCargo _vehicle);		
 
     _itemsCargo = [];
+		_magazinesAmmoCargo = magazinesAmmoCargo _vehicle;
+		
+		{
+		
+			_itemsCargo pushBack ([_x select 0] call bis_fnc_baseweapon);	
+			
+			{
+			
+				if (_x != "") then {
+				
+					_itemsCargo pushBack _x;
+				
+				};
+			
+			} foreach [_x select 1, _x select 2, _x select 3];
+			
+			_magArray = _x select 4;
+			if ((count _magArray) > 0) then {			
+				_magazinesAmmoCargo pushBack [(_magArray select 0), (_magArray select 1)];
+			};
+			
+			//Grenade launcher?
+			if ((typename (_x select 5)) == "ARRAY") then {
+				
+				_magArray = _x select 5;
+				if ((count _magArray) > 0) then {
+					_magazinesAmmoCargo pushBack [(_magArray select 0), (_magArray select 1)];
+				};
+
+			};
+		
+		} foreach weaponsItemsCargo _vehicle;		
+		
+		Hz_pers_saveVar_vehicles_magazinesAmmoCargo pushBack _magazinesAmmoCargo;		
+		
     {
 
       if (!("CA_Magazine" in ([(configfile >> "cfgmagazines" >> _x), true] call bis_fnc_returnParents))) then {
@@ -150,10 +183,45 @@ sleep (2*(count playableUnits)/4);
   Hz_pers_saveVar_crates_damage pushBack (getdammage _x);
   Hz_pers_saveVar_crates_dir pushBack (getdir _x);
   Hz_pers_saveVar_crates_positionATL pushBack (getPosATL _x);
-  Hz_pers_saveVar_crates_magazinesAmmoCargo pushback (magazinesAmmoCargo _x);
   
   _itemsCargo = [];
   _crate = _x;
+	
+	_magazinesAmmoCargo = magazinesAmmoCargo _crate;
+		
+	{
+	
+		_itemsCargo pushBack ([_x select 0] call bis_fnc_baseweapon);	
+		
+		{
+		
+			if (_x != "") then {
+			
+				_itemsCargo pushBack _x;
+			
+			};
+		
+		} foreach [_x select 1, _x select 2, _x select 3];
+		
+		_magArray = _x select 4;
+		if ((count _magArray) > 0) then {			
+			_magazinesAmmoCargo pushBack [(_magArray select 0), (_magArray select 1)];
+		};
+		
+		//Grenade launcher?
+		if ((typename (_x select 5)) == "ARRAY") then {
+			
+			_magArray = _x select 5;
+			if ((count _magArray) > 0) then {
+				_magazinesAmmoCargo pushBack [(_magArray select 0), (_magArray select 1)];
+			};
+
+		};
+	
+	} foreach weaponsItemsCargo _crate;
+	
+	Hz_pers_saveVar_crates_magazinesAmmoCargo pushback _magazinesAmmoCargo;
+	
   {
 
     if (!("CA_Magazine" in ([(configfile >> "cfgmagazines" >> _x), true] call bis_fnc_returnParents))) then {

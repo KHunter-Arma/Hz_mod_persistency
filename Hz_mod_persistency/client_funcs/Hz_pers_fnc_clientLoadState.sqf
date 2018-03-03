@@ -99,7 +99,7 @@ progressLoadingScreen 0.4;
 
 {
 
-	player addWeapon (_x select 0);
+	player addWeapon ([_x select 0] call bis_fnc_baseweapon);
 	
 	//add magazine
 	_magArray = _x select 4;

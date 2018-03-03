@@ -68,62 +68,169 @@ if((vehicle _unit) iskindof "Air") then {
 
 Hz_pers_saveVar_players_assignedItems set [_playerIndex, assignedItems _unit];
 
-if(!isnull (backpackContainer _unit)) then {
-	Hz_pers_saveVar_players_backpackMagazines set [_playerIndex,magazinesAmmoCargo backpackContainer _unit];
-} else {
-	Hz_pers_saveVar_players_backpackMagazines set [_playerIndex,[]];
+_itemCargo = [];
+_magazinesAmmoCargo = [];
+_container = uniformContainer _unit;
+
+if(!isnull _container) then {
+
+	_magazinesAmmoCargo = magazinesAmmoCargo _container;
+	
+	{
+
+		if (!("CA_Magazine" in ([(configfile >> "cfgmagazines" >> _x), true] call bis_fnc_returnParents))) then {
+
+			_itemCargo pushback _x;
+
+		};
+
+	} foreach itemCargo _container;
+	
+	{
+		
+			_itemCargo pushBack ([_x select 0] call bis_fnc_baseweapon);	
+			
+			{
+			
+				if (_x != "") then {
+				
+					_itemCargo pushBack _x;
+				
+				};
+			
+			} foreach [_x select 1, _x select 2, _x select 3];
+			
+			_magArray = _x select 4;
+			if ((count _magArray) > 0) then {			
+				_magazinesAmmoCargo pushBack [(_magArray select 0), (_magArray select 1)];
+			};
+			
+			//Grenade launcher?
+			if ((typename (_x select 5)) == "ARRAY") then {
+				
+				_magArray = _x select 5;
+				if ((count _magArray) > 0) then {
+					_magazinesAmmoCargo pushBack [(_magArray select 0), (_magArray select 1)];
+				};
+
+			};
+		
+		} foreach weaponsItemsCargo _container;	
+	
 };
 
-if(!isnull (vestContainer _unit)) then {
-	Hz_pers_saveVar_players_vestMagazines set [_playerIndex,magazinesAmmoCargo vestContainer _unit];
-} else {
-	Hz_pers_saveVar_players_vestMagazines set [_playerIndex,[]];
+Hz_pers_saveVar_players_uniformMagazines set [_playerIndex,_magazinesAmmoCargo];
+Hz_pers_saveVar_players_uniformItems set [_playerIndex, _itemCargo call Hz_pers_fnc_convert1DArrayTo2D];
+
+
+_itemCargo = [];
+_magazinesAmmoCargo = [];
+_container = vestContainer _unit;
+
+if(!isnull _container) then {
+
+	_magazinesAmmoCargo = magazinesAmmoCargo _container;
+	
+	{
+
+		if (!("CA_Magazine" in ([(configfile >> "cfgmagazines" >> _x), true] call bis_fnc_returnParents))) then {
+
+			_itemCargo pushback _x;
+
+		};
+
+	} foreach itemCargo _container;
+	
+	{
+		
+			_itemCargo pushBack ([_x select 0] call bis_fnc_baseweapon);	
+			
+			{
+			
+				if (_x != "") then {
+				
+					_itemCargo pushBack _x;
+				
+				};
+			
+			} foreach [_x select 1, _x select 2, _x select 3];
+			
+			_magArray = _x select 4;
+			if ((count _magArray) > 0) then {			
+				_magazinesAmmoCargo pushBack [(_magArray select 0), (_magArray select 1)];
+			};
+			
+			//Grenade launcher?
+			if ((typename (_x select 5)) == "ARRAY") then {
+				
+				_magArray = _x select 5;
+				if ((count _magArray) > 0) then {
+					_magazinesAmmoCargo pushBack [(_magArray select 0), (_magArray select 1)];
+				};
+
+			};
+		
+		} foreach weaponsItemsCargo _container;	
+	
 };
 
-if(!isnull (uniformContainer _unit)) then {
-	Hz_pers_saveVar_players_uniformMagazines set [_playerIndex,magazinesAmmoCargo uniformContainer _unit];
-} else {
-	Hz_pers_saveVar_players_uniformMagazines set [_playerIndex,[]];
+Hz_pers_saveVar_players_vestMagazines set [_playerIndex,_magazinesAmmoCargo];
+Hz_pers_saveVar_players_vestItems set [_playerIndex, _itemCargo call Hz_pers_fnc_convert1DArrayTo2D];
+
+
+_itemCargo = [];
+_magazinesAmmoCargo = [];
+_container = backpackContainer _unit;
+
+if(!isnull _container) then {
+
+	_magazinesAmmoCargo = magazinesAmmoCargo _container;
+	
+	{
+
+		if (!("CA_Magazine" in ([(configfile >> "cfgmagazines" >> _x), true] call bis_fnc_returnParents))) then {
+
+			_itemCargo pushback _x;
+
+		};
+
+	} foreach itemCargo _container;
+	
+	{
+		
+			_itemCargo pushBack ([_x select 0] call bis_fnc_baseweapon);	
+			
+			{
+			
+				if (_x != "") then {
+				
+					_itemCargo pushBack _x;
+				
+				};
+			
+			} foreach [_x select 1, _x select 2, _x select 3];
+			
+			_magArray = _x select 4;
+			if ((count _magArray) > 0) then {			
+				_magazinesAmmoCargo pushBack [(_magArray select 0), (_magArray select 1)];
+			};
+			
+			//Grenade launcher?
+			if ((typename (_x select 5)) == "ARRAY") then {
+				
+				_magArray = _x select 5;
+				if ((count _magArray) > 0) then {
+					_magazinesAmmoCargo pushBack [(_magArray select 0), (_magArray select 1)];
+				};
+
+			};
+		
+		} foreach weaponsItemsCargo _container;	
+	
 };
 
-_temp = [];
-{
-
-	if (!("CA_Magazine" in ([(configfile >> "cfgmagazines" >> _x), true] call bis_fnc_returnParents))) then {
-
-		_temp pushback _x;
-
-	};
-
-} foreach uniformItems _unit;
-
-Hz_pers_saveVar_players_uniformItems set [_playerIndex, _temp call Hz_pers_fnc_convert1DArrayTo2D];
-
-_temp = [];
-{
-
-	if (!("CA_Magazine" in ([(configfile >> "cfgmagazines" >> _x), true] call bis_fnc_returnParents))) then {
-
-		_temp pushback _x;
-
-	};
-
-} foreach vestItems _unit;
-
-Hz_pers_saveVar_players_vestItems set [_playerIndex, _temp call Hz_pers_fnc_convert1DArrayTo2D];
-
-_temp = [];
-{
-
-	if (!("CA_Magazine" in ([(configfile >> "cfgmagazines" >> _x), true] call bis_fnc_returnParents))) then {
-
-		_temp pushback _x;
-
-	};
-
-} foreach backpackItems _unit;
-
-Hz_pers_saveVar_players_backpackItems set [_playerIndex, _temp call Hz_pers_fnc_convert1DArrayTo2D];
+Hz_pers_saveVar_players_backpackMagazines set [_playerIndex,_magazinesAmmoCargo];
+Hz_pers_saveVar_players_backpackItems set [_playerIndex, _itemCargo call Hz_pers_fnc_convert1DArrayTo2D];
 
 
 Hz_pers_saveVar_players_weaponsItems set [_playerIndex, weaponsItems _unit];
