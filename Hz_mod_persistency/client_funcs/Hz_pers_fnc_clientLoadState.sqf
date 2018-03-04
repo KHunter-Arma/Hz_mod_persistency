@@ -99,7 +99,7 @@ progressLoadingScreen 0.4;
 
 {
 
-	player addWeapon ([_x select 0] call bis_fnc_baseweapon);
+	player addWeapon (_x select 0);	
 	
 	//add magazine
 	_magArray = _x select 4;
@@ -118,9 +118,18 @@ progressLoadingScreen 0.4;
 	};
 	
 	//attachments
-	player addWeaponItem [_x select 0, _x select 1];
-	player addWeaponItem [_x select 0, _x select 2];
-	player addWeaponItem [_x select 0, _x select 3];
+	_wep = _x select 0;
+	_wepComponents = [_wep] call BIS_fnc_weaponComponents;
+	
+	{
+	
+		if (!((tolower _x) in _wepComponents)) then {
+		
+			player addWeaponItem [_wep, _x];
+		
+		};
+	
+	} foreach [_x select 1, _x select 2, _x select 3];
 
 } foreach _weaponsItems;
 
