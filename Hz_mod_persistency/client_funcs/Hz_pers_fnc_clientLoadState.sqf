@@ -65,11 +65,9 @@ removeBackpack player;
 removeHeadgear player;
 removeGoggles player;
 
-progressLoadingScreen 0.1;
-
 sleep 0.1;
 
-progressLoadingScreen 0.2;
+progressLoadingScreen 0.1;
 
 //load gear
 
@@ -81,7 +79,7 @@ player addGoggles _goggles;
 
 sleep 0.1;
 
-progressLoadingScreen 0.3;
+progressLoadingScreen 0.2;
 
 clearMagazineCargoGlobal (vestContainer player);
 clearWeaponCargoGlobal (vestContainer player);
@@ -95,7 +93,7 @@ clearWeaponCargoGlobal (backpackContainer player);
 
 sleep 0.1;
 
-progressLoadingScreen 0.4;
+progressLoadingScreen 0.3;
 
 {
 
@@ -107,6 +105,21 @@ progressLoadingScreen 0.4;
 		player addWeaponItem [(_x select 0), [(_magArray select 0), (_magArray select 1)]];
 	};
 	
+	//attachments
+	_wep = _x select 0;
+	_wepComponents = _wep call BIS_fnc_weaponComponents;
+	
+	{
+	
+		if (!((tolower _x) in _wepComponents)) then {
+		
+			player addWeaponItem [_wep, _x];
+			sleep 0.1;
+		
+		};
+	
+	} foreach [_x select 1, _x select 2, _x select 3];
+	
 	//Grenade launcher?
 	if ((typename (_x select 5)) == "ARRAY") then {
 		
@@ -114,24 +127,26 @@ progressLoadingScreen 0.4;
 		if ((count _magArray) > 0) then {
 			player addWeaponItem [(_x select 0), [(_magArray select 0), (_magArray select 1)]];
 		};
+		
+		if (!((tolower (_x select 6)) in _wepComponents)) then {
+		
+			player addWeaponItem [_wep, (_x select 6)];
+		
+		};	
 
+	} else {
+	
+		if (!((tolower (_x select 5)) in _wepComponents)) then {
+		
+			player addWeaponItem [_wep, (_x select 5)];
+		
+		};	
+	
 	};
-	
-	//attachments
-	_wep = _x select 0;
-	_wepComponents = [_wep] call BIS_fnc_weaponComponents;
-	
-	{
-	
-		if (!((tolower _x) in _wepComponents)) then {
-		
-			player addWeaponItem [_wep, _x];
-		
-		};
-	
-	} foreach [_x select 1, _x select 2, _x select 3];
 
 } foreach _weaponsItems;
+
+progressLoadingScreen 0.5;
 
 /*
 
@@ -176,8 +191,6 @@ reload player;
 player setWeaponReloadingTime [player, currentMuzzle player, 0];
 
 */
-
-progressLoadingScreen 0.5;
 
 // if any of these don't exist, array will be empty, so should be safe for foreach loop
 

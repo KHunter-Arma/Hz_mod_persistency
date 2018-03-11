@@ -268,3 +268,8 @@ diag_log Hz_pers_saveVar_players_hitpointsdamage;
 diag_log Hz_pers_saveVar_players_variableValues;
 diag_log "###########################################################################";
 #endif
+
+// we have a problem with unit not getting deleted, don't delete to prevent other EHs from potentially failing -- move him out to nowhere to prevent exploits
+_unit setpos [-50000,50000,0];
+
+false

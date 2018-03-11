@@ -121,5 +121,27 @@ _this spawn {
 
   //reset player state on the server -- allows the API function disable persistency to work such that an old state isn't loaded by mistake when client state saving is disabled at disconnection
   Hz_pers_saveVar_players_positionATL set [_playerIndex, []]; // client load function will exit from here and ignore rest of data until all is overwritten
+	
+	// make sure to do the same on death to prevent exploits
+	_player addEventHandler ["Killed",{
+	
+		[] spawn {
+	
+			_player = _this select 0;
+			
+			//not sure if this EH runs on disconnect, but let's be safe...
+			sleep 3;
+		
+			if (isnull _player) exitWith {};
+			if (!isPlayer _player) exitWith {};
+		
+			_playerIndex = Hz_pers_saveVar_players_UID find (getPlayerUID _player);
+			if (_playerIndex == -1) exitWith {};
+			
+			Hz_pers_saveVar_players_positionATL set [_playerIndex, []];
+		
+		};
+	
+	}];
 
 };
