@@ -20,10 +20,25 @@
 
 _unit = _this select 0;
 _uid = _this select 2;
+_forcedSave = false;
 
-if (!alive _unit) exitWith {};
+if ((count _this) > 4) then {
 
-if (_unit getvariable ["Hz_pers_clientDisableSaveStateOnDisconnect",false]) exitWith {};
+	_forcedSave = _this select 4;
+
+};
+
+if ((!alive _unit) && !_forcedSave) exitWith {
+
+	deletevehicle _unit;
+	
+};
+
+if ((_unit getvariable ["Hz_pers_clientDisableSaveStateOnDisconnect",false]) && !_forcedSave) exitWith {
+
+	deletevehicle _unit;
+
+};
 
 _playerIndex = Hz_pers_saveVar_players_UID find _uid;
 
@@ -269,7 +284,10 @@ diag_log Hz_pers_saveVar_players_variableValues;
 diag_log "###########################################################################";
 #endif
 
-// we have a problem with unit not getting deleted, don't delete to prevent other EHs from potentially failing -- move him out to nowhere to prevent exploits
-_unit setpos [-50000,50000,0];
+if (!_forcedSave) then {
+
+	deletevehicle _unit;
+
+};
 
 false

@@ -24,7 +24,7 @@ sleep (2*(count playableUnits)/4);
 
 {
 
-	[_x, nil, getplayeruid _x] call Hz_pers_fnc_handleDisconnect;
+	[_x, nil, getplayeruid _x,nil,true] call Hz_pers_fnc_handleDisconnect;
 
 } foreach playableunits;
 	
