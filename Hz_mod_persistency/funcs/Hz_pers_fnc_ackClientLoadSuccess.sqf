@@ -9,6 +9,7 @@
 * https://creativecommons.org/licenses/by-nc-sa/4.0/
 *******************************************************************************/
 
-if (!isServer) exitWith {hint "Only the server may add variables!"};
+_uid = _this select 0;
 
-Hz_pers_saveVar_vehicles_variableNames pushBackUnique _this;
+Hz_pers_clientConnectSafeguardArray = Hz_pers_clientConnectSafeguardArray - [_uid];
+	

@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) Hunter'z Persistency Module
+* Copyright (C) 2017-2018 K.Hunter
 *
 * This file is licensed under a Creative Commons
 * Attribution-NonCommercial-ShareAlike 4.0 International License.
