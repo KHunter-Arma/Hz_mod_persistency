@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) Hunter'z Persistency Module
+* Copyright (C) 2017-2018 K.Hunter
 *
 * This file is licensed under a Creative Commons
 * Attribution-NonCommercial-ShareAlike 4.0 International License.
@@ -12,6 +12,8 @@
 #include "parsing_descriptors.txt"
 
 Hz_pers_funcs_path = Hz_pers_path + "funcs\";
+
+Hz_pers_clientConnectSafeguardArray = [];
 
 // init public variables that should be persistent throughout server uptime
 
@@ -83,6 +85,7 @@ Hz_pers_saveVar_markers_colour = [];
 Hz_pers_saveVar_markers_text = [];
 
 // compile funcs
+Hz_pers_fnc_handleAcreRadios = compile preprocessFileLineNumbers (Hz_pers_funcs_path + "Hz_pers_fnc_handleAcreRadios.sqf");
 Hz_pers_fnc_handleDisconnect = compile preprocessFileLineNumbers (Hz_pers_funcs_path + "Hz_pers_fnc_handleDisconnect.sqf");
 Hz_pers_fnc_handleConnect = compile preprocessFileLineNumbers (Hz_pers_funcs_path + "Hz_pers_fnc_handleConnect.sqf");
 Hz_pers_fnc_arrayParser = compile preprocessFileLineNumbers (Hz_pers_funcs_path + "Hz_pers_fnc_arrayParser.sqf");
@@ -98,6 +101,7 @@ Hz_pers_fnc_convert1DArrayTo2D = compile preprocessFileLineNumbers (Hz_pers_func
 Hz_pers_fnc_receiveLocalVars = compile preprocessFileLineNumbers (Hz_pers_funcs_path + "Hz_pers_fnc_receiveLocalVars.sqf");
 Hz_pers_fnc_loadGame = compile preprocessFileLineNumbers (Hz_pers_funcs_path + "Hz_pers_fnc_loadGame.sqf");
 Hz_pers_fnc_handleFirstTimeLaunch = compile preprocessFileLineNumbers (Hz_pers_funcs_path + "Hz_pers_fnc_handleFirstTimeLaunch.sqf");
+Hz_pers_fnc_ackClientLoadSuccess = compile preprocessFileLineNumbers (Hz_pers_funcs_path + "Hz_pers_fnc_ackClientLoadSuccess.sqf");
 
 //init parsing info
 Hz_pers_parsingInfo = [

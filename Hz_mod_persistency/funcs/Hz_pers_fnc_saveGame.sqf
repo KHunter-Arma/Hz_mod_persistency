@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) Hunter'z Persistency Module
+* Copyright (C) 2017-2018 K.Hunter
 *
 * This file is licensed under a Creative Commons
 * Attribution-NonCommercial-ShareAlike 4.0 International License.
@@ -18,15 +18,15 @@
 
 	[] remoteExecCall ["Hz_pers_fnc_clientSendLocalVars",_x,false];
 
-} foreach playableunits;
+} foreach allPlayers;
 
-sleep (2*(count playableUnits)/4);
+sleep (2*(count allPlayers)/4);
 
 {
 
 	[_x, nil, getplayeruid _x,nil,true] call Hz_pers_fnc_handleDisconnect;
 
-} foreach playableunits;
+} foreach allPlayers;
 	
 	
 //get vehicle info

@@ -6,7 +6,7 @@
 * Description: 	Executed via mission event handler of type "PlayerConnected"
 *               added on server during mission init
 ********************************************************************************
-* Copyright (C) Hunter'z Persistency Module
+* Copyright (C) 2017-2018 K.Hunter
 *
 * This file is licensed under a Creative Commons
 * Attribution-NonCommercial-ShareAlike 4.0 International License.
@@ -14,7 +14,7 @@
 * For more information about this license view the LICENSE.md distributed
 * together with this file or visit:
 * https://creativecommons.org/licenses/by-nc-sa/4.0/
-*******************************************************************************/					
+*******************************************************************************/				
 
 //#define DEBUG
 
@@ -22,18 +22,20 @@ _this spawn {
 
   _ownerID = _this select 4;
   _uid = _this select 1;
+	
+	Hz_pers_clientConnectSafeguardArray pushBack _uid;
 
   _playerIndex = Hz_pers_saveVar_players_UID find _uid;
 
   //player not on record
-  if (_playerIndex == -1) exitWith {};
+  if (_playerIndex == -1) exitWith {[_uid] call Hz_pers_fnc_ackClientLoadSuccess};
 
   //find player object
   _player = objNull;
   _timeout = time + 120;
   
   // mutex sleep
-  sleep 3;
+  sleep 0.5;
   
   while {(isnull _player) && (time < _timeout)} do {
   
@@ -118,30 +120,5 @@ _this spawn {
   Hz_pers_saveVar_players_variableNames,
   Hz_pers_saveVar_players_variableValues select _playerIndex
   ] remoteExec ["Hz_pers_fnc_clientLoadState",_ownerID,false];
-
-  //reset player state on the server -- allows the API function disable persistency to work such that an old state isn't loaded by mistake when client state saving is disabled at disconnection
-  Hz_pers_saveVar_players_positionATL set [_playerIndex, []]; // client load function will exit from here and ignore rest of data until all is overwritten
-	
-	// make sure to do the same on death to prevent exploits
-	_player addEventHandler ["Killed",{
-	
-		[] spawn {
-	
-			_player = _this select 0;
-			
-			//not sure if this EH runs on disconnect, but let's be safe...
-			sleep 3;
-		
-			if (isnull _player) exitWith {};
-			if (!isPlayer _player) exitWith {};
-		
-			_playerIndex = Hz_pers_saveVar_players_UID find (getPlayerUID _player);
-			if (_playerIndex == -1) exitWith {};
-			
-			Hz_pers_saveVar_players_positionATL set [_playerIndex, []];
-		
-		};
-	
-	}];
 
 };

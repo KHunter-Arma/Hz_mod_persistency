@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) Hunter'z Persistency Module
+* Copyright (C) 2017-2018 K.Hunter
 *
 * This file is licensed under a Creative Commons
 * Attribution-NonCommercial-ShareAlike 4.0 International License.
@@ -15,6 +15,7 @@ Hz_pers_clientEnableManualLoadSwitch = _logic getVariable "ClientEnableManualLoa
 Hz_pers_clientFuncs_path = Hz_pers_path + "client_funcs\";
 
 //compile funcs
+Hz_pers_fnc_handleAcreRadios = compile preprocessFileLineNumbers (Hz_pers_path + "funcs\Hz_pers_fnc_handleAcreRadios.sqf");
 Hz_pers_fnc_clientSendLocalVars = compile preprocessFileLineNumbers (Hz_pers_clientFuncs_path + "Hz_pers_fnc_clientSendLocalVars.sqf");
 Hz_pers_fnc_clientLoadState = compile preprocessFileLineNumbers (Hz_pers_clientFuncs_path + "Hz_pers_fnc_clientLoadState.sqf");
 Hz_pers_fnc_clientDeletePersistentMarker = compile preprocessFileLineNumbers (Hz_pers_clientFuncs_path + "Hz_pers_fnc_clientDeletePersistentMarker.sqf");

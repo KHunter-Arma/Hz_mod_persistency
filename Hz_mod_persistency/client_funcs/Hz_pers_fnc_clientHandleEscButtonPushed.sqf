@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) Hunter'z Persistency Module
+* Copyright (C) 2017-2018 K.Hunter
 *
 * This file is licensed under a Creative Commons
 * Attribution-NonCommercial-ShareAlike 4.0 International License.
@@ -12,10 +12,16 @@
 // Pause menu (Esc button pushed in main display)?
 if ((_this select 1) == 1) then {
 
-	startLoadingScreen ["Loading..."];
+	[] spawn {
 
-	call Hz_pers_fnc_clientSendLocalVars;
+		startLoadingScreen ["Loading..."];
+
+		call Hz_pers_fnc_clientSendLocalVars;
 		
-	endLoadingScreen;
+		uisleep 2;
+			
+		endLoadingScreen;
+	
+	};
 
 };

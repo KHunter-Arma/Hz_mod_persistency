@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) Hunter'z Persistency Module
+* Copyright (C) 2017-2018 K.Hunter
 *
 * This file is licensed under a Creative Commons
 * Attribution-NonCommercial-ShareAlike 4.0 International License.
@@ -79,7 +79,7 @@ if (_indexVehicle >= 0) then {
     _itemIndex = (count ((Hz_pers_saveVar_vehicles_itemsCargo select _index) select 0)) - 1;
     if (_itemIndex >= 0) then {
       for "_j" from 0 to _itemIndex do {
-        _veh addItemCargoGlobal[(((Hz_pers_saveVar_vehicles_itemsCargo select _index) select 0) select _j),(((Hz_pers_saveVar_vehicles_itemsCargo select _index) select 1) select _j)];
+        _veh addItemCargoGlobal[(((Hz_pers_saveVar_vehicles_itemsCargo select _index) select 0) select _j) call Hz_pers_fnc_handleAcreRadios,(((Hz_pers_saveVar_vehicles_itemsCargo select _index) select 1) select _j)];
       };
     };
     
@@ -208,7 +208,7 @@ if (_indexCrate >= 0) then {
     _itemIndex = (count ((Hz_pers_saveVar_crates_itemsCargo select _index) select 0)) - 1;
     if (_itemIndex >= 0) then {
       for "_j" from 0 to _itemIndex do {
-        _crate addItemCargoGlobal[(((Hz_pers_saveVar_crates_itemsCargo select _index) select 0) select _j),(((Hz_pers_saveVar_crates_itemsCargo select _index) select 1) select _j)];
+        _crate addItemCargoGlobal[(((Hz_pers_saveVar_crates_itemsCargo select _index) select 0) select _j) call Hz_pers_fnc_handleAcreRadios,(((Hz_pers_saveVar_crates_itemsCargo select _index) select 1) select _j)];
       };
     };
     

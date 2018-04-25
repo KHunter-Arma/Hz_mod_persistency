@@ -5,7 +5,7 @@
 *
 * Description: 	Executed on client via remote execution after client connects.
 ********************************************************************************
-* Copyright (C) Hunter'z Persistency Module
+* Copyright (C) 2017-2018 K.Hunter
 *
 * This file is licensed under a Creative Commons
 * Attribution-NonCommercial-ShareAlike 4.0 International License.
@@ -200,7 +200,7 @@ _container = vestContainer player;
 }foreach _vestMagazines;
 
 {
-	_container addItemCargoGlobal [_x,(_vestItems select 1) select _foreachIndex];
+	_container addItemCargoGlobal [_x call Hz_pers_fnc_handleAcreRadios,(_vestItems select 1) select _foreachIndex];
 } foreach (_vestItems select 0);
 
 _container = backpackContainer player;
@@ -209,7 +209,7 @@ _container = backpackContainer player;
 }foreach _backpackMagazines;
 
 {
-	_container addItemCargoGlobal [_x,(_backpackItems select 1) select _foreachIndex];
+	_container addItemCargoGlobal [_x call Hz_pers_fnc_handleAcreRadios,(_backpackItems select 1) select _foreachIndex];
 } foreach (_backpackItems select 0);
 
 _container = uniformContainer player;
@@ -218,7 +218,7 @@ _container = uniformContainer player;
 }foreach _uniformMagazines;
 
 {
-	_container addItemCargoGlobal [_x,(_uniformItems select 1) select _foreachIndex];
+	_container addItemCargoGlobal [_x call Hz_pers_fnc_handleAcreRadios,(_uniformItems select 1) select _foreachIndex];
 } foreach (_uniformItems select 0);
 
 
@@ -256,6 +256,8 @@ progressLoadingScreen 1;
 player setdir _dir;
 player switchMove _anim;
 player setposatl _positionATL;
+
+[getPlayerUID player] remoteExecCall ["Hz_pers_fnc_ackClientLoadSuccess",2,false];
 
 Hz_pers_fnc_clientInitDone = true;
 
