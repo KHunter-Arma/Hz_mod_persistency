@@ -50,7 +50,7 @@ diag_log "######################################################################
 waitUntil {sleep 0.1; !isnull player};
 
 //exit if no data
-if ((count _positionATL) < 1) exitWith {Hz_pers_fnc_clientInitDone = true;};
+if ((count _positionATL) < 1) exitWith {[getPlayerUID player] remoteExecCall ["Hz_pers_fnc_ackClientLoadSuccess",2,false];};
 
 startLoadingScreen ["Loading..."];
 
@@ -256,9 +256,5 @@ progressLoadingScreen 1;
 player setdir _dir;
 player switchMove _anim;
 player setposatl _positionATL;
-
-[getPlayerUID player] remoteExecCall ["Hz_pers_fnc_ackClientLoadSuccess",2,false];
-
-Hz_pers_fnc_clientInitDone = true;
 
 endLoadingScreen;
