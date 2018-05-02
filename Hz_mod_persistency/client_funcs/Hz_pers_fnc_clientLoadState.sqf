@@ -257,4 +257,6 @@ player setdir _dir;
 player switchMove _anim;
 player setposatl _positionATL;
 
+[getPlayerUID player] remoteExecCall ["Hz_pers_fnc_ackClientLoadSuccess",2,false];
+
 endLoadingScreen;
