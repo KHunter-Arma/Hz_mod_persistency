@@ -122,6 +122,8 @@ sleep (2*(count allPlayers)/4);
     } foreach (itemCargo _vehicle);
 
     Hz_pers_saveVar_vehicles_itemsCargo pushBack (_itemsCargo call Hz_pers_fnc_convert1DArrayTo2D);
+		
+		Hz_pers_saveVar_vehicles_backpackCargo pushBack ((backpackCargo _vehicle) call Hz_pers_fnc_convert1DArrayTo2D);
     
     _variables = [];
     {
@@ -234,6 +236,7 @@ sleep (2*(count allPlayers)/4);
 
   Hz_pers_saveVar_crates_itemsCargo pushBack (_itemsCargo call Hz_pers_fnc_convert1DArrayTo2D);
   
+	Hz_pers_saveVar_crates_backpackCargo pushBack ((backpackCargo _crate) call Hz_pers_fnc_convert1DArrayTo2D);
   
   _variables = [];
   {				

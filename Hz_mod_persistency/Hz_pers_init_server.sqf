@@ -63,6 +63,7 @@ Hz_pers_saveVar_vehicles_fuel = [];
 Hz_pers_saveVar_vehicles_magazinesTurrets = [];
 Hz_pers_saveVar_vehicles_magazinesAmmoCargo = [];
 Hz_pers_saveVar_vehicles_itemsCargo = [];
+Hz_pers_saveVar_vehicles_backpackCargo = [];
 Hz_pers_saveVar_vehicles_variableValues = [];
 
 Hz_pers_saveVar_objects_type = [];
@@ -77,6 +78,7 @@ Hz_pers_saveVar_crates_dir = [];
 Hz_pers_saveVar_crates_positionATL = [];
 Hz_pers_saveVar_crates_magazinesAmmoCargo = [];
 Hz_pers_saveVar_crates_itemsCargo = [];
+Hz_pers_saveVar_crates_backpackCargo = [];
 Hz_pers_saveVar_crates_variableValues = [];
 
 Hz_pers_saveVar_markers_type = [];
@@ -114,6 +116,7 @@ Hz_pers_parsingInfo = [
   ["Hz_pers_saveVar_vehicles_magazinesTurrets",ARRAY_OF_STRUCTS,false],
   ["Hz_pers_saveVar_vehicles_magazinesAmmoCargo",NESTED_ARRAY_STRUCT,false],
   ["Hz_pers_saveVar_vehicles_itemsCargo",ARRAY_OF_STRUCTS,false],
+	["Hz_pers_saveVar_vehicles_backpackCargo",ARRAY_OF_STRUCTS,false],
   ["Hz_pers_saveVar_vehicles_variableValues",NESTED_ARRAY_STRUCT,false],
   ["Hz_pers_saveVar_objects_type",ONE_D_ARRAY,false],
   ["Hz_pers_saveVar_objects_damage",ONE_D_ARRAY,false],
@@ -126,6 +129,7 @@ Hz_pers_parsingInfo = [
   ["Hz_pers_saveVar_crates_positionATL",ONE_D_ARRAY,false],
   ["Hz_pers_saveVar_crates_magazinesAmmoCargo",NESTED_ARRAY_STRUCT,false],
   ["Hz_pers_saveVar_crates_itemsCargo",ARRAY_OF_STRUCTS,false],
+	["Hz_pers_saveVar_crates_backpackCargo",ARRAY_OF_STRUCTS,false],
   ["Hz_pers_saveVar_crates_variableValues",NESTED_ARRAY_STRUCT,false],
   ["Hz_pers_saveVar_players_variableNames",ONE_D_ARRAY,false],
   ["Hz_pers_saveVar_vehicles_variableNames",ONE_D_ARRAY,false],

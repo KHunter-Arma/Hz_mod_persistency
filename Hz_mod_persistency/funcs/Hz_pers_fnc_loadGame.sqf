@@ -68,6 +68,7 @@ if (_indexVehicle >= 0) then {
     Hz_pers_network_vehicles pushBack _veh;
     
     clearMagazineCargoGlobal _veh;
+		clearBackpackCargoGlobal _veh;
     clearWeaponCargoGlobal _veh;
     clearItemCargoGlobal _veh;
 		
@@ -80,6 +81,13 @@ if (_indexVehicle >= 0) then {
     if (_itemIndex >= 0) then {
       for "_j" from 0 to _itemIndex do {
         _veh addItemCargoGlobal[(((Hz_pers_saveVar_vehicles_itemsCargo select _index) select 0) select _j) call Hz_pers_fnc_handleAcreRadios,(((Hz_pers_saveVar_vehicles_itemsCargo select _index) select 1) select _j)];
+      };
+    };
+		
+		_itemIndex = (count ((Hz_pers_saveVar_vehicles_backpackCargo select _index) select 0)) - 1;
+    if (_itemIndex >= 0) then {
+      for "_j" from 0 to _itemIndex do {
+        _veh addBackpackCargoGlobal[(((Hz_pers_saveVar_vehicles_backpackCargo select _index) select 0) select _j),(((Hz_pers_saveVar_vehicles_backpackCargo select _index) select 1) select _j)];
       };
     };
     
@@ -135,6 +143,16 @@ if (_indexVehicle >= 0) then {
       };
       
     } foreach Hz_pers_saveVar_vehicles_variableNames;
+		
+		{
+		
+			_container = _x select 1;
+			clearMagazineCargoGlobal _container;
+			clearBackpackCargoGlobal _container;
+			clearWeaponCargoGlobal _container;
+			clearItemCargoGlobal _container;
+		
+		} foreach everyContainer _veh;
     
     _index = _index + 1;
     
@@ -195,6 +213,7 @@ if (_indexCrate >= 0) then {
     _crate setposatl (Hz_pers_saveVar_crates_positionATL select _index);
     
     clearMagazineCargoGlobal _crate;
+		clearBackpackCargoGlobal _crate;
     clearWeaponCargoGlobal _crate;
     clearItemCargoGlobal _crate;
     
@@ -211,6 +230,13 @@ if (_indexCrate >= 0) then {
         _crate addItemCargoGlobal[(((Hz_pers_saveVar_crates_itemsCargo select _index) select 0) select _j) call Hz_pers_fnc_handleAcreRadios,(((Hz_pers_saveVar_crates_itemsCargo select _index) select 1) select _j)];
       };
     };
+		
+		_itemIndex = (count ((Hz_pers_saveVar_crates_backpackCargo select _index) select 0)) - 1;
+    if (_itemIndex >= 0) then {
+      for "_j" from 0 to _itemIndex do {
+        _crate addBackpackCargoGlobal[(((Hz_pers_saveVar_crates_backpackCargo select _index) select 0) select _j),(((Hz_pers_saveVar_crates_backpackCargo select _index) select 1) select _j)];
+      };
+    };
     
     _variableValues = Hz_pers_saveVar_crates_variableValues select _index;
     {
@@ -224,6 +250,16 @@ if (_indexCrate >= 0) then {
       };
       
     } foreach Hz_pers_saveVar_crates_variableNames;
+		
+		{
+		
+			_container = _x select 1;
+			clearMagazineCargoGlobal _container;
+			clearBackpackCargoGlobal _container;
+			clearWeaponCargoGlobal _container;
+			clearItemCargoGlobal _container;
+		
+		} foreach everyContainer _crate;
     
     _index = _index + 1;
     
