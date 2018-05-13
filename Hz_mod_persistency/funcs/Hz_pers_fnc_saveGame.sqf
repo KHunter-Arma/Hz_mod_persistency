@@ -329,6 +329,7 @@ Hz_pers_saveVar_vehicles_fuel = [];
 Hz_pers_saveVar_vehicles_magazinesTurrets = [];
 Hz_pers_saveVar_vehicles_magazinesAmmoCargo = [];
 Hz_pers_saveVar_vehicles_itemsCargo = [];
+Hz_pers_saveVar_vehicles_backpackCargo = [];
 Hz_pers_saveVar_vehicles_variableValues = [];
 
 Hz_pers_saveVar_objects_type = [];
@@ -348,4 +349,5 @@ Hz_pers_saveVar_crates_dir = [];
 Hz_pers_saveVar_crates_positionATL = [];
 Hz_pers_saveVar_crates_magazinesAmmoCargo = [];
 Hz_pers_saveVar_crates_itemsCargo = [];
+Hz_pers_saveVar_crates_backpackCargo = [];
 Hz_pers_saveVar_crates_variableValues = [];
