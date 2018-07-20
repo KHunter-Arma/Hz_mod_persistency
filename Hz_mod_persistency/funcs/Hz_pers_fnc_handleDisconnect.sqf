@@ -24,6 +24,8 @@ _this call {
 	_uid = _this select 2;
 	_forcedSave = false;
 	
+	if ((_uid find "HC") != -1) exitWith {};
+	
 	//Something went wrong at connection - exit without doing anything
 	if (_uid in Hz_pers_clientConnectSafeguardArray) exitWith {
 	
@@ -243,9 +245,27 @@ _this call {
 
 	Hz_pers_saveVar_players_backpackMagazines set [_playerIndex,_magazinesAmmoCargo];
 	Hz_pers_saveVar_players_backpackItems set [_playerIndex, _itemCargo call Hz_pers_fnc_convert1DArrayTo2D];
+	
+	_weaponsItems = [];
+	
+	{
+	
+		_wep = _x select 0;
+	
+		if (
+				(_wep == (primaryWeapon _unit))
+				|| (_wep == (secondaryWeapon _unit))
+				|| (_wep == (handgunWeapon _unit))
+				|| (_wep in (assignedItems _unit))
+				) then {
+		
+			_weaponsItems pushBack _x;
+		
+		};	
+	
+	} foreach weaponsItems _unit;	
 
-
-	Hz_pers_saveVar_players_weaponsItems set [_playerIndex, weaponsItems _unit];
+	Hz_pers_saveVar_players_weaponsItems set [_playerIndex, _weaponsItems];
 
 	Hz_pers_saveVar_players_hitpointsdamage set [_playerIndex, getAllHitPointsDamage _unit];
 

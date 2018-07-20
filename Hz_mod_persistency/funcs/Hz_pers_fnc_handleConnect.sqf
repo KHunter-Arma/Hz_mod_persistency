@@ -23,6 +23,8 @@ _this spawn {
   _ownerID = _this select 4;
   _uid = _this select 1;
 	
+	if ((_uid find "HC") != -1) exitWith {};
+	
 	Hz_pers_clientConnectSafeguardArray pushBack _uid;
 
   _playerIndex = Hz_pers_saveVar_players_UID find _uid;

@@ -72,6 +72,12 @@ if (_indexVehicle >= 0) then {
     clearWeaponCargoGlobal _veh;
     clearItemCargoGlobal _veh;
 		
+		if (isclass (configfile >> "cfgpatches" >> "ace_cargo")) then {
+		
+			["ACE_Wheel", _veh, 10] call ace_cargo_fnc_removeCargoItem;
+		
+		};
+		
 		_vehCustoms = Hz_pers_saveVar_vehicles_customs select _index;
 		_array = [_veh];		
 		{_array pushBack _x;} foreach _vehCustoms;		
@@ -116,12 +122,21 @@ if (_indexVehicle >= 0) then {
       };			
     };
     
+		//does not remove loaded mag
     _veh setVehicleAmmo 0;
+		
     _magazinesTurretIndex = (count ((Hz_pers_saveVar_vehicles_magazinesTurrets select _index) select 0)) - 1;
     if(_magazinesTurretIndex >= 0) then {
       
       for "_j" from 0 to _magazinesTurretIndex do {
-        
+			
+					//remove loaded magazine
+				{
+				
+					_veh removeMagazineTurret [_x,(((Hz_pers_saveVar_vehicles_magazinesTurrets select _index) select 0) select _j)];
+				
+				} foreach (_veh magazinesTurret (((Hz_pers_saveVar_vehicles_magazinesTurrets select _index) select 0) select _j));
+			        
         for "_k" from 1 to (((Hz_pers_saveVar_vehicles_magazinesTurrets select _index) select 2) select _j) do {
           
           _veh addMagazineTurret [(((Hz_pers_saveVar_vehicles_magazinesTurrets select _index) select 1) select _j),(((Hz_pers_saveVar_vehicles_magazinesTurrets select _index) select 0) select _j)];
