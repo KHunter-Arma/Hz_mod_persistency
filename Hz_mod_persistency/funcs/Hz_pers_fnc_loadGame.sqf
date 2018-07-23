@@ -105,6 +105,7 @@ if (_indexVehicle >= 0) then {
     };		
     
     _veh setdir (Hz_pers_saveVar_vehicles_dir select _index);
+		_veh setVectorUp (Hz_pers_saveVar_vehicles_vectorUp select _index);
     _veh setposatl (Hz_pers_saveVar_vehicles_positionATL select _index);		
     _veh setfuel (Hz_pers_saveVar_vehicles_fuel select _index);
     
@@ -189,6 +190,7 @@ if (_indexObject >= 0) then {
     
     _obj setdamage (Hz_pers_saveVar_objects_damage select _index);
     _obj setdir (Hz_pers_saveVar_objects_dir select _index);
+		_obj setVectorUp (Hz_pers_saveVar_objects_vectorUp select _index);
     _obj setposatl (Hz_pers_saveVar_objects_positionATL select _index);
     
     _variableValues = Hz_pers_saveVar_objects_variableValues select _index;
@@ -225,6 +227,7 @@ if (_indexCrate >= 0) then {
     
     _crate setDamage (Hz_pers_saveVar_crates_damage select _index);
     _crate setDir (Hz_pers_saveVar_crates_dir select _index);
+		_crate setVectorUp (Hz_pers_saveVar_crates_vectorUp select _index);
     _crate setposatl (Hz_pers_saveVar_crates_positionATL select _index);
     
     clearMagazineCargoGlobal _crate;
@@ -309,6 +312,7 @@ call _func;
 Hz_pers_saveVar_vehicles_type = [];
 Hz_pers_saveVar_vehicles_customs = [];
 Hz_pers_saveVar_vehicles_positionATL = [];
+Hz_pers_saveVar_vehicles_vectorUp = [];
 Hz_pers_saveVar_vehicles_dir = [];
 Hz_pers_saveVar_vehicles_hitpointsdamage = [];
 Hz_pers_saveVar_vehicles_fuel = [];
@@ -321,6 +325,7 @@ Hz_pers_saveVar_objects_type = [];
 Hz_pers_saveVar_objects_damage = [];
 Hz_pers_saveVar_objects_dir = [];
 Hz_pers_saveVar_objects_positionATL = [];
+Hz_pers_saveVar_objects_vectorUp = [];
 Hz_pers_saveVar_objects_variableValues = [];
 
 Hz_pers_saveVar_markers_type = [];
@@ -332,6 +337,7 @@ Hz_pers_saveVar_crates_type = [];
 Hz_pers_saveVar_crates_damage = [];
 Hz_pers_saveVar_crates_dir = [];
 Hz_pers_saveVar_crates_positionATL = [];
+Hz_pers_saveVar_crates_vectorUp = [];
 Hz_pers_saveVar_crates_magazinesAmmoCargo = [];
 Hz_pers_saveVar_crates_itemsCargo = [];
 Hz_pers_saveVar_crates_variableValues = [];

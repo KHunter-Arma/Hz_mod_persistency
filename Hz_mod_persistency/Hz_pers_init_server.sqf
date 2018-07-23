@@ -57,6 +57,7 @@ Hz_pers_saveVar_players_variableValues = [];
 Hz_pers_saveVar_vehicles_type = [];
 Hz_pers_saveVar_vehicles_customs = [];
 Hz_pers_saveVar_vehicles_positionATL = [];
+Hz_pers_saveVar_vehicles_vectorUp = [];
 Hz_pers_saveVar_vehicles_dir = [];
 Hz_pers_saveVar_vehicles_hitpointsdamage = [];
 Hz_pers_saveVar_vehicles_fuel = [];
@@ -69,12 +70,14 @@ Hz_pers_saveVar_vehicles_variableValues = [];
 Hz_pers_saveVar_objects_type = [];
 Hz_pers_saveVar_objects_damage = [];
 Hz_pers_saveVar_objects_dir = [];
+Hz_pers_saveVar_objects_vectorUp = [];
 Hz_pers_saveVar_objects_positionATL = [];
 Hz_pers_saveVar_objects_variableValues = [];
 
 Hz_pers_saveVar_crates_type = [];
 Hz_pers_saveVar_crates_damage = [];
 Hz_pers_saveVar_crates_dir = [];
+Hz_pers_saveVar_crates_vectorUp = [];
 Hz_pers_saveVar_crates_positionATL = [];
 Hz_pers_saveVar_crates_magazinesAmmoCargo = [];
 Hz_pers_saveVar_crates_itemsCargo = [];
@@ -110,6 +113,7 @@ Hz_pers_parsingInfo = [
   ["Hz_pers_saveVar_vehicles_type",ONE_D_ARRAY,false],
   ["Hz_pers_saveVar_vehicles_customs",ARRAY_OF_STRUCTS,false],
   ["Hz_pers_saveVar_vehicles_positionATL",ONE_D_ARRAY,false],
+	["Hz_pers_saveVar_vehicles_vectorUp",ONE_D_ARRAY,false],	
   ["Hz_pers_saveVar_vehicles_hitpointsdamage",ARRAY_OF_STRUCTS,false],
   ["Hz_pers_saveVar_vehicles_dir",ONE_D_ARRAY,false],
   ["Hz_pers_saveVar_vehicles_fuel",ONE_D_ARRAY,false],
@@ -122,11 +126,13 @@ Hz_pers_parsingInfo = [
   ["Hz_pers_saveVar_objects_damage",ONE_D_ARRAY,false],
   ["Hz_pers_saveVar_objects_dir",ONE_D_ARRAY,false],
   ["Hz_pers_saveVar_objects_positionATL",ONE_D_ARRAY,false],
+	["Hz_pers_saveVar_objects_vectorUp",ONE_D_ARRAY,false],
   ["Hz_pers_saveVar_objects_variableValues",NESTED_ARRAY_STRUCT,false],
   ["Hz_pers_saveVar_crates_type",ONE_D_ARRAY,false],
   ["Hz_pers_saveVar_crates_damage",ONE_D_ARRAY,false],
   ["Hz_pers_saveVar_crates_dir",ONE_D_ARRAY,false],
   ["Hz_pers_saveVar_crates_positionATL",ONE_D_ARRAY,false],
+	["Hz_pers_saveVar_crates_vectorUp",ONE_D_ARRAY,false],
   ["Hz_pers_saveVar_crates_magazinesAmmoCargo",NESTED_ARRAY_STRUCT,false],
   ["Hz_pers_saveVar_crates_itemsCargo",ARRAY_OF_STRUCTS,false],
 	["Hz_pers_saveVar_crates_backpackCargo",ARRAY_OF_STRUCTS,false],
