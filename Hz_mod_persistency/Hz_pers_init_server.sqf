@@ -255,7 +255,7 @@ if (Hz_pers_enableACEmedical) then {
             ["ace_medical_airwayStatus",false],
             ["ace_medical_airwayOccluded",false],
             ["ace_medical_airwayCollapsed",false],
-            ["ace_medical_addedToUnitLoop",true],
+            //["ace_medical_addedToUnitLoop",true],
             ["ace_medical_inCardiacArrest",true],
             ["ace_medical_hasLostBlood",true],
             ["ace_medical_isBleeding",true],

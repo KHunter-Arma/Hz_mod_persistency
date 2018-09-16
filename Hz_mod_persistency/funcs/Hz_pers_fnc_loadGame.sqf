@@ -74,6 +74,7 @@ if (_indexVehicle >= 0) then {
 		
 		if (isclass (configfile >> "cfgpatches" >> "ace_cargo")) then {
 		
+			sleep 0.1;
 			["ACE_Wheel", _veh, 10] call ace_cargo_fnc_removeCargoItem;
 		
 		};

@@ -11,6 +11,7 @@
 
 _logic = _this select 0;
 Hz_pers_clientEnableManualLoadSwitch = _logic getVariable "ClientEnableManualLoadSwitch";
+Hz_pers_enableACEmedical = _logic getVariable "AceMedical";
 
 Hz_pers_clientFuncs_path = Hz_pers_path + "client_funcs\";
 

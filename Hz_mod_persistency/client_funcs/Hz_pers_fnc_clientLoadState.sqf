@@ -260,3 +260,10 @@ player setposatl _positionATL;
 [getPlayerUID player] remoteExecCall ["Hz_pers_fnc_ackClientLoadSuccess",2,false];
 
 endLoadingScreen;
+
+if (Hz_pers_enableACEmedical) then {
+
+	//player setVariable ["ace_medical_addedToUnitLoop", false, true];
+	[player] call ace_medical_fnc_addVitalLoop;
+
+};
