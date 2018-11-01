@@ -1,7 +1,7 @@
 /*******************************************************************************
 * Copyright (C) 2017-2018 K.Hunter
 *
-* This file is licensed under a Creative Commons
+* The source code contained within this file is licensed under a Creative Commons
 * Attribution-NonCommercial-ShareAlike 4.0 International License.
 * 
 * For more information about this license view the LICENSE.md distributed
@@ -151,7 +151,7 @@ class CfgVehicles
 			class FirstTimeLaunchHandlerFunctionName: Edit
       {
 				property = "Hz_pers_module_pFirstTimeLaunchHandlerFunctionName";
-        displayName = "First Time Launch Handler Function Name";
+        displayName = "First Time Launch Handler Function";
         tooltip = "Name of your function that will be called when the mission is ran for the first time, or when no save file is found at the specified location. Use this function to initialise and set up your custom persistent variables using the API. This function must exist if no save file is found, or the module will be stuck waiting for this function to be defined before proceeding.";
         // Default text filled in the input box
         // Because it's an expression, to return a String one must have a string within a string
@@ -172,7 +172,7 @@ class CfgVehicles
         tooltip = "Path describing the location and name of save file that will be used for loading the game at server restart.";
         // Default text filled in the input box
         // Because it's an expression, to return a String one must have a string within a string
-        defaultValue = """\Hz_config\Hz_mod_persistency\Hz_pers_saveFile.sqf""";
+        defaultValue = """\Hz_cfg\Hz_pers\Hz_pers_saveFile.sqf""";
       };
       class CustomLoadFunctionName: Edit
       {
@@ -213,7 +213,7 @@ class CfgVehicles
       {
 				property = "Hz_pers_module_pMaxArraySize";
         displayName = "Max Array Size for Write";
-        tooltip = "Maximum size (in number of elements) an array that is written to file can have. If you have elements in your arrays characterised as long arrays or strings, you should keep this low for safety.";
+        tooltip = "Arma has a hardcoded limit on how much data it can output to a file in one go, so changing this setting may lead to corruption of your save file! Leave this setting at default unless you know what you're doing! Description: Maximum size (in number of elements) an array that is written to file is allowed to have, without being split into further arrays. If you have elements in your arrays characterised as long arrays or strings, you should keep this low for safety.";
         defaultValue = """10""";
       };
       class ModuleDescription: ModuleDescription{}; // Module description should be shown last

@@ -1,7 +1,7 @@
 /*******************************************************************************
 * Copyright (C) 2017-2018 K.Hunter
 *
-* This file is licensed under a Creative Commons
+* The source code contained within this file is licensed under a Creative Commons
 * Attribution-NonCommercial-ShareAlike 4.0 International License.
 * 
 * For more information about this license view the LICENSE.md distributed
@@ -14,6 +14,7 @@
 Hz_pers_funcs_path = Hz_pers_path + "funcs\";
 
 Hz_pers_clientConnectSafeguardArray = [];
+Hz_pers_serverInitialised = false;
 
 // init public variables that should be persistent throughout server uptime
 
@@ -278,12 +279,22 @@ _logic spawn {
 	if (_loadCodeString == "") then {
 	
 		call Hz_pers_fnc_handleFirstTimeLaunch;
+		Hz_pers_serverInitialised = true;
 	
 	} else {
 
 		sleep Hz_pers_autoLoadDelay;
 
 		_loadCodeString call Hz_pers_fnc_loadGame;
+		
+		//load states of already connected players
+		{
+					
+			[nil, getPlayerUID _x,nil,nil,owner _x] call Hz_pers_fnc_handleConnect;
+		
+		} foreach playableUnits;
+		
+		Hz_pers_serverInitialised = true;		
 	
 	};
 	
