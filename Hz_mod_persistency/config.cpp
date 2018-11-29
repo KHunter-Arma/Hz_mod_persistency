@@ -216,6 +216,13 @@ class CfgVehicles
         tooltip = "Arma has a hardcoded limit on how much data it can output to a file in one go, so changing this setting may lead to corruption of your save file! Leave this setting at default unless you know what you're doing! Description: Maximum size (in number of elements) an array that is written to file is allowed to have, without being split into further arrays. If you have elements in your arrays characterised as long arrays or strings, you should keep this low for safety.";
         defaultValue = """10""";
       };
+      class AcexFieldRations: Checkbox
+      {
+        // Unique property, use "<moduleClass>_<attributeClass>" format to make sure the name is unique in the world
+        property = "Hz_pers_module_pAcexFieldRations";
+        displayName = "Enable ACEX Field Rations"; // Argument label
+        tooltip = "Enable persistency for ACEX Field Rations."; // Tooltip description
+      };
       class ModuleDescription: ModuleDescription{}; // Module description should be shown last
     };
 

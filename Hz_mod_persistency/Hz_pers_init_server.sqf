@@ -22,10 +22,6 @@ Hz_pers_network_vehicles = [];
 Hz_pers_network_objects = [];
 Hz_pers_network_crates = [];
 Hz_pers_saveVar_players_variableNames = [];
-publicVariable "Hz_pers_network_vehicles";
-publicVariable "Hz_pers_saveVar_players_variableNames";
-publicVariable "Hz_pers_network_objects";
-publicVariable "Hz_pers_network_crates";
 
 // init server-side variables that should be persistent throughout server uptime
 
@@ -176,7 +172,7 @@ Hz_pers_maxWriteArraySize = call compile (_logic getVariable "MaxArraySize");
 Hz_pers_customLoadFunctionName = _logic getVariable "CustomLoadFunctionName";
 Hz_pers_autoLoadDelay = call compile (_logic getVariable "AutoLoadDelay");
 Hz_pers_pathToSaveFile = _logic getVariable "PathToSaveFile";
-
+Hz_pers_enableACEXFieldRations = _logic getVariable "AcexFieldRations";
 
 if (isclass (configfile >> "cfgpatches" >> "ace_hearing")) then {
 
@@ -269,7 +265,31 @@ if (Hz_pers_enableACEmedical) then {
 
 };
 
+if (Hz_pers_enableACEXFieldRations) then {
+
+  {
+
+    Hz_pers_saveVar_players_variableNames pushBackUnique _x;
+
+  } foreach [
+              ["acex_field_rations_hunger",false],
+              ["acex_field_rations_thirst",false]
+            ];
+
+  {
+    
+    Hz_pers_saveVar_objects_variableNames pushBackUnique _x;
+  
+  } foreach [
+              ["acex_field_rations_currentWaterSupply",true] 
+            ];
+
+};
+
+publicVariable "Hz_pers_network_vehicles";
 publicVariable "Hz_pers_saveVar_players_variableNames";
+publicVariable "Hz_pers_network_objects";
+publicVariable "Hz_pers_network_crates";
 
 //auto-load
 _logic spawn {
