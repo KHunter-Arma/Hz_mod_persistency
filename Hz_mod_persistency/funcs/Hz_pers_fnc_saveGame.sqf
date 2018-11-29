@@ -322,6 +322,7 @@ _splitArrays = [(missionnamespace getvariable ["Hz_pers_parsingInfo",[]]), Hz_pe
 conClose();
 
 // deallocate
+//TODO: check if resize 0 can be used instead...
 
 Hz_pers_saveVar_vehicles_type = [];
 Hz_pers_saveVar_vehicles_customs = [];

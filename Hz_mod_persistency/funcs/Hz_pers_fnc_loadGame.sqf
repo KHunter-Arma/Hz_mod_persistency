@@ -309,6 +309,7 @@ call _func;
 
 
 // deallocate
+//TODO: check if resize 0 can be used instead...
 
 Hz_pers_saveVar_vehicles_type = [];
 Hz_pers_saveVar_vehicles_customs = [];
