@@ -237,7 +237,7 @@ if (Hz_pers_enableACEmedical) then {
 						["ace_medical_pain",true],
             ["ace_medical_morphine",true],
             ["ace_medical_bloodVolume",true],
-            ["ACE_isUnconscious",true],
+            //["ACE_isUnconscious",true],
             ["ace_medical_tourniquets",true],
             ["ace_medical_occludedMedications",true],
             ["ace_medical_openWounds",true],
