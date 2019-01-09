@@ -224,6 +224,17 @@ _container = uniformContainer player;
 
 progressLoadingScreen 0.75;
 
+//addMagazineAmmoCargo does not add empty magazines...
+{
+
+	if ((_x select 1) == 0) then {
+	
+		player addMagazine [_x select 0,0];
+	
+	};
+
+} foreach (_uniformMagazines + _vestMagazines + _backpackMagazines);
+
 {
 	player linkItem _x;
 }foreach _assignedItems;
