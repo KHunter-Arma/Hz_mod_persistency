@@ -283,6 +283,14 @@ if (Hz_pers_enableACEXFieldRations) then {
   } foreach [
               ["acex_field_rations_currentWaterSupply",true] 
             ];
+						
+	{
+    
+    Hz_pers_saveVar_vehicles_variableNames pushBackUnique _x;
+  
+  } foreach [
+              ["acex_field_rations_currentWaterSupply",true] 
+            ];					
 
 };
 
