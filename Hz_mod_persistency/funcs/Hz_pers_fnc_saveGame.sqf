@@ -81,11 +81,23 @@ sleep (2*(count allPlayers)/4);
 		
 		{
 		
-			_itemsCargo pushBack ([_x select 0] call bis_fnc_baseweapon);	
+			_baseWep = [_x select 0] call bis_fnc_baseweapon;		
+			_itemsCargo pushBack _baseWep;				
+			//base weapon might still have default attachments (e.g. RHS)
+			_blackList = [""];
+			if (isClass (configfile >> "cfgWeapons" >> _baseWep >> "LinkedItems")) then {
+			
+				{
+				
+					_blackList pushBack (toupper getText (_x >> "item"));
+				
+				} foreach ("true" configClasses (configfile >> "cfgWeapons" >> _baseWep >> "LinkedItems"));				
+			
+			};
 			
 			{
 			
-				if (_x != "") then {
+				if (!((toupper _x) in _blackList)) then {
 				
 					_itemsCargo pushBack _x;
 				
@@ -183,72 +195,87 @@ sleep (2*(count allPlayers)/4);
 
 {
 
-  Hz_pers_saveVar_crates_type pushBack (typeof _x);
-  Hz_pers_saveVar_crates_damage pushBack (getdammage _x);
-  Hz_pers_saveVar_crates_dir pushBack (getdir _x);
-  Hz_pers_saveVar_crates_positionATL pushBack (getPosATL _x);
-	Hz_pers_saveVar_crates_vectorUp pushBack (vectorUp _x);
-  
-  _itemsCargo = [];
-  _crate = _x;
-	
-	_magazinesAmmoCargo = magazinesAmmoCargo _crate;
+	if (alive _x) then {
+
+		Hz_pers_saveVar_crates_type pushBack (typeof _x);
+		Hz_pers_saveVar_crates_damage pushBack (getdammage _x);
+		Hz_pers_saveVar_crates_dir pushBack (getdir _x);
+		Hz_pers_saveVar_crates_positionATL pushBack (getPosATL _x);
+		Hz_pers_saveVar_crates_vectorUp pushBack (vectorUp _x);
 		
-	{
-	
-		_itemsCargo pushBack ([_x select 0] call bis_fnc_baseweapon);	
+		_itemsCargo = [];
+		_crate = _x;
 		
+		_magazinesAmmoCargo = magazinesAmmoCargo _crate;
+			
 		{
 		
-			if (_x != "") then {
+			_baseWep = [_x select 0] call bis_fnc_baseweapon;		
+			_itemsCargo pushBack _baseWep;				
+			//base weapon might still have default attachments (e.g. RHS)
+			_blackList = [""];
+			if (isClass (configfile >> "cfgWeapons" >> _baseWep >> "LinkedItems")) then {
 			
-				_itemsCargo pushBack _x;
+				{
+				
+					_blackList pushBack (toupper getText (_x >> "item"));
+				
+				} foreach ("true" configClasses (configfile >> "cfgWeapons" >> _baseWep >> "LinkedItems"));				
 			
 			};
-		
-		} foreach [_x select 1, _x select 2, _x select 3];
-		
-		_magArray = _x select 4;
-		if ((count _magArray) > 0) then {			
-			_magazinesAmmoCargo pushBack [(_magArray select 0), (_magArray select 1)];
-		};
-		
-		//Grenade launcher?
-		if ((typename (_x select 5)) == "ARRAY") then {
 			
-			_magArray = _x select 5;
-			if ((count _magArray) > 0) then {
+			{
+			
+				if (!((toupper _x) in _blackList)) then {
+				
+					_itemsCargo pushBack _x;
+				
+				};
+			
+			} foreach [_x select 1, _x select 2, _x select 3];
+			
+			_magArray = _x select 4;
+			if ((count _magArray) > 0) then {			
 				_magazinesAmmoCargo pushBack [(_magArray select 0), (_magArray select 1)];
 			};
+			
+			//Grenade launcher?
+			if ((typename (_x select 5)) == "ARRAY") then {
+				
+				_magArray = _x select 5;
+				if ((count _magArray) > 0) then {
+					_magazinesAmmoCargo pushBack [(_magArray select 0), (_magArray select 1)];
+				};
 
-		};
-	
-	} foreach weaponsItemsCargo _crate;
-	
-	Hz_pers_saveVar_crates_magazinesAmmoCargo pushback _magazinesAmmoCargo;
-	
-  {
+			};
+		
+		} foreach weaponsItemsCargo _crate;
+		
+		Hz_pers_saveVar_crates_magazinesAmmoCargo pushback _magazinesAmmoCargo;
+		
+		{
 
-    if (!("CA_Magazine" in ([(configfile >> "cfgmagazines" >> _x), true] call bis_fnc_returnParents))) then {
+			if (!("CA_Magazine" in ([(configfile >> "cfgmagazines" >> _x), true] call bis_fnc_returnParents))) then {
 
-      _itemsCargo pushback _x;
+				_itemsCargo pushback _x;
 
-    };
+			};
 
-  } foreach (itemCargo _crate);
+		} foreach (itemCargo _crate);
 
-  Hz_pers_saveVar_crates_itemsCargo pushBack (_itemsCargo call Hz_pers_fnc_convert1DArrayTo2D);
+		Hz_pers_saveVar_crates_itemsCargo pushBack (_itemsCargo call Hz_pers_fnc_convert1DArrayTo2D);
+		
+		Hz_pers_saveVar_crates_backpackCargo pushBack ((backpackCargo _crate) call Hz_pers_fnc_convert1DArrayTo2D);
+		
+		_variables = [];
+		{				
+			_variables pushback (_crate getVariable [_x select 0,"nil"]);
+			
+		} foreach Hz_pers_saveVar_crates_variableNames;
+		
+		Hz_pers_saveVar_crates_variableValues pushback _variables;
   
-	Hz_pers_saveVar_crates_backpackCargo pushBack ((backpackCargo _crate) call Hz_pers_fnc_convert1DArrayTo2D);
-  
-  _variables = [];
-  {				
-    _variables pushback (_crate getVariable [_x select 0,"nil"]);
-    
-  } foreach Hz_pers_saveVar_crates_variableNames;
-  
-  Hz_pers_saveVar_crates_variableValues pushback _variables;
-  
+	};
 
 } foreach Hz_pers_network_crates;
 
