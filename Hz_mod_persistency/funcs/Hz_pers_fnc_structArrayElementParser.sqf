@@ -44,6 +44,10 @@ while {!_exit} do {
 		
             };	
         };
+				
+				//deallocate
+				_array resize 0;
+				_array = nil;
     
     } else {_exit = true;};
 
