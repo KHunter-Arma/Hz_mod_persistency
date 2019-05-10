@@ -262,19 +262,23 @@ progressLoadingScreen 0.75;
 
 } foreach _variableNames;
 
-progressLoadingScreen 1;
+progressLoadingScreen 0.85;
+
+sleep 0.1;
 
 player setdir _dir;
-player switchMove _anim;
+[player,_anim] remoteExecCall ["switchMove",0,false];
+player playMoveNow _anim;
 player setposatl _positionATL;
 
-[getPlayerUID player] remoteExecCall ["Hz_pers_fnc_ackClientLoadSuccess",2,false];
-
-endLoadingScreen;
+progressLoadingScreen 1;
 
 if (Hz_pers_enableACEmedical) then {
 
-	//player setVariable ["ace_medical_addedToUnitLoop", false, true];
 	[player] call ace_medical_fnc_addVitalLoop;
+	call Hz_pers_fnc_handleAceMedicalWoundsReopening;
 
 };
+
+[getPlayerUID player] remoteExecCall ["Hz_pers_fnc_ackClientLoadSuccess",2,false];
+endLoadingScreen;
