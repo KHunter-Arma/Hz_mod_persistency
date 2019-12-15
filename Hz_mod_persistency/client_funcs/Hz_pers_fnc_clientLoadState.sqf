@@ -102,7 +102,7 @@ progressLoadingScreen 0.3;
 	//add magazine
 	_magArray = _x select 4;
 	if ((count _magArray) > 0) then {
-		player addWeaponItem [(_x select 0), [(_magArray select 0), (_magArray select 1)]];
+		player addWeaponItem [(_x select 0), [(_magArray select 0), (_magArray select 1)],true];
 	};
 	
 	//attachments
@@ -111,38 +111,19 @@ progressLoadingScreen 0.3;
 	
 	{
 	
-		if (!((tolower _x) in _wepComponents)) then {
+		if ((_x != "") && {!((tolower _x) in _wepComponents)}) then {
 		
-			player addWeaponItem [_wep, _x];
+			player addWeaponItem [_wep, _x,true];
 			sleep 0.1;
 		
 		};
 	
-	} foreach [_x select 1, _x select 2, _x select 3];
+	} foreach [_x select 1, _x select 2, _x select 3,_x select 6];
 	
-	//Grenade launcher?
-	if ((typename (_x select 5)) == "ARRAY") then {
-		
 		_magArray = _x select 5;
 		if ((count _magArray) > 0) then {
-			player addWeaponItem [(_x select 0), [(_magArray select 0), (_magArray select 1)]];
+			player addWeaponItem [(_x select 0), [(_magArray select 0), (_magArray select 1)],true];
 		};
-		
-		if (!((tolower (_x select 6)) in _wepComponents)) then {
-		
-			player addWeaponItem [_wep, (_x select 6)];
-		
-		};	
-
-	} else {
-	
-		if (!((tolower (_x select 5)) in _wepComponents)) then {
-		
-			player addWeaponItem [_wep, (_x select 5)];
-		
-		};	
-	
-	};
 
 } foreach _weaponsItems;
 
@@ -224,6 +205,17 @@ _container = uniformContainer player;
 
 progressLoadingScreen 0.75;
 
+//addMagazineAmmoCargo does not add empty magazines...
+{
+
+	if ((_x select 1) == 0) then {
+	
+		player addMagazine [_x select 0,0];
+	
+	};
+
+} foreach (_uniformMagazines + _vestMagazines + _backpackMagazines);
+
 {
 	player linkItem _x;
 }foreach _assignedItems;
@@ -251,19 +243,25 @@ progressLoadingScreen 0.75;
 
 } foreach _variableNames;
 
-progressLoadingScreen 1;
+progressLoadingScreen 0.85;
+
+sleep 0.1;
 
 player setdir _dir;
-player switchMove _anim;
+[player,_anim] remoteExecCall ["switchMove",0,false];
+player playMoveNow _anim;
 player setposatl _positionATL;
 
-[getPlayerUID player] remoteExecCall ["Hz_pers_fnc_ackClientLoadSuccess",2,false];
-
-endLoadingScreen;
+progressLoadingScreen 1;
 
 if (Hz_pers_enableACEmedical) then {
 
-	//player setVariable ["ace_medical_addedToUnitLoop", false, true];
 	[player] call ace_medical_fnc_addVitalLoop;
+	call Hz_pers_fnc_handleAceMedicalWoundsReopening;
 
 };
+
+Hz_pers_playerVariablesLastSyncedWithServer = +_variableValues;
+
+[getPlayerUID player] remoteExecCall ["Hz_pers_fnc_ackClientLoadSuccess",2,false];
+endLoadingScreen;

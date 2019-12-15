@@ -8,13 +8,30 @@
 * together with this file or visit:
 * https://creativecommons.org/licenses/by-nc-sa/4.0/
 *******************************************************************************/
+private ["_var","_isPublic","_value","_syncedValue","_variablesToSyncCount"];
+
+_variablesToSyncCount = 0;
 
 {
-	
-	if (!(_x select 1)) then {
 
-		[player,_x select 0, player getvariable (_x select 0)] remoteExecCall ["Hz_pers_fnc_receiveLocalVars", 2, false];
+	_var = _x select 0;
+	_isPublic = _x select 1;
+	
+	_value = player getvariable _var;
+	_syncedValue = Hz_pers_playerVariablesLastSyncedWithServer select _foreachIndex;
+	
+	if ((!_isPublic) && {!isnil "_value"} && {!(_value isEqualTo _syncedValue)}) then {
+	
+		if (((typeName _value) == "SCALAR") && {(typeName _syncedValue) == "SCALAR"} && {(abs (_value - _syncedValue)) < (0.03*(abs _value))}) exitWith {};
+	
+		_variablesToSyncCount = _variablesToSyncCount + 1;				
+		
+		Hz_pers_playerVariablesLastSyncedWithServer set [_foreachIndex, _value];
+
+		[player,_var, _value] remoteExecCall ["Hz_pers_fnc_receiveLocalVars", 2, false];
 
 	};
 
 } foreach Hz_pers_saveVar_players_variableNames;
+
+_variablesToSyncCount

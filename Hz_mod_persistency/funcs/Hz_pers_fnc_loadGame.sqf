@@ -57,6 +57,8 @@ _indexCrate = (count Hz_pers_saveVar_crates_type) - 1;
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
+sleep Hz_pers_objectsLoadDelay;
+
 //Load Vehicles
 _index = 0;
 
@@ -235,7 +237,7 @@ if (_indexCrate >= 0) then {
 		clearBackpackCargoGlobal _crate;
     clearWeaponCargoGlobal _crate;
     clearItemCargoGlobal _crate;
-    
+    		
     _magazineAmmoIndex = (count (Hz_pers_saveVar_crates_magazinesAmmoCargo select _index)) - 1;
     if (_magazineAmmoIndex >= 0) then {
       for "_j" from 0 to _magazineAmmoIndex do {
@@ -243,19 +245,19 @@ if (_indexCrate >= 0) then {
       };		
     };		
     
-    _itemIndex = (count ((Hz_pers_saveVar_crates_itemsCargo select _index) select 0)) - 1;
-    if (_itemIndex >= 0) then {
-      for "_j" from 0 to _itemIndex do {
-        _crate addItemCargoGlobal[(((Hz_pers_saveVar_crates_itemsCargo select _index) select 0) select _j) call Hz_pers_fnc_handleAcreRadios,(((Hz_pers_saveVar_crates_itemsCargo select _index) select 1) select _j)];
-      };
-    };
-		
+		_itemIndex = (count ((Hz_pers_saveVar_crates_itemsCargo select _index) select 0)) - 1;
+		if (_itemIndex >= 0) then {
+			for "_j" from 0 to _itemIndex do {
+				_crate addItemCargoGlobal[(((Hz_pers_saveVar_crates_itemsCargo select _index) select 0) select _j) call Hz_pers_fnc_handleAcreRadios,(((Hz_pers_saveVar_crates_itemsCargo select _index) select 1) select _j)];
+			};
+		};
+				
 		_itemIndex = (count ((Hz_pers_saveVar_crates_backpackCargo select _index) select 0)) - 1;
-    if (_itemIndex >= 0) then {
-      for "_j" from 0 to _itemIndex do {
-        _crate addBackpackCargoGlobal[(((Hz_pers_saveVar_crates_backpackCargo select _index) select 0) select _j),(((Hz_pers_saveVar_crates_backpackCargo select _index) select 1) select _j)];
-      };
-    };
+		if (_itemIndex >= 0) then {
+			for "_j" from 0 to _itemIndex do {
+				_crate addBackpackCargoGlobal[(((Hz_pers_saveVar_crates_backpackCargo select _index) select 0) select _j),(((Hz_pers_saveVar_crates_backpackCargo select _index) select 1) select _j)];
+			};
+		};
     
     _variableValues = Hz_pers_saveVar_crates_variableValues select _index;
     {
@@ -309,6 +311,7 @@ call _func;
 
 
 // deallocate
+//use resize 0?...
 
 Hz_pers_saveVar_vehicles_type = [];
 Hz_pers_saveVar_vehicles_customs = [];

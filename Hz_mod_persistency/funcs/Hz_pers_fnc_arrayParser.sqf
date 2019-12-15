@@ -38,6 +38,10 @@ while {!_exit} do {
             _resultingArray set [count _resultingArray,_array select _i];
 		
         };
+				
+				//deallocate
+				_array resize 0;
+				_array = nil;
 	
     } else {_exit = true;};
 

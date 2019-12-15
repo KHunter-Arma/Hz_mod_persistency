@@ -18,9 +18,13 @@ if ((_this select 1) == 1) then {
 
 		startLoadingScreen ["Loading..."];
 
-		call Hz_pers_fnc_clientSendLocalVars;
+		_variablesToSyncCount = call Hz_pers_fnc_clientSendLocalVars;
 		
-		uisleep 2;
+		if (_variablesToSyncCount > 0) then {
+		
+			uisleep ((2 max _variablesToSyncCount) min 10);
+		
+		};
 			
 		endLoadingScreen;
 	
