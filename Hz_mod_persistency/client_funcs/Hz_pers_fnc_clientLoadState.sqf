@@ -5,7 +5,7 @@
 *
 * Description: 	Executed on client via remote execution after client connects.
 ********************************************************************************
-* Copyright (C) 2017-2018 K.Hunter
+* Copyright (C) 2017-2019 K.Hunter
 *
 * The source code contained within this file is licensed under a Creative Commons
 * Attribution-NonCommercial-ShareAlike 4.0 International License.
