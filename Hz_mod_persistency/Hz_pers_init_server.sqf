@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2017-2018 K.Hunter
+* Copyright (C) 2017-2019 K.Hunter
 *
 * The source code contained within this file is licensed under a Creative Commons
 * Attribution-NonCommercial-ShareAlike 4.0 International License.
@@ -63,6 +63,7 @@ Hz_pers_saveVar_vehicles_magazinesAmmoCargo = [];
 Hz_pers_saveVar_vehicles_itemsCargo = [];
 Hz_pers_saveVar_vehicles_backpackCargo = [];
 Hz_pers_saveVar_vehicles_variableValues = [];
+Hz_pers_saveVar_vehicles_weaponsItems = [];
 
 Hz_pers_saveVar_objects_type = [];
 Hz_pers_saveVar_objects_damage = [];
@@ -80,6 +81,7 @@ Hz_pers_saveVar_crates_magazinesAmmoCargo = [];
 Hz_pers_saveVar_crates_itemsCargo = [];
 Hz_pers_saveVar_crates_backpackCargo = [];
 Hz_pers_saveVar_crates_variableValues = [];
+Hz_pers_saveVar_crates_weaponsItems = [];
 
 Hz_pers_saveVar_markers_type = [];
 Hz_pers_saveVar_markers_pos = [];
@@ -104,6 +106,10 @@ Hz_pers_fnc_receiveLocalVars = compile preprocessFileLineNumbers (Hz_pers_funcs_
 Hz_pers_fnc_loadGame = compile preprocessFileLineNumbers (Hz_pers_funcs_path + "Hz_pers_fnc_loadGame.sqf");
 Hz_pers_fnc_handleFirstTimeLaunch = compile preprocessFileLineNumbers (Hz_pers_funcs_path + "Hz_pers_fnc_handleFirstTimeLaunch.sqf");
 Hz_pers_fnc_ackClientLoadSuccess = compile preprocessFileLineNumbers (Hz_pers_funcs_path + "Hz_pers_fnc_ackClientLoadSuccess.sqf");
+Hz_pers_fnc_updateSaveDataVersion = compile preprocessFileLineNumbers (Hz_pers_funcs_path + "Hz_pers_fnc_updateSaveDataVersion.sqf");
+
+//current save-file version
+Hz_pers_currentSaveFileVersion = 191201;
 
 //init parsing info
 Hz_pers_parsingInfo = [
@@ -160,7 +166,10 @@ Hz_pers_parsingInfo = [
   ["Hz_pers_saveVar_markers_type",ONE_D_ARRAY,false],
   ["Hz_pers_saveVar_markers_pos", ONE_D_ARRAY,false],
   ["Hz_pers_saveVar_markers_colour", ONE_D_ARRAY,false],
-  ["Hz_pers_saveVar_markers_text",ONE_D_ARRAY,false]
+  ["Hz_pers_saveVar_markers_text",ONE_D_ARRAY,false],
+	["Hz_pers_saveVar_saveFileVersion", SINGLE_VARIABLE, false],
+	["Hz_pers_saveVar_vehicles_weaponsItems",ARRAY_OF_STRUCTS,false],
+	["Hz_pers_saveVar_crates_weaponsItems",ARRAY_OF_STRUCTS,false]	
 ];
 
 

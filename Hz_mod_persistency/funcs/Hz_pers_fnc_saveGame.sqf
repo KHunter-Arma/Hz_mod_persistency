@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2017-2018 K.Hunter
+* Copyright (C) 2017-2019 K.Hunter
 *
 * The source code contained within this file is licensed under a Creative Commons
 * Attribution-NonCommercial-ShareAlike 4.0 International License.
@@ -79,43 +79,7 @@ sleep (2*(count allPlayers)/4);
     _itemsCargo = [];
 		_magazinesAmmoCargo = magazinesAmmoCargo _vehicle;
 		
-		{
-		
-			_baseWep = [_x select 0] call bis_fnc_baseweapon;		
-			_itemsCargo pushBack _baseWep;				
-			//base weapon might still have default attachments (e.g. RHS)
-			_blackList = [""];
-			if (isClass (configfile >> "cfgWeapons" >> _baseWep >> "LinkedItems")) then {
-			
-				{
-				
-					_blackList pushBack (toupper getText (_x >> "item"));
-				
-				} foreach ("true" configClasses (configfile >> "cfgWeapons" >> _baseWep >> "LinkedItems"));				
-			
-			};
-			
-			{
-			
-				if (!((toupper _x) in _blackList)) then {
-				
-					_itemsCargo pushBack _x;
-				
-				};
-			
-			} foreach [_x select 1, _x select 2, _x select 3, _x select 6];
-			
-			_magArray = _x select 4;
-			if ((count _magArray) > 0) then {			
-				_magazinesAmmoCargo pushBack [(_magArray select 0), (_magArray select 1)];
-			};
-			
-			_magArray = _x select 5;
-			if ((count _magArray) > 0) then {
-				_magazinesAmmoCargo pushBack [(_magArray select 0), (_magArray select 1)];
-			};
-		
-		} foreach weaponsItemsCargo _vehicle;		
+		Hz_pers_saveVar_vehicles_weaponsItems pushBack (weaponsItemsCargo _vehicle);		
 		
 		Hz_pers_saveVar_vehicles_magazinesAmmoCargo pushBack _magazinesAmmoCargo;		
 		
@@ -203,43 +167,7 @@ sleep (2*(count allPlayers)/4);
 		
 		_magazinesAmmoCargo = magazinesAmmoCargo _crate;
 			
-		{
-		
-			_baseWep = [_x select 0] call bis_fnc_baseweapon;		
-			_itemsCargo pushBack _baseWep;				
-			//base weapon might still have default attachments (e.g. RHS)
-			_blackList = [""];
-			if (isClass (configfile >> "cfgWeapons" >> _baseWep >> "LinkedItems")) then {
-			
-				{
-				
-					_blackList pushBack (toupper getText (_x >> "item"));
-				
-				} foreach ("true" configClasses (configfile >> "cfgWeapons" >> _baseWep >> "LinkedItems"));				
-			
-			};
-			
-			{
-			
-				if (!((toupper _x) in _blackList)) then {
-				
-					_itemsCargo pushBack _x;
-				
-				};
-			
-			} foreach [_x select 1, _x select 2, _x select 3, _x select 6];
-			
-			_magArray = _x select 4;
-			if ((count _magArray) > 0) then {			
-				_magazinesAmmoCargo pushBack [(_magArray select 0), (_magArray select 1)];
-			};
-			
-			_magArray = _x select 5;
-			if ((count _magArray) > 0) then {
-				_magazinesAmmoCargo pushBack [(_magArray select 0), (_magArray select 1)];
-			};
-		
-		} foreach weaponsItemsCargo _crate;
+		Hz_pers_saveVar_crates_weaponsItems pushBack (weaponsItemsCargo _crate);
 		
 		Hz_pers_saveVar_crates_magazinesAmmoCargo pushback _magazinesAmmoCargo;
 		
@@ -353,6 +281,7 @@ Hz_pers_saveVar_vehicles_magazinesAmmoCargo = [];
 Hz_pers_saveVar_vehicles_itemsCargo = [];
 Hz_pers_saveVar_vehicles_backpackCargo = [];
 Hz_pers_saveVar_vehicles_variableValues = [];
+Hz_pers_saveVar_vehicles_weaponsItems = [];
 
 Hz_pers_saveVar_objects_type = [];
 Hz_pers_saveVar_objects_damage = [];
@@ -375,3 +304,4 @@ Hz_pers_saveVar_crates_magazinesAmmoCargo = [];
 Hz_pers_saveVar_crates_itemsCargo = [];
 Hz_pers_saveVar_crates_backpackCargo = [];
 Hz_pers_saveVar_crates_variableValues = [];
+Hz_pers_saveVar_crates_weaponsItems = [];

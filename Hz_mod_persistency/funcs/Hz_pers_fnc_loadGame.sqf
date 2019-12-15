@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2017-2018 K.Hunter
+* Copyright (C) 2017-2019 K.Hunter
 *
 * The source code contained within this file is licensed under a Creative Commons
 * Attribution-NonCommercial-ShareAlike 4.0 International License.
@@ -55,6 +55,11 @@ _indexVehicle = (count Hz_pers_saveVar_vehicles_type) - 1;
 _indexObject = (count Hz_pers_saveVar_objects_type) - 1;
 _indexCrate = (count Hz_pers_saveVar_crates_type) - 1;
 
+//////////////////////////////////////////////////////////////////////////////////////////
+
+//check for updates
+call Hz_pers_fnc_updateSaveDataVersion;
+
 /////////////////////////////////////////////////////////////////////////////////////////
 
 sleep Hz_pers_objectsLoadDelay;
@@ -105,7 +110,14 @@ if (_indexVehicle >= 0) then {
       for "_j" from 0 to _magazineAmmoIndex do {
         _veh addMagazineAmmoCargo [(((Hz_pers_saveVar_vehicles_magazinesAmmoCargo select _index) select _j) select 0),1,(((Hz_pers_saveVar_vehicles_magazinesAmmoCargo select _index) select _j) select 1)];
       };		
-    };		
+    };
+
+		_weaponsItemsIndex = (count (Hz_pers_saveVar_vehicles_weaponsItems select _index)) - 1;
+    if (_weaponsItemsIndex >= 0) then {
+      {
+        _veh addWeaponWithAttachmentsCargoGlobal [_x,1];
+      } foreach (Hz_pers_saveVar_vehicles_weaponsItems select _index);		
+    };	
     
     _veh setdir (Hz_pers_saveVar_vehicles_dir select _index);
 		_veh setVectorUp (Hz_pers_saveVar_vehicles_vectorUp select _index);
@@ -258,6 +270,13 @@ if (_indexCrate >= 0) then {
 				_crate addBackpackCargoGlobal[(((Hz_pers_saveVar_crates_backpackCargo select _index) select 0) select _j),(((Hz_pers_saveVar_crates_backpackCargo select _index) select 1) select _j)];
 			};
 		};
+		
+		_weaponsItemsIndex = (count (Hz_pers_saveVar_crates_weaponsItems select _index)) - 1;
+    if (_weaponsItemsIndex >= 0) then {
+      {
+        _crate addWeaponWithAttachmentsCargoGlobal [_x,1];
+      } foreach (Hz_pers_saveVar_crates_weaponsItems select _index);		
+    };
     
     _variableValues = Hz_pers_saveVar_crates_variableValues select _index;
     {
@@ -310,7 +329,7 @@ _func = missionnamespace getvariable [Hz_pers_customLoadFunctionName,{}];
 call _func;
 
 
-// deallocate
+// deallocate -- does arma even do that?
 //use resize 0?...
 
 Hz_pers_saveVar_vehicles_type = [];
@@ -324,6 +343,7 @@ Hz_pers_saveVar_vehicles_magazinesTurrets = [];
 Hz_pers_saveVar_vehicles_magazinesAmmoCargo = [];
 Hz_pers_saveVar_vehicles_itemsCargo = [];
 Hz_pers_saveVar_vehicles_variableValues = [];
+Hz_pers_saveVar_vehicles_weaponsItems = [];
 
 Hz_pers_saveVar_objects_type = [];
 Hz_pers_saveVar_objects_damage = [];
@@ -345,3 +365,4 @@ Hz_pers_saveVar_crates_vectorUp = [];
 Hz_pers_saveVar_crates_magazinesAmmoCargo = [];
 Hz_pers_saveVar_crates_itemsCargo = [];
 Hz_pers_saveVar_crates_variableValues = [];
+Hz_pers_saveVar_crates_weaponsItems = [];
