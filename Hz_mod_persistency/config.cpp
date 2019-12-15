@@ -209,6 +209,13 @@ class CfgVehicles
         tooltip = "Seconds to wait after a player joins the mission before loading their persistent state. This setting will be ignored if the manual switch setting above is enabled.";
         defaultValue = """10""";
       };
+			class ObjectsLoadDelay: Edit
+      {
+				property = "Hz_pers_module_pObjectsLoadDelay";
+        displayName = "Objects Load Delay";
+        tooltip = "Seconds to wait at mission start after persistent variables have been loaded and before persistent objects are loaded. A delay here might be useful for you in case you wish to do some setting up every time at the start of your mission using data from persistent variables and you prefer persistent objects to not have spawned yet.";
+        defaultValue = """10""";
+      };
       class MaxArraySize: Edit
       {
 				property = "Hz_pers_module_pMaxArraySize";

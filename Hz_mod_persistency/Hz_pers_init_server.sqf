@@ -173,6 +173,7 @@ Hz_pers_customLoadFunctionName = _logic getVariable "CustomLoadFunctionName";
 Hz_pers_autoLoadDelay = call compile (_logic getVariable "AutoLoadDelay");
 Hz_pers_pathToSaveFile = _logic getVariable "PathToSaveFile";
 Hz_pers_enableACEXFieldRations = _logic getVariable "AcexFieldRations";
+Hz_pers_objectsLoadDelay = call compile (_logic getVariable "ObjectsLoadDelay");
 
 if (isclass (configfile >> "cfgpatches" >> "ace_hearing")) then {
 

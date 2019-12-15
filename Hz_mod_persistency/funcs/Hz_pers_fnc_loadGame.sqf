@@ -57,6 +57,8 @@ _indexCrate = (count Hz_pers_saveVar_crates_type) - 1;
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
+sleep Hz_pers_objectsLoadDelay;
+
 //Load Vehicles
 _index = 0;
 
