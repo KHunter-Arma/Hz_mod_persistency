@@ -32,7 +32,12 @@ _this call {
 	//Something went wrong at connection - exit without doing anything
 	if (_uid in Hz_pers_clientConnectSafeguardArray) exitWith {
 	
-		deletevehicle _unit;
+		_veh = vehicle _unit;
+		if (_veh == _unit) then {							
+			deletevehicle _unit;							
+		} else {							
+			_veh deleteVehicleCrew _unit;							
+		};
 	
 	};
 
@@ -115,21 +120,16 @@ _this call {
 					
 					};
 				
-				} foreach [_x select 1, _x select 2, _x select 3];
+				} foreach [_x select 1, _x select 2, _x select 3, _x select 6];
 				
 				_magArray = _x select 4;
 				if ((count _magArray) > 0) then {			
 					_magazinesAmmoCargo pushBack [(_magArray select 0), (_magArray select 1)];
 				};
 				
-				//Grenade launcher?
-				if ((typename (_x select 5)) == "ARRAY") then {
-					
-					_magArray = _x select 5;
-					if ((count _magArray) > 0) then {
-						_magazinesAmmoCargo pushBack [(_magArray select 0), (_magArray select 1)];
-					};
-
+				_magArray = _x select 5;
+				if ((count _magArray) > 0) then {
+					_magazinesAmmoCargo pushBack [(_magArray select 0), (_magArray select 1)];
 				};
 			
 			} foreach weaponsItemsCargo _container;	
@@ -170,21 +170,16 @@ _this call {
 					
 					};
 				
-				} foreach [_x select 1, _x select 2, _x select 3];
+				} foreach [_x select 1, _x select 2, _x select 3, _x select 6];
 				
 				_magArray = _x select 4;
 				if ((count _magArray) > 0) then {			
 					_magazinesAmmoCargo pushBack [(_magArray select 0), (_magArray select 1)];
 				};
 				
-				//Grenade launcher?
-				if ((typename (_x select 5)) == "ARRAY") then {
-					
-					_magArray = _x select 5;
-					if ((count _magArray) > 0) then {
-						_magazinesAmmoCargo pushBack [(_magArray select 0), (_magArray select 1)];
-					};
-
+				_magArray = _x select 5;
+				if ((count _magArray) > 0) then {
+					_magazinesAmmoCargo pushBack [(_magArray select 0), (_magArray select 1)];
 				};
 			
 			} foreach weaponsItemsCargo _container;	
@@ -225,21 +220,16 @@ _this call {
 					
 					};
 				
-				} foreach [_x select 1, _x select 2, _x select 3];
+				} foreach [_x select 1, _x select 2, _x select 3, _x select 6];
 				
 				_magArray = _x select 4;
 				if ((count _magArray) > 0) then {			
 					_magazinesAmmoCargo pushBack [(_magArray select 0), (_magArray select 1)];
 				};
 				
-				//Grenade launcher?
-				if ((typename (_x select 5)) == "ARRAY") then {
-					
-					_magArray = _x select 5;
-					if ((count _magArray) > 0) then {
-						_magazinesAmmoCargo pushBack [(_magArray select 0), (_magArray select 1)];
-					};
-
+				_magArray = _x select 5;
+				if ((count _magArray) > 0) then {
+					_magazinesAmmoCargo pushBack [(_magArray select 0), (_magArray select 1)];
 				};
 			
 			} foreach weaponsItemsCargo _container;	
@@ -307,21 +297,38 @@ _this call {
 	//exit conditions are down here to make sure no save variable is undefined (not really necessary though)
 	if ((!alive _unit) && !_forcedSave) exitWith {
 
-		deletevehicle _unit;
+		_veh = vehicle _unit;
+		if (_veh == _unit) then {							
+			deletevehicle _unit;							
+		} else {							
+			_veh deleteVehicleCrew _unit;							
+		};
+		
 		Hz_pers_saveVar_players_positionATL set [_playerIndex, []];
 		
 	};
 
 	if ((_unit getvariable ["Hz_pers_clientDisableSaveStateOnDisconnect",false]) && !_forcedSave) exitWith {
 
-		deletevehicle _unit;
+		_veh = vehicle _unit;
+		if (_veh == _unit) then {							
+			deletevehicle _unit;							
+		} else {							
+			_veh deleteVehicleCrew _unit;							
+		};
+		
 		Hz_pers_saveVar_players_positionATL set [_playerIndex, []];
 
 	};
 
 	if (!_forcedSave) then {
 
-		deletevehicle _unit;
+		_veh = vehicle _unit;
+		if (_veh == _unit) then {							
+			deletevehicle _unit;							
+		} else {							
+			_veh deleteVehicleCrew _unit;							
+		};
 
 	};
 

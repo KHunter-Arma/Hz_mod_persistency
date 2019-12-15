@@ -32,6 +32,14 @@ waituntil {sleep 0.1; !isnull (finddisplay 46)};
 waitUntil {sleep 0.1; !isnull player};
 
 //add EHs
+waitUntil {	
+	sleep 1;	
+	!isNil "Hz_pers_saveVar_players_variableNames"
+};
+Hz_pers_playerVariablesLastSyncedWithServer = [];
+{
+	Hz_pers_playerVariablesLastSyncedWithServer pushBack "nil";
+} foreach Hz_pers_saveVar_players_variableNames;
 (findDisplay 46) displayAddEventHandler ["KeyDown", Hz_pers_fnc_clientHandleEscButtonPushed];
 
 /* looks like not needed

@@ -103,21 +103,16 @@ sleep (2*(count allPlayers)/4);
 				
 				};
 			
-			} foreach [_x select 1, _x select 2, _x select 3];
+			} foreach [_x select 1, _x select 2, _x select 3, _x select 6];
 			
 			_magArray = _x select 4;
 			if ((count _magArray) > 0) then {			
 				_magazinesAmmoCargo pushBack [(_magArray select 0), (_magArray select 1)];
 			};
 			
-			//Grenade launcher?
-			if ((typename (_x select 5)) == "ARRAY") then {
-				
-				_magArray = _x select 5;
-				if ((count _magArray) > 0) then {
-					_magazinesAmmoCargo pushBack [(_magArray select 0), (_magArray select 1)];
-				};
-
+			_magArray = _x select 5;
+			if ((count _magArray) > 0) then {
+				_magazinesAmmoCargo pushBack [(_magArray select 0), (_magArray select 1)];
 			};
 		
 		} foreach weaponsItemsCargo _vehicle;		
@@ -232,21 +227,16 @@ sleep (2*(count allPlayers)/4);
 				
 				};
 			
-			} foreach [_x select 1, _x select 2, _x select 3];
+			} foreach [_x select 1, _x select 2, _x select 3, _x select 6];
 			
 			_magArray = _x select 4;
 			if ((count _magArray) > 0) then {			
 				_magazinesAmmoCargo pushBack [(_magArray select 0), (_magArray select 1)];
 			};
 			
-			//Grenade launcher?
-			if ((typename (_x select 5)) == "ARRAY") then {
-				
-				_magArray = _x select 5;
-				if ((count _magArray) > 0) then {
-					_magazinesAmmoCargo pushBack [(_magArray select 0), (_magArray select 1)];
-				};
-
+			_magArray = _x select 5;
+			if ((count _magArray) > 0) then {
+				_magazinesAmmoCargo pushBack [(_magArray select 0), (_magArray select 1)];
 			};
 		
 		} foreach weaponsItemsCargo _crate;
