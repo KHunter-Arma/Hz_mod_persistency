@@ -10,10 +10,16 @@
 *******************************************************************************/
 
 _logic = _this select 0;
-Hz_pers_clientEnableManualLoadSwitch = _logic getVariable "ClientEnableManualLoadSwitch";
-Hz_pers_enableACEmedical = _logic getVariable "AceMedical";
 
 Hz_pers_clientFuncs_path = Hz_pers_path + "client_funcs\";
+
+// Headless Clients
+if (!hasInterface) exitWith {
+	Hz_pers_fnc_hzAmbwHcRequestInfoFromServer = compile preprocessFileLineNumbers (Hz_pers_clientFuncs_path + "Hz_pers_fnc_hzAmbwHcRequestInfoFromServer.sqf");
+};
+
+Hz_pers_clientEnableManualLoadSwitch = _logic getVariable "ClientEnableManualLoadSwitch";
+Hz_pers_enableACEmedical = _logic getVariable "AceMedical";
 
 //compile funcs
 Hz_pers_fnc_handleAcreRadios = compile preprocessFileLineNumbers (Hz_pers_path + "funcs\Hz_pers_fnc_handleAcreRadios.sqf");

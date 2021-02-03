@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2019 K.Hunter
+* Copyright (C) 2019-2020 K.Hunter
 *
 * The source code contained within this file is licensed under a Creative Commons
 * Attribution-NonCommercial-ShareAlike 4.0 International License.
@@ -26,6 +26,21 @@ if (Hz_pers_saveVar_saveFileVersion < 191201) then {
 	{
 		Hz_pers_saveVar_crates_weaponsItems pushBack [];
 	} foreach Hz_pers_saveVar_crates_type;
+
+};
+
+if (Hz_pers_saveVar_saveFileVersion < 200104) then {
+
+	if (Hz_pers_enableACEmedical) then {
+
+		["ace_medical_inPain", true] call Hz_pers_API_addPlayerVariable;
+		["ace_medical_hemorrhage", true] call Hz_pers_API_addPlayerVariable;
+		["ace_medical_stitchedWounds", true] call Hz_pers_API_addPlayerVariable;
+		["ace_medical_isLimping", true] call Hz_pers_API_addPlayerVariable;
+		["ace_medical_bodyPartDamage", true] call Hz_pers_API_addPlayerVariable;
+		["ace_medical_medications", true] call Hz_pers_API_addPlayerVariable;
+
+	};
 
 };
 

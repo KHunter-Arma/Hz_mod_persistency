@@ -15,6 +15,7 @@ Hz_pers_funcs_path = Hz_pers_path + "funcs\";
 
 Hz_pers_clientConnectSafeguardArray = [];
 Hz_pers_serverInitialised = false;
+publicVariable "Hz_pers_serverInitialised";
 
 // init public variables that should be persistent throughout server uptime
 
@@ -107,9 +108,11 @@ Hz_pers_fnc_loadGame = compile preprocessFileLineNumbers (Hz_pers_funcs_path + "
 Hz_pers_fnc_handleFirstTimeLaunch = compile preprocessFileLineNumbers (Hz_pers_funcs_path + "Hz_pers_fnc_handleFirstTimeLaunch.sqf");
 Hz_pers_fnc_ackClientLoadSuccess = compile preprocessFileLineNumbers (Hz_pers_funcs_path + "Hz_pers_fnc_ackClientLoadSuccess.sqf");
 Hz_pers_fnc_updateSaveDataVersion = compile preprocessFileLineNumbers (Hz_pers_funcs_path + "Hz_pers_fnc_updateSaveDataVersion.sqf");
+Hz_pers_fnc_updateVariableInfo = compile preprocessFileLineNumbers (Hz_pers_funcs_path + "Hz_pers_fnc_updateVariableInfo.sqf");
+Hz_pers_fnc_sendHzAmbwInfoToHc = compile preprocessFileLineNumbers (Hz_pers_funcs_path + "Hz_pers_fnc_sendHzAmbwInfoToHc.sqf");
 
 //current save-file version
-Hz_pers_currentSaveFileVersion = 191201;
+Hz_pers_currentSaveFileVersion = 200104;
 
 //init parsing info
 Hz_pers_parsingInfo = [
@@ -181,8 +184,8 @@ Hz_pers_maxWriteArraySize = call compile (_logic getVariable "MaxArraySize");
 Hz_pers_customLoadFunctionName = _logic getVariable "CustomLoadFunctionName";
 Hz_pers_autoLoadDelay = call compile (_logic getVariable "AutoLoadDelay");
 Hz_pers_pathToSaveFile = _logic getVariable "PathToSaveFile";
-Hz_pers_enableACEXFieldRations = _logic getVariable "AcexFieldRations";
 Hz_pers_objectsLoadDelay = call compile (_logic getVariable "ObjectsLoadDelay");
+Hz_pers_enableACEXFieldRations = _logic getVariable "AcexFieldRations";
 
 if (isclass (configfile >> "cfgpatches" >> "ace_hearing")) then {
 
@@ -241,35 +244,42 @@ if (Hz_pers_enableACEmedical) then {
 
   } foreach [
 						["ace_medical_pain",true],
-            ["ace_medical_morphine",true],
+						["ace_medical_inPain",true],					
+            ["ace_medical_morphine",true],   //remove
             ["ace_medical_bloodVolume",true],
+						["ace_medical_hemorrhage",true],
             //["ACE_isUnconscious",true],
             ["ace_medical_tourniquets",true],
             ["ace_medical_occludedMedications",true],
             ["ace_medical_openWounds",true],
             ["ace_medical_bandagedWounds",true],
-            ["ace_medical_internalWounds",true],
-            ["ace_medical_lastUniqueWoundID",true],
-            ["ace_medical_heartRate",false],
-            ["ace_medical_heartRateAdjustments",false],
-            ["ace_medical_bloodPressure",false],
-            ["ace_medical_peripheralResistance",false],
+            ["ace_medical_internalWounds",true],  //remove
+						["ace_medical_stitchedWounds",true],
+						["ace_medical_isLimping",true],
+						["ace_medical_bodyPartDamage",true],
+						["ace_medical_medications",true],
+						//["ace_medical_lastWakeUpCheck",true], //add?						
+            ["ace_medical_lastUniqueWoundID",true],  //possibly will be removed from future versions of ACE
+            ["ace_medical_heartRate",true],
+            ["ace_medical_heartRateAdjustments",false], //remove
+            ["ace_medical_bloodPressure",true],
+            ["ace_medical_peripheralResistance",true],
             ["ace_medical_fractures",true],
             ["ace_medical_triageLevel",true],
             ["ace_medical_triageCard",true],
             ["ace_medical_ivBags",true],
-            ["ace_medical_bodyPartStatus",true],
-            ["ace_medical_airwayStatus",false],
-            ["ace_medical_airwayOccluded",false],
-            ["ace_medical_airwayCollapsed",false],
+            ["ace_medical_bodyPartStatus",true], //remove
+            ["ace_medical_airwayStatus",false], //remove?
+            ["ace_medical_airwayOccluded",false], //remove?
+            ["ace_medical_airwayCollapsed",false], //remove?
             //["ace_medical_addedToUnitLoop",true],
             ["ace_medical_inCardiacArrest",true],
-            ["ace_medical_hasLostBlood",true],
-            ["ace_medical_isBleeding",true],
-            ["ace_medical_hasPain",true],
-            ["ace_medical_amountOfReviveLives",true],
+            ["ace_medical_hasLostBlood",true], //remove
+            ["ace_medical_isBleeding",true], //remove
+            ["ace_medical_hasPain",true], //remove
+            ["ace_medical_amountOfReviveLives",true], //remove
             ["ace_medical_painSuppress",true],
-            ["ace_medical_allUsedMedication",true],
+            ["ace_medical_allUsedMedication",true], //remove
             ["ace_medical_allLogs",true]
             ];
 
@@ -309,8 +319,74 @@ publicVariable "Hz_pers_saveVar_players_variableNames";
 publicVariable "Hz_pers_network_objects";
 publicVariable "Hz_pers_network_crates";
 
-//auto-load
+
 _logic spawn {
+
+	// Hunter'z modules auto-integration
+	Hz_pers_enableHzAmbw = false;
+	if ((isClass (configFile >> "cfgPatches" >> "Hz_mod_ambientWar"))
+			|| {isClass (configFile >> "cfgPatches" >> "Hz_mod_economy")}
+			) then {
+								
+		sleep 30;
+		
+		if ((!isNil "Hz_ambw_initDone") && {Hz_ambw_initDone}) then {
+			Hz_pers_enableHzAmbw = true;
+			
+			["Hz_ambw_srel_relationsCivilian",SINGLE_VARIABLE,true] call Hz_pers_API_addMissionVariable;
+			["Hz_ambw_srel_relationsOwnSide",SINGLE_VARIABLE,true] call Hz_pers_API_addMissionVariable;
+			
+			Hz_pers_saveVar_ambw_pat_gSides = [];
+			Hz_pers_saveVar_ambw_pat_gPatMarkers = [];			
+			Hz_pers_saveVar_ambw_pat_gVehicleTypes = [];
+			Hz_pers_saveVar_ambw_pat_gVehicleCrewTypes = [];
+			Hz_pers_saveVar_ambw_pat_gInfantryTypes = [];
+			Hz_pers_saveVar_ambw_pat_gVehiclePosATL = [];
+			Hz_pers_saveVar_ambw_pat_gVehicleDir = [];
+			Hz_pers_saveVar_ambw_pat_gInfantryPosATL = [];
+			
+			Hz_pers_network_ambw_pat_gSides = [];
+			Hz_pers_network_ambw_pat_gPatMarkers = [];			
+			Hz_pers_network_ambw_pat_gVehicleTypes = [];
+			Hz_pers_network_ambw_pat_gVehicleCrewTypes = [];
+			Hz_pers_network_ambw_pat_gInfantryTypes = [];
+			Hz_pers_network_ambw_pat_gVehiclePosATL = [];
+			Hz_pers_network_ambw_pat_gVehicleDir = [];
+			Hz_pers_network_ambw_pat_gInfantryPosATL = [];			
+			
+			["Hz_pers_saveVar_ambw_pat_gSides",ONE_D_ARRAY,false] call Hz_pers_API_addMissionVariable;
+			["Hz_pers_saveVar_ambw_pat_gPatMarkers",ONE_D_ARRAY,false] call Hz_pers_API_addMissionVariable;
+			["Hz_pers_saveVar_ambw_pat_gVehicleTypes",NESTED_ARRAY_STRUCT,false] call Hz_pers_API_addMissionVariable;
+			["Hz_pers_saveVar_ambw_pat_gVehicleCrewTypes",ARRAY_OF_STRUCTS,false] call Hz_pers_API_addMissionVariable;
+			["Hz_pers_saveVar_ambw_pat_gInfantryTypes",NESTED_ARRAY_STRUCT,false] call Hz_pers_API_addMissionVariable;
+			["Hz_pers_saveVar_ambw_pat_gVehiclePosATL",NESTED_ARRAY_STRUCT,false] call Hz_pers_API_addMissionVariable;
+			["Hz_pers_saveVar_ambw_pat_gVehicleDir",NESTED_ARRAY_STRUCT,false] call Hz_pers_API_addMissionVariable;
+			["Hz_pers_saveVar_ambw_pat_gInfantryPosATL",NESTED_ARRAY_STRUCT,false] call Hz_pers_API_addMissionVariable;	
+			
+			Hz_pers_saveVar_ambw_sc_sPos = [];
+			Hz_pers_saveVar_ambw_sc_sSides = [];
+			Hz_pers_saveVar_ambw_sc_sObjectTypes = [];
+			Hz_pers_saveVar_ambw_sc_sObjectPosATL = [];
+			
+			Hz_pers_network_ambw_sc_sPos = [];
+			Hz_pers_network_ambw_sc_sSides = [];
+			Hz_pers_network_ambw_sc_sObjectTypes = [];
+			Hz_pers_network_ambw_sc_sObjectPosATL = [];
+			
+			["Hz_pers_saveVar_ambw_sc_sPos",ONE_D_ARRAY,false] call Hz_pers_API_addMissionVariable;
+			["Hz_pers_saveVar_ambw_sc_sSides",ONE_D_ARRAY,false] call Hz_pers_API_addMissionVariable;
+			["Hz_pers_saveVar_ambw_sc_sObjectTypes",NESTED_ARRAY_STRUCT,false] call Hz_pers_API_addMissionVariable;
+			["Hz_pers_saveVar_ambw_sc_sObjectPosATL",NESTED_ARRAY_STRUCT,false] call Hz_pers_API_addMissionVariable;
+			
+		};
+		
+		if ((!isNil "Hz_econ_preInitDone") && {Hz_econ_preInitDone}) then {
+			["Hz_econ_funds",SINGLE_VARIABLE,true] call Hz_pers_API_addMissionVariable;
+		};
+			
+	};			
+	
+	//auto-load
 
 	_loadCodeString = preprocessfilelinenumbers Hz_pers_pathToSaveFile;
 	
@@ -318,6 +394,7 @@ _logic spawn {
 	
 		call Hz_pers_fnc_handleFirstTimeLaunch;
 		Hz_pers_serverInitialised = true;
+		publicVariable "Hz_pers_serverInitialised";
 	
 	} else {
 
@@ -332,7 +409,8 @@ _logic spawn {
 		
 		} foreach playableUnits;
 		
-		Hz_pers_serverInitialised = true;		
+		Hz_pers_serverInitialised = true;
+		publicVariable "Hz_pers_serverInitialised";
 	
 	};
 	
