@@ -110,6 +110,8 @@ Hz_pers_fnc_ackClientLoadSuccess = compile preprocessFileLineNumbers (Hz_pers_fu
 Hz_pers_fnc_updateSaveDataVersion = compile preprocessFileLineNumbers (Hz_pers_funcs_path + "Hz_pers_fnc_updateSaveDataVersion.sqf");
 Hz_pers_fnc_updateVariableInfo = compile preprocessFileLineNumbers (Hz_pers_funcs_path + "Hz_pers_fnc_updateVariableInfo.sqf");
 Hz_pers_fnc_sendHzAmbwInfoToHc = compile preprocessFileLineNumbers (Hz_pers_funcs_path + "Hz_pers_fnc_sendHzAmbwInfoToHc.sqf");
+Hz_pers_fnc_strToSide = compile preprocessFileLineNumbers (Hz_pers_funcs_path + "Hz_pers_fnc_strToSide.sqf");
+Hz_pers_fnc_sideToStr = compile preprocessFileLineNumbers (Hz_pers_funcs_path + "Hz_pers_fnc_sideToStr.sqf");
 
 //current save-file version
 Hz_pers_currentSaveFileVersion = 200104;
