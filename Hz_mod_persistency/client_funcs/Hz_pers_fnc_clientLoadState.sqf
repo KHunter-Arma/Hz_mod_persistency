@@ -252,9 +252,14 @@ progressLoadingScreen 0.85;
 sleep 0.1;
 
 player setdir _dir;
-[player,_anim] remoteExecCall ["switchMove",0,false];
-player playMoveNow _anim;
 player setposatl _positionATL;
+
+// non-static animations are a bit unreliable so try something like this...
+player switchMove "";
+sleep 1;
+player playMoveNow _anim;
+sleep 1;
+[player,_anim] remoteExecCall ["switchMove",0,false];
 
 progressLoadingScreen 1;
 
