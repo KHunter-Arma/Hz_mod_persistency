@@ -44,4 +44,20 @@ if (Hz_pers_saveVar_saveFileVersion < 200104) then {
 
 };
 
+if (Hz_pers_saveVar_saveFileVersion < 220123) then {
+
+	{
+		if ((_x select 0) == "acex_field_rations_currentWaterSupply") exitWith {
+			Hz_pers_saveVar_objects_variableNames set [_foreachIndex, ["ace_field_rations_currentWaterSupply", true]];
+		};
+	} foreach Hz_pers_saveVar_objects_variableNames;
+	
+	{
+		if ((_x select 0) == "acex_field_rations_currentWaterSupply") exitWith {
+			Hz_pers_saveVar_vehicles_variableNames set [_foreachIndex, ["ace_field_rations_currentWaterSupply", true]];
+		};
+	} foreach Hz_pers_saveVar_vehicles_variableNames;
+
+};
+
 Hz_pers_saveVar_saveFileVersion = Hz_pers_currentSaveFileVersion;

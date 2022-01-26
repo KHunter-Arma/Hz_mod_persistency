@@ -114,7 +114,7 @@ Hz_pers_fnc_strToSide = compile preprocessFileLineNumbers (Hz_pers_funcs_path + 
 Hz_pers_fnc_sideToStr = compile preprocessFileLineNumbers (Hz_pers_funcs_path + "Hz_pers_fnc_sideToStr.sqf");
 
 //current save-file version
-Hz_pers_currentSaveFileVersion = 200104;
+Hz_pers_currentSaveFileVersion = 220123;
 
 //init parsing info
 Hz_pers_parsingInfo = [
@@ -303,7 +303,7 @@ if (Hz_pers_enableACEXFieldRations) then {
     Hz_pers_saveVar_objects_variableNames pushBackUnique _x;
   
   } foreach [
-              ["acex_field_rations_currentWaterSupply",true] 
+              ["ace_field_rations_currentWaterSupply",true] 
             ];
 						
 	{
@@ -311,7 +311,7 @@ if (Hz_pers_enableACEXFieldRations) then {
     Hz_pers_saveVar_vehicles_variableNames pushBackUnique _x;
   
   } foreach [
-              ["acex_field_rations_currentWaterSupply",true] 
+              ["ace_field_rations_currentWaterSupply",true] 
             ];					
 
 };
@@ -418,11 +418,17 @@ _logic spawn {
 	
 	private _delay = call compile (_this getVariable "AutoSaveFreq");
 	
+	Hz_pers_enableAutoSave = true;
+	
 	while {true} do {
 	
 		uisleep _delay;
 		
-		call Hz_pers_fnc_saveGame;
+		if (Hz_pers_enableAutoSave) then {
+		
+			call Hz_pers_fnc_saveGame;
+		
+		};
 	
 	};
 
