@@ -11,13 +11,14 @@
 
 #include "..\parsing_descriptors.txt"
 
-call compile _this;
-
 _defaultParsingInfo = +Hz_pers_parsingInfo;
 _defaultPlayerVariableInfo = +Hz_pers_saveVar_players_variableNames;
 _defaultVehicleVariableInfo = +Hz_pers_saveVar_vehicles_variableNames;
 _defaultObjectVariableInfo = +Hz_pers_saveVar_objects_variableNames;
 _defaultCrateVariableInfo = +Hz_pers_saveVar_crates_variableNames;
+
+call compile _this;
+
 "Hz_pers_parsingInfo" call Hz_pers_fnc_arrayParser;
 
 {

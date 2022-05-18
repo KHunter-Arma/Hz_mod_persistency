@@ -115,6 +115,7 @@ Hz_pers_fnc_sideToStr = compile preprocessFileLineNumbers (Hz_pers_funcs_path + 
 
 //current save-file version
 Hz_pers_currentSaveFileVersion = 220123;
+Hz_pers_saveVar_saveFileVersion = Hz_pers_currentSaveFileVersion;
 
 //init parsing info
 Hz_pers_parsingInfo = [

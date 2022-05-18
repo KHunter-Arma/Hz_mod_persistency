@@ -9,7 +9,16 @@
 * https://creativecommons.org/licenses/by-nc-sa/4.0/
 *******************************************************************************/
 
-if (isnil "Hz_pers_saveVar_saveFileVersion") then {
+
+// check if the save versioning system is defined on this save file at all
+private _saveVersioningExists = false;
+{
+	if ("Hz_pers_saveVar_saveFileVersion" in _x) exitWith {
+		_saveVersioningExists = true;
+	};
+} foreach Hz_pers_parsingInfo;
+
+if (!_saveVersioningExists) then {
 	Hz_pers_saveVar_saveFileVersion = 0;
 };
 
