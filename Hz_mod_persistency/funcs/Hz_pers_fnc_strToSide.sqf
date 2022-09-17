@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2017-2019 K.Hunter
+* Copyright (C) 2021 K.Hunter
 *
 * The source code contained within this file is licensed under a Creative Commons
 * Attribution-NonCommercial-ShareAlike 4.0 International License.
@@ -9,25 +9,18 @@
 * https://creativecommons.org/licenses/by-nc-sa/4.0/
 *******************************************************************************/
 
-// Pause menu (Esc button pushed in main display)?
-if ((_this select 1) == 1) then {
-
-	if (isServer) exitWith {};
-
-	[] spawn {
-
-		startLoadingScreen ["Loading..."];
-
-		_variablesToSyncCount = call Hz_pers_fnc_clientSendLocalVars;
-		
-		if (_variablesToSyncCount > 0) then {
-		
-			uisleep ((2 max _variablesToSyncCount) min 10);
-		
-		};
-			
-		endLoadingScreen;
+switch (_this) do {
 	
-	};
+	case "WEST" : {west};	
+	case "EAST" : {east};
+	case "GUER" : {resistance};
+	case "CIV" : {civilian};
+	case "EMPTY" : {sideEmpty};
+	case "UNKNOWN" : {sideUnknown};
+	case "ENEMY" : {sideEnemy};
+	case "FRIENDLY" : {sideFriendly};
+	case "AMBIENT LIFE" : {sideAmbientLife};
+	case "LOGIC" : {sideLogic};
+	default {sideEmpty};
 
-};
+}

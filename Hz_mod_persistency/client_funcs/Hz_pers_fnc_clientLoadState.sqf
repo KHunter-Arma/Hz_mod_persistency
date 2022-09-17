@@ -5,7 +5,7 @@
 *
 * Description: 	Executed on client via remote execution after client connects.
 ********************************************************************************
-* Copyright (C) 2017-2018 K.Hunter
+* Copyright (C) 2017-2019 K.Hunter
 *
 * The source code contained within this file is licensed under a Creative Commons
 * Attribution-NonCommercial-ShareAlike 4.0 International License.
@@ -97,33 +97,37 @@ progressLoadingScreen 0.3;
 
 {
 
-	player addWeapon (_x select 0);	
-	
-	//add magazine
-	_magArray = _x select 4;
-	if ((count _magArray) > 0) then {
-		player addWeaponItem [(_x select 0), [(_magArray select 0), (_magArray select 1)],true];
-	};
-	
-	//attachments
-	_wep = _x select 0;
-	_wepComponents = _wep call BIS_fnc_weaponComponents;
-	
-	{
-	
-		if ((_x != "") && {!((tolower _x) in _wepComponents)}) then {
+	if ((count _x) > 0) then {
+
+		player addWeapon (_x select 0);	
 		
-			player addWeaponItem [_wep, _x,true];
-			sleep 0.1;
-		
-		};
-	
-	} foreach [_x select 1, _x select 2, _x select 3,_x select 6];
-	
-		_magArray = _x select 5;
+		//add magazine
+		_magArray = _x select 4;
 		if ((count _magArray) > 0) then {
 			player addWeaponItem [(_x select 0), [(_magArray select 0), (_magArray select 1)],true];
 		};
+		
+		//attachments
+		_wep = _x select 0;
+		_wepComponents = _wep call BIS_fnc_weaponComponents;
+		
+		{
+		
+			if ((_x != "") && {!((tolower _x) in _wepComponents)}) then {
+			
+				player addWeaponItem [_wep, _x,true];
+				sleep 0.1;
+			
+			};
+		
+		} foreach [_x select 1, _x select 2, _x select 3,_x select 6];
+		
+			_magArray = _x select 5;
+			if ((count _magArray) > 0) then {
+				player addWeaponItem [(_x select 0), [(_magArray select 0), (_magArray select 1)],true];
+			};
+			
+	};
 
 } foreach _weaponsItems;
 
@@ -248,15 +252,27 @@ progressLoadingScreen 0.85;
 sleep 0.1;
 
 player setdir _dir;
-[player,_anim] remoteExecCall ["switchMove",0,false];
-player playMoveNow _anim;
 player setposatl _positionATL;
+
+// non-static animations are a bit unreliable so try something like this...
+player switchMove "";
+sleep 1;
+player playMoveNow _anim;
+sleep 1;
+[player,_anim] remoteExecCall ["switchMove",0,false];
 
 progressLoadingScreen 1;
 
 if (Hz_pers_enableACEmedical) then {
 
-	[player] call ace_medical_fnc_addVitalLoop;
+	player setVariable ["ace_medical_vitals_lastTimeUpdated", -10];
+	[player] call ace_medical_statemachine_fnc_handleStateInjured;
+	
+	if (player getVariable ["ace_medical_inCardiacArrest",false]) then {
+		player setVariable ["ace_medical_statemachine_cardiacArrestTimeLastUpdate", -10];
+		[player] call ace_medical_statemachine_fnc_handleStateCardiacArrest;		
+	};
+	
 	call Hz_pers_fnc_handleAceMedicalWoundsReopening;
 
 };

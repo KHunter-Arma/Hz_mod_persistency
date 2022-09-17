@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2017-2018 K.Hunter
+* Copyright (C) 2017-2019 K.Hunter
 *
 * The source code contained within this file is licensed under a Creative Commons
 * Attribution-NonCommercial-ShareAlike 4.0 International License.
@@ -79,43 +79,7 @@ sleep (2*(count allPlayers)/4);
     _itemsCargo = [];
 		_magazinesAmmoCargo = magazinesAmmoCargo _vehicle;
 		
-		{
-		
-			_baseWep = [_x select 0] call bis_fnc_baseweapon;		
-			_itemsCargo pushBack _baseWep;				
-			//base weapon might still have default attachments (e.g. RHS)
-			_blackList = [""];
-			if (isClass (configfile >> "cfgWeapons" >> _baseWep >> "LinkedItems")) then {
-			
-				{
-				
-					_blackList pushBack (toupper getText (_x >> "item"));
-				
-				} foreach ("true" configClasses (configfile >> "cfgWeapons" >> _baseWep >> "LinkedItems"));				
-			
-			};
-			
-			{
-			
-				if (!((toupper _x) in _blackList)) then {
-				
-					_itemsCargo pushBack _x;
-				
-				};
-			
-			} foreach [_x select 1, _x select 2, _x select 3, _x select 6];
-			
-			_magArray = _x select 4;
-			if ((count _magArray) > 0) then {			
-				_magazinesAmmoCargo pushBack [(_magArray select 0), (_magArray select 1)];
-			};
-			
-			_magArray = _x select 5;
-			if ((count _magArray) > 0) then {
-				_magazinesAmmoCargo pushBack [(_magArray select 0), (_magArray select 1)];
-			};
-		
-		} foreach weaponsItemsCargo _vehicle;		
+		Hz_pers_saveVar_vehicles_weaponsItems pushBack (weaponsItemsCargo _vehicle);		
 		
 		Hz_pers_saveVar_vehicles_magazinesAmmoCargo pushBack _magazinesAmmoCargo;		
 		
@@ -203,43 +167,7 @@ sleep (2*(count allPlayers)/4);
 		
 		_magazinesAmmoCargo = magazinesAmmoCargo _crate;
 			
-		{
-		
-			_baseWep = [_x select 0] call bis_fnc_baseweapon;		
-			_itemsCargo pushBack _baseWep;				
-			//base weapon might still have default attachments (e.g. RHS)
-			_blackList = [""];
-			if (isClass (configfile >> "cfgWeapons" >> _baseWep >> "LinkedItems")) then {
-			
-				{
-				
-					_blackList pushBack (toupper getText (_x >> "item"));
-				
-				} foreach ("true" configClasses (configfile >> "cfgWeapons" >> _baseWep >> "LinkedItems"));				
-			
-			};
-			
-			{
-			
-				if (!((toupper _x) in _blackList)) then {
-				
-					_itemsCargo pushBack _x;
-				
-				};
-			
-			} foreach [_x select 1, _x select 2, _x select 3, _x select 6];
-			
-			_magArray = _x select 4;
-			if ((count _magArray) > 0) then {			
-				_magazinesAmmoCargo pushBack [(_magArray select 0), (_magArray select 1)];
-			};
-			
-			_magArray = _x select 5;
-			if ((count _magArray) > 0) then {
-				_magazinesAmmoCargo pushBack [(_magArray select 0), (_magArray select 1)];
-			};
-		
-		} foreach weaponsItemsCargo _crate;
+		Hz_pers_saveVar_crates_weaponsItems pushBack (weaponsItemsCargo _crate);
 		
 		Hz_pers_saveVar_crates_magazinesAmmoCargo pushback _magazinesAmmoCargo;
 		
@@ -283,6 +211,77 @@ sleep (2*(count allPlayers)/4);
   };
 
 } foreach allMapMarkers;
+
+// Hunter'z Ambient Warfare
+
+if (Hz_pers_enableHzAmbw) then {
+
+	{
+		_x params ["_group", "_patrolMarker"];
+		_side = side _group;		
+		if ((_side == blufor) || {_side == opfor} || {_side == resistance}) then {
+			Hz_pers_saveVar_ambw_pat_gSides pushBack (_side call Hz_pers_fnc_sideToStr);
+			Hz_pers_saveVar_ambw_pat_gPatMarkers pushBack _patrolMarker;
+			private _vehicles = [];
+			private _infantryTypes = [];
+			private _infantryPosATL = [];
+			{
+				private _veh = vehicle _x;
+				if (_veh != _x) then {
+					_vehicles pushBackUnique _veh;
+				} else {
+					_infantryTypes pushBack (typeOf _x);
+					_infantryPosATL pushBack (getPosATL _x);
+				};
+			} foreach units _group;
+			Hz_pers_saveVar_ambw_pat_gVehicleTypes pushBack (_vehicles apply {typeOf _x});
+			Hz_pers_saveVar_ambw_pat_gInfantryPosATL pushBack _infantryPosATL;
+			Hz_pers_saveVar_ambw_pat_gInfantryTypes pushBack _infantryTypes;
+			private _vehiclesCrewTypes = [];
+			private _vPosATL = [];
+			private _vDir = [];
+			{
+				_vPosATL pushBack (getPosATL _x);
+				_vDir pushBack (getDir _x);
+				private _crewTypes = [];
+				{
+					if (alive _x) then {
+						_crewTypes pushBack (typeOf _x);
+					};
+				} foreach crew _x;
+				_vehiclesCrewTypes pushBack _crewTypes;
+			} foreach _vehicles;
+			Hz_pers_saveVar_ambw_pat_gVehicleCrewTypes pushBack _vehiclesCrewTypes;
+			Hz_pers_saveVar_ambw_pat_gVehiclePosATL pushBack _vPosATL;
+			Hz_pers_saveVar_ambw_pat_gVehicleDir pushBack _vDir;
+		};		
+	} foreach Hz_ambw_pat_patrolGroups;
+	
+	{
+		_x params ["_pos", "_radius", "_dir", "_side", "_marker","_flag","_objects"];
+		Hz_pers_saveVar_ambw_sc_sPos pushBack _pos;
+		Hz_pers_saveVar_ambw_sc_sSides pushBack (_side call Hz_pers_fnc_sideToStr);
+		private _objTypes = [];
+		private _objPos = [];
+		{	
+			if (alive _x) then {
+				if (_x isKindOf "StaticWeapon") then {
+					if (({alive _x} count crew _x) > 0) then {
+						_objPos pushBack (getPosATL _x);
+						_objTypes pushBack (typeOf _x);
+					};
+				} else {			
+					_objPos pushBack (getPosATL _x);
+					_objTypes pushBack (typeOf _x);
+				};
+			};
+		} foreach _objects;
+		Hz_pers_saveVar_ambw_sc_sObjectTypes pushBack _objTypes;
+		Hz_pers_saveVar_ambw_sc_sObjectPosATL pushBack _objPos;
+	} foreach Hz_ambw_sc_sectors;
+	
+};
+
 
 //write parsing info to file as 1D array for safety
 _splitArrays = [(missionnamespace getvariable ["Hz_pers_parsingInfo",[]]), Hz_pers_maxWriteArraySize] call Hz_pers_fnc_arraySplitter;
@@ -339,39 +338,54 @@ _splitArrays = [(missionnamespace getvariable ["Hz_pers_parsingInfo",[]]), Hz_pe
 conClose();
 
 // deallocate
-//TODO: check if resize 0 can be used instead...
 
-Hz_pers_saveVar_vehicles_type = [];
-Hz_pers_saveVar_vehicles_customs = [];
-Hz_pers_saveVar_vehicles_positionATL = [];
-Hz_pers_saveVar_vehicles_vectorUp = [];
-Hz_pers_saveVar_vehicles_dir = [];
-Hz_pers_saveVar_vehicles_hitpointsdamage = [];
-Hz_pers_saveVar_vehicles_fuel = [];
-Hz_pers_saveVar_vehicles_magazinesTurrets = [];
-Hz_pers_saveVar_vehicles_magazinesAmmoCargo = [];
-Hz_pers_saveVar_vehicles_itemsCargo = [];
-Hz_pers_saveVar_vehicles_backpackCargo = [];
-Hz_pers_saveVar_vehicles_variableValues = [];
+Hz_pers_saveVar_vehicles_type resize 0;
+Hz_pers_saveVar_vehicles_customs resize 0;
+Hz_pers_saveVar_vehicles_positionATL resize 0;
+Hz_pers_saveVar_vehicles_vectorUp resize 0;
+Hz_pers_saveVar_vehicles_dir resize 0;
+Hz_pers_saveVar_vehicles_hitpointsdamage resize 0;
+Hz_pers_saveVar_vehicles_fuel resize 0;
+Hz_pers_saveVar_vehicles_magazinesTurrets resize 0;
+Hz_pers_saveVar_vehicles_magazinesAmmoCargo resize 0;
+Hz_pers_saveVar_vehicles_itemsCargo resize 0;
+Hz_pers_saveVar_vehicles_backpackCargo resize 0;
+Hz_pers_saveVar_vehicles_variableValues resize 0;
+Hz_pers_saveVar_vehicles_weaponsItems resize 0;
 
-Hz_pers_saveVar_objects_type = [];
-Hz_pers_saveVar_objects_damage = [];
-Hz_pers_saveVar_objects_dir = [];
-Hz_pers_saveVar_objects_positionATL = [];
-Hz_pers_saveVar_objects_vectorUp = [];
-Hz_pers_saveVar_objects_variableValues = [];
+Hz_pers_saveVar_objects_type resize 0;
+Hz_pers_saveVar_objects_damage resize 0;
+Hz_pers_saveVar_objects_dir resize 0;
+Hz_pers_saveVar_objects_positionATL resize 0;
+Hz_pers_saveVar_objects_vectorUp resize 0;
+Hz_pers_saveVar_objects_variableValues resize 0;
 
-Hz_pers_saveVar_markers_type = [];
-Hz_pers_saveVar_markers_pos = [];
-Hz_pers_saveVar_markers_colour = [];
-Hz_pers_saveVar_markers_text = [];
+Hz_pers_saveVar_markers_type resize 0;
+Hz_pers_saveVar_markers_pos resize 0;
+Hz_pers_saveVar_markers_colour resize 0;
+Hz_pers_saveVar_markers_text resize 0;
 
-Hz_pers_saveVar_crates_type = [];
-Hz_pers_saveVar_crates_damage = [];
-Hz_pers_saveVar_crates_dir = [];
-Hz_pers_saveVar_crates_positionATL = [];
-Hz_pers_saveVar_crates_vectorUp = [];
-Hz_pers_saveVar_crates_magazinesAmmoCargo = [];
-Hz_pers_saveVar_crates_itemsCargo = [];
-Hz_pers_saveVar_crates_backpackCargo = [];
-Hz_pers_saveVar_crates_variableValues = [];
+Hz_pers_saveVar_crates_type resize 0;
+Hz_pers_saveVar_crates_damage resize 0;
+Hz_pers_saveVar_crates_dir resize 0;
+Hz_pers_saveVar_crates_positionATL resize 0;
+Hz_pers_saveVar_crates_vectorUp resize 0;
+Hz_pers_saveVar_crates_magazinesAmmoCargo resize 0;
+Hz_pers_saveVar_crates_itemsCargo resize 0;
+Hz_pers_saveVar_crates_backpackCargo resize 0;
+Hz_pers_saveVar_crates_variableValues resize 0;
+Hz_pers_saveVar_crates_weaponsItems resize 0;
+
+Hz_pers_saveVar_ambw_pat_gSides resize 0;
+Hz_pers_saveVar_ambw_pat_gPatMarkers resize 0;			
+Hz_pers_saveVar_ambw_pat_gVehicleTypes resize 0;
+Hz_pers_saveVar_ambw_pat_gVehicleCrewTypes resize 0;
+Hz_pers_saveVar_ambw_pat_gInfantryTypes resize 0;
+Hz_pers_saveVar_ambw_pat_gVehiclePosATL resize 0;
+Hz_pers_saveVar_ambw_pat_gVehicleDir resize 0;
+Hz_pers_saveVar_ambw_pat_gInfantryPosATL resize 0;
+
+Hz_pers_saveVar_ambw_sc_sPos resize 0;
+Hz_pers_saveVar_ambw_sc_sSides resize 0;
+Hz_pers_saveVar_ambw_sc_sObjectTypes resize 0;
+Hz_pers_saveVar_ambw_sc_sObjectPosATL resize 0;
