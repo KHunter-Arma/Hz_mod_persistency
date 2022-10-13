@@ -388,16 +388,20 @@ Hz_pers_saveVar_crates_itemsCargo resize 0;
 Hz_pers_saveVar_crates_variableValues resize 0;
 Hz_pers_saveVar_crates_weaponsItems resize 0;
 
-Hz_pers_saveVar_ambw_pat_gSides resize 0;
-Hz_pers_saveVar_ambw_pat_gPatMarkers resize 0;			
-Hz_pers_saveVar_ambw_pat_gVehicleTypes resize 0;
-Hz_pers_saveVar_ambw_pat_gVehicleCrewTypes resize 0;
-Hz_pers_saveVar_ambw_pat_gInfantryTypes resize 0;
-Hz_pers_saveVar_ambw_pat_gVehiclePosATL resize 0;
-Hz_pers_saveVar_ambw_pat_gVehicleDir resize 0;
-Hz_pers_saveVar_ambw_pat_gInfantryPosATL resize 0;
+if (Hz_pers_enableHzAmbw) then {
 
-Hz_pers_saveVar_ambw_sc_sPos resize 0;
-Hz_pers_saveVar_ambw_sc_sSides resize 0;
-Hz_pers_saveVar_ambw_sc_sObjectTypes resize 0;
-Hz_pers_saveVar_ambw_sc_sObjectPosATL resize 0;
+	Hz_pers_saveVar_ambw_pat_gSides resize 0;
+	Hz_pers_saveVar_ambw_pat_gPatMarkers resize 0;			
+	Hz_pers_saveVar_ambw_pat_gVehicleTypes resize 0;
+	Hz_pers_saveVar_ambw_pat_gVehicleCrewTypes resize 0;
+	Hz_pers_saveVar_ambw_pat_gInfantryTypes resize 0;
+	Hz_pers_saveVar_ambw_pat_gVehiclePosATL resize 0;
+	Hz_pers_saveVar_ambw_pat_gVehicleDir resize 0;
+	Hz_pers_saveVar_ambw_pat_gInfantryPosATL resize 0;
+
+	Hz_pers_saveVar_ambw_sc_sPos resize 0;
+	Hz_pers_saveVar_ambw_sc_sSides resize 0;
+	Hz_pers_saveVar_ambw_sc_sObjectTypes resize 0;
+	Hz_pers_saveVar_ambw_sc_sObjectPosATL resize 0;
+
+};
