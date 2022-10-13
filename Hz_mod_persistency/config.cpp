@@ -195,6 +195,13 @@ class CfgVehicles
         tooltip = "Frequency in seconds for auto-save to file.";
         defaultValue = """3600""";
       };
+			class ClientLoadingScreenUntilReady: Checkbox
+      {
+        // Unique property, use "<moduleClass>_<attributeClass>" format to make sure the name is unique in the world
+        property = "Hz_pers_module_pClientLoadingScreenUntilReady";
+        displayName = "Enable Loading Screen Until Ready"; // Argument label
+        tooltip = "Enabling this setting will put up a loading screen for players until the server has finished initialising. It's useful in case you've set a long loading delay or have lots of persistent functions that take a while to initialise, and you don't want players to spawn at the mission's default spawn area and start fiddling with things until the server has started up and loaded properly."; // Tooltip description
+      };
       class ClientEnableManualLoadSwitch: Checkbox
       {
 				// Unique property, use "<moduleClass>_<attributeClass>" format to make sure the name is unique in the world

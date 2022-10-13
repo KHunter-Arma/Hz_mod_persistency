@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2017-2019 K.Hunter
+* Copyright (C) 2017-2022 K.Hunter
 *
 * The source code contained within this file is licensed under a Creative Commons
 * Attribution-NonCommercial-ShareAlike 4.0 International License.
@@ -18,6 +18,7 @@ if (!hasInterface) exitWith {
 	Hz_pers_fnc_hzAmbwHcRequestInfoFromServer = compile preprocessFileLineNumbers (Hz_pers_clientFuncs_path + "Hz_pers_fnc_hzAmbwHcRequestInfoFromServer.sqf");
 };
 
+Hz_pers_ClientLoadingScreenUntilReady = _logic getVariable "ClientLoadingScreenUntilReady";
 Hz_pers_clientEnableManualLoadSwitch = _logic getVariable "ClientEnableManualLoadSwitch";
 Hz_pers_enableACEmedical = _logic getVariable "AceMedical";
 
@@ -37,6 +38,17 @@ if (Hz_pers_enableACEmedical) then {
 waituntil {sleep 0.1; !isnull (finddisplay 46)};
 waitUntil {sleep 0.1; !isnull player};
 
+// only works if you're not the host (or dedicated) to make sure it doesn't create a deadlock due to "sleep"s in the server inits
+if (!isServer && {Hz_pers_ClientLoadingScreenUntilReady}) then {
+	sleep 1;
+	startloadingscreen [""];
+	waitUntil {
+		uisleep 2;
+		!isNil "Hz_pers_serverInitialised" && {Hz_pers_serverInitialised}
+	};
+	endloadingscreen;
+};
+
 //add EHs
 waitUntil {	
 	sleep 1;	
@@ -51,6 +63,8 @@ Hz_pers_playerVariablesLastSyncedWithServer = [];
 /* looks like not needed
 addMissionEventHandler ["MapSingleClick", Hz_pers_fnc_clientDeletePersistentMarker];
 */
+
+
 
 //load state
 if (Hz_pers_clientEnableManualLoadSwitch) then {
