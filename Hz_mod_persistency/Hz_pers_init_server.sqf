@@ -387,7 +387,7 @@ _logic spawn {
 			["Hz_econ_funds",SINGLE_VARIABLE,true] call Hz_pers_API_addMissionVariable;
 		};
 			
-	};			
+	};
 	
 	//auto-load
 
@@ -396,8 +396,6 @@ _logic spawn {
 	if (_loadCodeString == "") then {
 	
 		call Hz_pers_fnc_handleFirstTimeLaunch;
-		Hz_pers_serverInitialised = true;
-		publicVariable "Hz_pers_serverInitialised";
 	
 	} else {
 
@@ -411,13 +409,16 @@ _logic spawn {
 			[nil, getPlayerUID _x,nil,nil,owner _x] call Hz_pers_fnc_handleConnect;
 		
 		} foreach playableUnits;
-		
-		Hz_pers_serverInitialised = true;
-		publicVariable "Hz_pers_serverInitialised";
 	
 	};
 	
 	private _delay = call compile (_this getVariable "AutoSaveFreq");
+	
+	Hz_pers_nextSaveTime = serverTime + _delay;
+	publicVariable "Hz_pers_nextSaveTime";
+	
+	Hz_pers_serverInitialised = true;
+	publicVariable "Hz_pers_serverInitialised";
 	
 	Hz_pers_enableAutoSave = true;
 	
@@ -430,6 +431,9 @@ _logic spawn {
 			call Hz_pers_fnc_saveGame;
 		
 		};
+		
+		Hz_pers_nextSaveTime = serverTime + _delay;
+		publicVariable "Hz_pers_nextSaveTime";
 	
 	};
 
