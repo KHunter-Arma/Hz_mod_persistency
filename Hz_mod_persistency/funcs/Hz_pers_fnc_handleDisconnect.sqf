@@ -6,7 +6,7 @@
 * Description: 	Executed via mission event handler of type "HandleDisconnect"
 *               added on server during mission init
 ********************************************************************************
-* Copyright (C) 2017-2019 K.Hunter
+* Copyright (C) 2017-2023 K.Hunter
 *
 * The source code contained within this file is licensed under a Creative Commons
 * Attribution-NonCommercial-ShareAlike 4.0 International License.
@@ -263,9 +263,22 @@ _this call {
 	Hz_pers_saveVar_players_hitpointsdamage set [_playerIndex, getAllHitPointsDamage _unit];
 
 	_variables = [];
-	{				
-		_variables pushback (_unit getVariable [_x select 0,"nil"]);
+	private _isHashMap = false;
+	{	
+		_isHashMap = false;
+		if ((count _x) > 2) then {
+			_isHashMap = _x select 2;
+		};
 		
+		if (_isHashMap) then {
+			if (!isNil {_unit getVariable (_x select 0)}) then {
+				_variables pushback (toArray (_unit getVariable (_x select 0)));
+			} else {
+				_variables pushback "nil";
+			};
+		} else {
+			_variables pushback (_unit getVariable [_x select 0,"nil"]);
+		};		
 	} foreach Hz_pers_saveVar_players_variableNames;
 		
 	Hz_pers_saveVar_players_variableValues set [_playerIndex, _variables];

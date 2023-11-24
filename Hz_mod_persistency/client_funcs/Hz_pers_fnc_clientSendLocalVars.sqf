@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2017-2019 K.Hunter
+* Copyright (C) 2017-2023 K.Hunter
 *
 * The source code contained within this file is licensed under a Creative Commons
 * Attribution-NonCommercial-ShareAlike 4.0 International License.
@@ -8,7 +8,7 @@
 * together with this file or visit:
 * https://creativecommons.org/licenses/by-nc-sa/4.0/
 *******************************************************************************/
-private ["_var","_isPublic","_value","_syncedValue","_variablesToSyncCount"];
+private ["_var","_isPublic","_value","_syncedValue","_variablesToSyncCount","_isHashMap"];
 
 _variablesToSyncCount = 0;
 
@@ -17,7 +17,18 @@ _variablesToSyncCount = 0;
 	_var = _x select 0;
 	_isPublic = _x select 1;
 	
-	_value = player getvariable _var;
+	_isHashMap = false;
+	if ((count _x) > 2) then {
+		_isHashMap = _x select 2;
+	};	
+	
+	if (_isHashMap) then {
+		// toArray nil also returns nil so no need for extra checks for now
+		_value = toArray (player getvariable _var);
+	} else {
+		_value = player getvariable _var;
+	};
+	
 	_syncedValue = Hz_pers_playerVariablesLastSyncedWithServer select _foreachIndex;
 	
 	if ((!_isPublic) && {!isnil "_value"} && {!(_value isEqualTo _syncedValue)}) then {

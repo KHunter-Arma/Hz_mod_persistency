@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2019-2020 K.Hunter
+* Copyright (C) 2019-2023 K.Hunter
 *
 * The source code contained within this file is licensed under a Creative Commons
 * Attribution-NonCommercial-ShareAlike 4.0 International License.
@@ -66,6 +66,43 @@ if (Hz_pers_saveVar_saveFileVersion < 220123) then {
 			Hz_pers_saveVar_vehicles_variableNames set [_foreachIndex, ["ace_field_rations_currentWaterSupply", true]];
 		};
 	} foreach Hz_pers_saveVar_vehicles_variableNames;
+
+};
+
+if (Hz_pers_saveVar_saveFileVersion < 231124) then {
+
+	private _idx = Hz_pers_saveVar_players_variableNames findIf {(_x select 0) == "ace_medical_openWounds"};
+	if (_idx != -1) then {
+		Hz_pers_saveVar_players_variableNames set [_idx, ["ace_medical_openWounds",true,true]];
+		{
+			_x set [_idx, "nil"];
+		} foreach Hz_pers_saveVar_players_variableValues;
+	};
+	_idx = Hz_pers_saveVar_players_variableNames findIf {(_x select 0) == "ace_medical_bandagedWounds"};
+	if (_idx != -1) then {
+		Hz_pers_saveVar_players_variableNames set [_idx, ["ace_medical_bandagedWounds",true,true]];
+		{
+			_x set [_idx, "nil"];
+		} foreach Hz_pers_saveVar_players_variableValues;
+	};
+	_idx = Hz_pers_saveVar_players_variableNames findIf {(_x select 0) == "ace_medical_stitchedWounds"};
+	if (_idx != -1) then {
+		Hz_pers_saveVar_players_variableNames set [_idx, ["ace_medical_stitchedWounds",true,true]];
+		{
+			_x set [_idx, "nil"];
+		} foreach Hz_pers_saveVar_players_variableValues;
+	};
+	
+	// in case above variables don't exist for certain players, handle any out-of-bounds nil values we created
+	private "_thisPlayerIdx";
+	{
+		_thisPlayerIdx = _foreachIndex;
+		{
+			if (isNil "_x") then {
+				(Hz_pers_saveVar_players_variableValues select _thisPlayerIdx) set [_foreachIndex, "nil"];
+			};
+		} foreach _x;
+	} foreach Hz_pers_saveVar_players_variableValues;
 
 };
 

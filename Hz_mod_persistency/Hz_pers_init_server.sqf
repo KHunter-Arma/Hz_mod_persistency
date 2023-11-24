@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2017-2019 K.Hunter
+* Copyright (C) 2017-2023 K.Hunter
 *
 * The source code contained within this file is licensed under a Creative Commons
 * Attribution-NonCommercial-ShareAlike 4.0 International License.
@@ -114,7 +114,7 @@ Hz_pers_fnc_strToSide = compile preprocessFileLineNumbers (Hz_pers_funcs_path + 
 Hz_pers_fnc_sideToStr = compile preprocessFileLineNumbers (Hz_pers_funcs_path + "Hz_pers_fnc_sideToStr.sqf");
 
 //current save-file version
-Hz_pers_currentSaveFileVersion = 220123;
+Hz_pers_currentSaveFileVersion = 231124;
 Hz_pers_saveVar_saveFileVersion = Hz_pers_currentSaveFileVersion;
 
 //init parsing info
@@ -247,42 +247,26 @@ if (Hz_pers_enableACEmedical) then {
 
   } foreach [
 						["ace_medical_pain",true],
-						["ace_medical_inPain",true],					
-            ["ace_medical_morphine",true],   //remove
+						["ace_medical_inPain",true],
             ["ace_medical_bloodVolume",true],
 						["ace_medical_hemorrhage",true],
-            //["ACE_isUnconscious",true],
             ["ace_medical_tourniquets",true],
             ["ace_medical_occludedMedications",true],
-            ["ace_medical_openWounds",true],
-            ["ace_medical_bandagedWounds",true],
-            ["ace_medical_internalWounds",true],  //remove
-						["ace_medical_stitchedWounds",true],
+            ["ace_medical_openWounds",true,true],
+            ["ace_medical_bandagedWounds",true,true],
+						["ace_medical_stitchedWounds",true,true],
 						["ace_medical_isLimping",true],
 						["ace_medical_bodyPartDamage",true],
 						["ace_medical_medications",true],
-						//["ace_medical_lastWakeUpCheck",true], //add?						
-            ["ace_medical_lastUniqueWoundID",true],  //possibly will be removed from future versions of ACE
             ["ace_medical_heartRate",true],
-            ["ace_medical_heartRateAdjustments",false], //remove
             ["ace_medical_bloodPressure",true],
             ["ace_medical_peripheralResistance",true],
             ["ace_medical_fractures",true],
             ["ace_medical_triageLevel",true],
             ["ace_medical_triageCard",true],
             ["ace_medical_ivBags",true],
-            ["ace_medical_bodyPartStatus",true], //remove
-            ["ace_medical_airwayStatus",false], //remove?
-            ["ace_medical_airwayOccluded",false], //remove?
-            ["ace_medical_airwayCollapsed",false], //remove?
-            //["ace_medical_addedToUnitLoop",true],
             ["ace_medical_inCardiacArrest",true],
-            ["ace_medical_hasLostBlood",true], //remove
-            ["ace_medical_isBleeding",true], //remove
-            ["ace_medical_hasPain",true], //remove
-            ["ace_medical_amountOfReviveLives",true], //remove
             ["ace_medical_painSuppress",true],
-            ["ace_medical_allUsedMedication",true], //remove
             ["ace_medical_allLogs",true]
             ];
 

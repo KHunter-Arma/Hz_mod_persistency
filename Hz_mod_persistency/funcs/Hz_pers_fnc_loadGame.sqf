@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2017-2020 K.Hunter
+* Copyright (C) 2017-2023 K.Hunter
 *
 * The source code contained within this file is licensed under a Creative Commons
 * Attribution-NonCommercial-ShareAlike 4.0 International License.
@@ -55,8 +55,9 @@ _indexCrate = (count Hz_pers_saveVar_crates_type) - 1;
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
-//check for updates
+// backward compatibility
 call Hz_pers_fnc_updateSaveDataVersion;
+publicVariable "Hz_pers_saveVar_players_variableNames";
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -106,6 +107,9 @@ if (_indexVehicle >= 0) then {
 	for "_i" from 0 to _indexVehicle do {
 		
 		_veh = (Hz_pers_saveVar_vehicles_type select _index) createvehicle [-5000,-5000,50000];
+		_veh hideObject true;
+		
+		sleep 0.01;
 		
 		_vehCustoms = Hz_pers_saveVar_vehicles_customs select _index;
 		_array = [_veh];		
@@ -138,7 +142,9 @@ if (_indexVehicle >= 0) then {
 		clearWeaponCargoGlobal _veh;
 		clearItemCargoGlobal _veh;
 		
-		sleep 0.1;
+		sleep 0.01;
+		
+		_veh hideObject false;
 		
 		if (_aceCargoEnabled) then {
 			["ACE_Wheel", _veh, 10] call ace_cargo_fnc_removeCargoItem;

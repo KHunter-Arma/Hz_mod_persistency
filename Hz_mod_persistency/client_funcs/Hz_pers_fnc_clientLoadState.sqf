@@ -228,21 +228,32 @@ progressLoadingScreen 0.75;
 	player setHitPointDamage [_x, (_hitPointsDamage select 2) select _foreachIndex];
 }foreach (_hitPointsDamage select 0);
 
+private _isHashMap = false;
+private _variableCount = count _variableValues;
 {
-
+	
+	// there might now be more variables to store that the player didn't have from the last time they played
+	if (_foreachIndex >= _variableCount) exitWith {};
+	
 	_variable = _variableValues select _foreachIndex;
 	
-	if ((typeName _variable) == "STRING") then {
-	
-		if (_variable != "nil") then {
-			
+	if ((typeName _variable) == "STRING") then {	
+		if (_variable != "nil") then {			
 			player setvariable [_x select 0,_variable,_x select 1];
 		};
-	
 	} else {
-		
-		player setvariable [_x select 0,_variable,_x select 1];
 	
+		_isHashMap = false;
+		if ((count _x) > 2) then {
+			_isHashMap = _x select 2;
+		};
+		
+		if (_isHashMap) then {
+			player setvariable [((_x select 0) select 0) createHashMapFromArray ((_x select 0) select 1),_variable,_x select 1];
+		} else {
+			player setvariable [_x select 0,_variable,_x select 1];
+		};
+		
 	};
 
 } foreach _variableNames;
@@ -270,7 +281,7 @@ if (Hz_pers_enableACEmedical) then {
 	
 	if (player getVariable ["ace_medical_inCardiacArrest",false]) then {
 		player setVariable ["ace_medical_statemachine_cardiacArrestTimeLastUpdate", -10];
-		[player] call ace_medical_statemachine_fnc_handleStateCardiacArrest;		
+		[player] call ace_medical_statemachine_fnc_handleStateCardiacArrest;
 	};
 	
 	call Hz_pers_fnc_handleAceMedicalWoundsReopening;
