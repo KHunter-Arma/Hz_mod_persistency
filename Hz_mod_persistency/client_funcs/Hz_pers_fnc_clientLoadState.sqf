@@ -249,7 +249,7 @@ private _variableCount = count _variableValues;
 		};
 		
 		if (_isHashMap) then {
-			player setvariable [((_x select 0) select 0) createHashMapFromArray ((_x select 0) select 1),_variable,_x select 1];
+			player setvariable [_x select 0,((_variable select 0) select 0) createHashMapFromArray ((_variable select 0) select 1),_x select 1];
 		} else {
 			player setvariable [_x select 0,_variable,_x select 1];
 		};
