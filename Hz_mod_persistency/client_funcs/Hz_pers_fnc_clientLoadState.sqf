@@ -237,8 +237,8 @@ private _variableCount = count _variableValues;
 	
 	_variable = _variableValues select _foreachIndex;
 	
-	if ((typeName _variable) == "STRING") then {	
-		if (_variable != "nil") then {			
+	if ((typeName _variable) == "STRING") then {
+		if (_variable != "nil") then {
 			player setvariable [_x select 0,_variable,_x select 1];
 		};
 	} else {
@@ -251,6 +251,22 @@ private _variableCount = count _variableValues;
 		if (_isHashMap) then {
 			player setvariable [_x select 0,(_variable select 0) createHashMapFromArray (_variable select 1),_x select 1];
 		} else {
+		
+			// medication timing needs adjustment or wonky things will happen on rejoining at a different server time
+			if (Hz_pers_enableACEmedical) then {
+				if (((_x select 0) == "ace_medical_medications") && {(count _variable) > 0}) then {
+					private _adjustedValue = +_variable;
+					private _med = [];
+					{
+						_med = +_x;
+						// correct the adjustment made at save-time
+						_med set [1 , CBA_missionTime - (_med select 1)];
+						_adjustedValue set [_foreachIndex, _med];
+					} foreach _variable;
+					_variable = +_adjustedValue;
+				};
+			};
+		
 			player setvariable [_x select 0,_variable,_x select 1];
 		};
 		

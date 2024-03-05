@@ -264,7 +264,8 @@ _this call {
 
 	_variables = [];
 	private _isHashMap = false;
-	{	
+	private _varValue = "nil";
+	{
 		_isHashMap = false;
 		if ((count _x) > 2) then {
 			_isHashMap = _x select 2;
@@ -277,7 +278,25 @@ _this call {
 				_variables pushback "nil";
 			};
 		} else {
-			_variables pushback (_unit getVariable [_x select 0,"nil"]);
+			
+			_varValue = _unit getVariable [_x select 0, "nil"];
+			
+			// medication timing needs adjustment or wonky things will happen on rejoining at a different server time
+			if (Hz_pers_enableACEmedical) then {
+				if ((_varValue != "nil") && {(_x select 0) == "ace_medical_medications"} && {(count _varValue) > 0}) then {
+					private _adjustedValue = +_varValue;
+					private _med = [];
+					{
+						_med = +_x;
+						// replace time administered with time passed since administration and readjust client-side on reconnect
+						_med set [1 , CBA_missionTime - (_med select 1)];
+						_adjustedValue set [_foreachIndex, _med];
+					} foreach _varValue;
+					_varValue = +_adjustedValue;
+				};
+			};
+		
+			_variables pushback _varValue;
 		};		
 	} foreach Hz_pers_saveVar_players_variableNames;
 		
