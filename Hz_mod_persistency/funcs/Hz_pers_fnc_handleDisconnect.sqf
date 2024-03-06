@@ -283,7 +283,7 @@ _this call {
 			
 			// medication timing needs adjustment or wonky things will happen on rejoining at a different server time
 			if (Hz_pers_enableACEmedical) then {
-				if ((_varValue != "nil") && {(_x select 0) == "ace_medical_medications"} && {(count _varValue) > 0}) then {
+				if ((_varValue isNotEqualTo "nil") && {(_x select 0) == "ace_medical_medications"} && {(count _varValue) > 0}) then {
 					private _adjustedValue = +_varValue;
 					private _med = [];
 					{

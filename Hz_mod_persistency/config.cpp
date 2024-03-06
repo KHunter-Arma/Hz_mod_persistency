@@ -17,7 +17,7 @@ class cfgPatches {
     author = "K.Hunter";
     url = "https://github.com/KHunter-Arma";
     
-    requiredVersion = 1.58; 
+    requiredVersion = 2.02; 
     requiredAddons[] = {"A3_Modules_F"};
     units[] = {"Hz_mod_persistency_module"};
     weapons[] = {};
